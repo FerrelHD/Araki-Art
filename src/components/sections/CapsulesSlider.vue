@@ -2,9 +2,7 @@
   <section
     id="capsules"
     ref="capsulesRoot"
-    class="border-b border-grid text-brand-primary relative z-30 h-screen max-h-screen flex flex-col justify-between will-change-transform"
-    :class="isStandActive ? 'overflow-hidden' : 'overflow-visible'"
-    :style="cameraStageStyle"
+    class="border-b border-grid text-brand-primary overflow-visible relative z-30 h-screen max-h-screen flex flex-col justify-between"
   >
     <div class="grid grid-cols-4 md:grid-cols-12 flex-1 min-h-0 overflow-visible">
       <!-- 10 Columns Centered Container -->
@@ -380,22 +378,10 @@ const {
   isStandActive,
   currentQuoteIdx,
   currentQuote,
-  lastFocusOrigin,
   handleSelectValentine,
   handleResetCamera,
   cycleQuote,
 } = useValentineStage()
-
-const cameraStageStyle = computed(() => ({
-  transform: isStandActive.value
-    ? `scale(${config.value.cameraZoom}) translate3d(0, 0, 0)`
-    : 'scale(1) translate3d(0, 0, 0)',
-  transformOrigin: `${lastFocusOrigin.value.originX}% ${lastFocusOrigin.value.originY}%`,
-  transition: 'transform 600ms cubic-bezier(0.16, 1, 0.3, 1)',
-  backfaceVisibility: 'hidden' as const,
-  WebkitBackfaceVisibility: 'hidden' as const,
-  willChange: 'transform' as const,
-}))
 
 const handleValentineClick = () => {
   if (isStandActive.value) {
