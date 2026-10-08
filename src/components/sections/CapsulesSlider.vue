@@ -221,7 +221,7 @@
 
               <!-- Mode 1: Alone - Funny Valentine Idle -->
               <div
-                class="relative h-full w-full flex items-end justify-center origin-bottom transition-all duration-250 ease-out will-change-[transform,opacity]"
+                class="relative h-full w-full flex items-end justify-center origin-bottom transition-all duration-300 ease-out will-change-[transform,opacity]"
                 :class="isStandActive ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-none group-hover/muse:brightness-105'"
                 :style="getValentineAloneStyle()"
               >
@@ -230,20 +230,21 @@
                   alt="Funny Valentine (President)"
                   loading="eager"
                   decoding="async"
-                  class="h-[85%] max-h-[65vh] xl:max-h-[75vh] w-auto object-contain object-bottom filter contrast-105 pointer-events-none select-none transition-transform duration-300 group-hover/muse:scale-[1.02]"
+                  class="h-[85%] max-h-[65vh] xl:max-h-[75vh] w-auto object-contain object-bottom filter contrast-105 pointer-events-none select-none"
                 />
               </div>
 
               <!-- Mode 2: Stand - Funny Valentine with D4C Manifestation -->
               <div
-                class="absolute inset-0 h-full w-full flex items-end justify-center origin-bottom transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-[transform,opacity]"
+                class="absolute inset-0 h-full w-full flex items-end justify-center origin-bottom transition-all duration-350 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-[transform,opacity]"
                 :class="isStandActive ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'"
-                :style="getValentineStandStyle()"
+                :style="{ ...getValentineStandStyle(), transitionDelay: isStandActive ? '80ms' : '0ms' }"
               >
                 <!-- D4C High-Performance Stand Cyan Aura Glow (GPU Quad Layer, Zero Drop-Frame) -->
                 <div
-                  class="absolute inset-x-6 top-1/4 bottom-12 bg-cyan-400/25 blur-2xl rounded-full pointer-events-none transition-opacity duration-300 will-change-[transform,opacity]"
-                  :class="isStandActive ? 'opacity-100 scale-100' : 'opacity-0 scale-95'"
+                  class="absolute inset-x-6 top-1/4 bottom-12 bg-cyan-400/25 blur-2xl rounded-full pointer-events-none transition-opacity duration-400 will-change-[transform,opacity]"
+                  :class="isStandActive ? 'opacity-100' : 'opacity-0'"
+                  :style="{ transitionDelay: isStandActive ? '120ms' : '0ms' }"
                 ></div>
 
                 <img
@@ -251,7 +252,7 @@
                   alt="Funny Valentine & D4C Stand"
                   loading="eager"
                   decoding="async"
-                  class="relative z-10 h-[85%] max-h-[65vh] xl:max-h-[75vh] w-auto object-contain object-bottom filter contrast-105 brightness-105 drop-shadow-[0_8px_20px_rgba(0,0,0,0.35)] pointer-events-none select-none transition-transform duration-300 hover:scale-[1.02]"
+                  class="relative z-10 h-[85%] max-h-[65vh] xl:max-h-[75vh] w-auto object-contain object-bottom filter contrast-105 brightness-105 drop-shadow-[0_8px_20px_rgba(0,0,0,0.35)] pointer-events-none select-none"
                 />
               </div>
 
