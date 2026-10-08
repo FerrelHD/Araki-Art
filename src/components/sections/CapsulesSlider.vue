@@ -221,7 +221,7 @@
 
               <!-- Mode 1: Alone - Funny Valentine Idle -->
               <div
-                class="relative h-full w-full flex items-end justify-center origin-bottom transition-all duration-300 ease-out will-change-[transform,opacity]"
+                class="relative h-full w-full flex items-end justify-center origin-bottom transition-opacity duration-300 ease-out will-change-opacity"
                 :class="isStandActive ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-none group-hover/muse:brightness-105'"
                 :style="getValentineAloneStyle()"
               >
