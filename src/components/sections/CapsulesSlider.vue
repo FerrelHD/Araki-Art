@@ -91,8 +91,8 @@
                     class="w-full h-full shrink-0 flex flex-col sm:flex-row min-h-0 overflow-hidden"
                   >
                     <!-- SISI KIRI: Cover Manga Pas (Snug Framing, Zero Space Kosong) -->
-                    <div class="relative h-1/2 sm:h-full w-full sm:w-[48%] md:w-[46%] shrink-0 border-b sm:border-b-0 sm:border-r border-grid overflow-hidden bg-black/5 select-none min-h-0">
-                      <div class="w-full h-full overflow-hidden flex items-center justify-center">
+                    <div class="capsule-cover-wrapper relative h-1/2 sm:h-full w-full sm:w-[48%] md:w-[46%] shrink-0 border-b sm:border-b-0 sm:border-r border-grid overflow-hidden bg-black/5 select-none min-h-0">
+                      <div class="capsule-cover-inner w-full h-full overflow-hidden flex items-center justify-center">
                         <img
                           :src="capsule.image"
                           :alt="capsule.title"
@@ -318,7 +318,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import RollingText from '@/components/common/RollingText.vue'
 import { gsap, lenis } from '@/lenis'
 import { useValentineStage } from '@/composables/useValentineStage'
@@ -604,6 +604,44 @@ const nextSlide = () => {
   activeIdx.value = (activeIdx.value + 1) % capsules.value.length
 }
 
+// Curtain wipe transition whenever active slide changes
+watch(activeIdx, (newIdx) => {
+  if (!capsulesRoot.value) return
+  const wrappers = capsulesRoot.value.querySelectorAll('.capsule-cover-wrapper')
+  const inners = capsulesRoot.value.querySelectorAll('.capsule-cover-inner')
+  if (!wrappers || !wrappers[newIdx]) return
+
+  const targetWrapper = wrappers[newIdx] as HTMLElement
+  const targetInner = inners ? (inners[newIdx] as HTMLElement) : null
+
+  gsap.killTweensOf(targetWrapper)
+  if (targetInner) gsap.killTweensOf(targetInner)
+
+  gsap.fromTo(
+    targetWrapper,
+    { clipPath: 'inset(100% 0% 0% 0%)' },
+    {
+      clipPath: 'inset(0% 0% 0% 0%)',
+      duration: 0.85,
+      ease: 'power4.inOut',
+      clearProps: 'clipPath',
+    }
+  )
+
+  if (targetInner) {
+    gsap.fromTo(
+      targetInner,
+      { scale: 1.12 },
+      {
+        scale: 1.0,
+        duration: 1.05,
+        ease: 'power3.out',
+        clearProps: 'scale',
+      }
+    )
+  }
+})
+
 let ctx: gsap.Context | null = null
 
 onMounted(() => {
@@ -622,6 +660,42 @@ onMounted(() => {
           scrollTrigger: {
             trigger: headingRef.value,
             start: 'top 85%',
+          },
+        }
+      )
+    }
+
+    // Initial entrance curtain wipe on scroll for first capsule cover
+    const firstWrapper = capsulesRoot.value.querySelector('.capsule-cover-wrapper')
+    const firstInner = capsulesRoot.value.querySelector('.capsule-cover-inner')
+    if (firstWrapper) {
+      gsap.fromTo(
+        firstWrapper,
+        { clipPath: 'inset(100% 0% 0% 0%)' },
+        {
+          clipPath: 'inset(0% 0% 0% 0%)',
+          duration: 1.25,
+          ease: 'power4.inOut',
+          clearProps: 'clipPath',
+          scrollTrigger: {
+            trigger: capsulesRoot.value,
+            start: 'top 75%',
+          },
+        }
+      )
+    }
+    if (firstInner) {
+      gsap.fromTo(
+        firstInner,
+        { scale: 1.15 },
+        {
+          scale: 1,
+          duration: 1.4,
+          ease: 'power3.out',
+          clearProps: 'scale',
+          scrollTrigger: {
+            trigger: capsulesRoot.value,
+            start: 'top 75%',
           },
         }
       )

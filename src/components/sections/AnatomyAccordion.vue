@@ -58,10 +58,10 @@
 
         <!-- Col 10-12: Media Container that zooms / reveals on hover -->
         <div
-          class="relative col-span-4 h-48 md:h-auto md:col-span-3 overflow-hidden bg-black/10"
+          class="accordion-media-wrapper relative col-span-4 h-48 md:h-auto md:col-span-3 overflow-hidden bg-black/10"
         >
           <div
-            class="absolute inset-0 -translate-y-[4%] scale-110 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-0 group-hover:scale-100"
+            class="accordion-media-inner absolute inset-0 -translate-y-[4%] scale-110 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-0 group-hover:scale-100"
           >
             <img
               :src="item.image"
@@ -159,6 +159,44 @@ onMounted(() => {
           ease: 'power3.out',
           scrollTrigger: {
             trigger: rows[0],
+            start: 'top 80%',
+          },
+        }
+      )
+    }
+
+    // Editorial staggered curtain wipe for media images
+    const mediaWrappers = anatomyRoot.value.querySelectorAll('.accordion-media-wrapper')
+    const mediaInners = anatomyRoot.value.querySelectorAll('.accordion-media-inner')
+    if (mediaWrappers.length) {
+      gsap.fromTo(
+        mediaWrappers,
+        { clipPath: 'inset(100% 0% 0% 0%)' },
+        {
+          clipPath: 'inset(0% 0% 0% 0%)',
+          duration: 1.2,
+          stagger: 0.14,
+          ease: 'power4.inOut',
+          clearProps: 'clipPath',
+          scrollTrigger: {
+            trigger: rows[0] || anatomyRoot.value,
+            start: 'top 80%',
+          },
+        }
+      )
+    }
+    if (mediaInners.length) {
+      gsap.fromTo(
+        mediaInners,
+        { scale: 1.25 },
+        {
+          scale: 1.1,
+          duration: 1.4,
+          stagger: 0.14,
+          ease: 'power3.out',
+          clearProps: 'scale',
+          scrollTrigger: {
+            trigger: rows[0] || anatomyRoot.value,
             start: 'top 80%',
           },
         }

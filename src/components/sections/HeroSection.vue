@@ -121,7 +121,9 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import { gsap } from '@/lenis'
 
 const heroRoot = ref<HTMLElement | null>(null)
+const videoContainerRef = ref<HTMLElement | null>(null)
 const videoElRef = ref<HTMLVideoElement | null>(null)
+const portraitContainerRef = ref<HTMLElement | null>(null)
 const portraitImgRef = ref<HTMLImageElement | null>(null)
 const titleRef = ref<HTMLElement | null>(null)
 const starIconRef = ref<SVGElement | null>(null)
@@ -133,19 +135,53 @@ function playHandoverEntrance() {
 
   const tl = gsap.timeline()
 
-  // Video container & portrait reveal
-  tl.fromTo(
-    [videoElRef.value, portraitImgRef.value],
-    { scale: 1.08, opacity: 0.6 },
-    { scale: 1, opacity: 1, duration: 1.2, ease: 'power3.out' }
-  )
-    // Disciplines stagger
-    .fromTo(
-      '.discipline-item',
-      { opacity: 0, x: -25 },
-      { opacity: 1, x: 0, duration: 0.8, stagger: 0.12, ease: 'power3.out' },
-      '-=0.7'
+  // Video container curtain mask reveal (bottom-to-top luxury wipe)
+  if (videoContainerRef.value && videoElRef.value) {
+    tl.fromTo(
+      videoContainerRef.value,
+      { clipPath: 'inset(100% 0% 0% 0%)' },
+      {
+        clipPath: 'inset(0% 0% 0% 0%)',
+        duration: 1.35,
+        ease: 'power4.inOut',
+        clearProps: 'clipPath',
+      },
+      0
+    ).fromTo(
+      videoElRef.value,
+      { scale: 1.15, opacity: 0.7 },
+      { scale: 1, opacity: 1, duration: 1.5, ease: 'power3.out' },
+      0
     )
+  }
+
+  // Portrait container curtain mask reveal (staggered slightly)
+  if (portraitContainerRef.value && portraitImgRef.value) {
+    tl.fromTo(
+      portraitContainerRef.value,
+      { clipPath: 'inset(100% 0% 0% 0%)' },
+      {
+        clipPath: 'inset(0% 0% 0% 0%)',
+        duration: 1.35,
+        ease: 'power4.inOut',
+        clearProps: 'clipPath',
+      },
+      0.18
+    ).fromTo(
+      portraitImgRef.value,
+      { scale: 1.15, opacity: 0.7 },
+      { scale: 1, opacity: 1, duration: 1.5, ease: 'power3.out' },
+      0.18
+    )
+  }
+
+  // Disciplines stagger
+  tl.fromTo(
+    '.discipline-item',
+    { opacity: 0, x: -25 },
+    { opacity: 1, x: 0, duration: 0.8, stagger: 0.12, ease: 'power3.out' },
+    0.65
+  )
 }
 
 function finalizeHandover() {
