@@ -2,12 +2,12 @@
   <section
     id="capsules"
     ref="capsulesRoot"
-    class="border-b border-grid text-brand-primary overflow-hidden relative z-20 h-screen max-h-screen flex flex-col justify-between"
+    class="border-b border-grid text-brand-primary overflow-visible relative z-30 h-screen max-h-screen flex flex-col justify-between"
   >
-    <div class="grid grid-cols-4 md:grid-cols-12 flex-1 min-h-0">
+    <div class="grid grid-cols-4 md:grid-cols-12 flex-1 min-h-0 overflow-visible">
       <!-- 10 Columns Centered Container -->
       <div
-        class="col-span-4 md:col-span-10 md:col-start-2 border-x border-grid flex flex-col justify-between min-h-0 pt-14 md:pt-16"
+        class="col-span-4 md:col-span-10 md:col-start-2 border-x border-grid flex flex-col justify-between min-h-0 pt-14 md:pt-16 overflow-visible relative"
       >
         <!-- Section Title (Compact Editorial Bar) -->
         <div class="border-b border-grid px-4 py-2 sm:px-6 sm:py-2.5 overflow-hidden flex items-baseline justify-between shrink-0">
@@ -32,11 +32,48 @@
           </div>
         </div>
 
-        <!-- Slider Main Grid: Left 6 cols interactive + Right 4 cols Flamboyant Duo Pop-Out -->
-        <div class="grid grid-cols-4 md:grid-cols-10 flex-1 min-h-0 overflow-hidden">
-          <!-- Left 6 Columns: Interactive Capsule Card & Vertical Thumbnails (Higher z-index) -->
+        <!-- Slider Main Grid: Universal 2.5D Camera Stage (Opsi A) -->
+        <div
+          class="grid grid-cols-4 md:grid-cols-10 flex-1 min-h-0 overflow-visible relative will-change-transform"
+          :style="getUniversalCameraStyle()"
+        >
+          <!-- Anime Speedline Action Lines (Universal Full-Stage Action Burst) -->
           <div
-            class="relative z-30 col-span-4 md:col-span-10 lg:col-span-6 lg:border-r border-grid flex flex-col justify-between min-h-0"
+            v-if="isStandActive"
+            class="absolute inset-0 pointer-events-none z-10 overflow-hidden transition-opacity duration-500"
+            :class="showSpeedlineBurst ? 'opacity-95' : 'opacity-40'"
+          >
+            <svg class="w-full h-full" viewBox="0 0 1000 600" fill="none" preserveAspectRatio="none">
+              <g :class="showSpeedlineBurst ? 'animate-pulse' : ''">
+                <!-- Universal Speedlines radiating towards Valentine's focal center -->
+                <line x1="0" y1="0" :x2="valAdj.cameraOriginX * 10" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="2" class="text-cyan-400/50" />
+                <line x1="150" y1="0" :x2="valAdj.cameraOriginX * 10" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="1.5" class="text-brand-primary/40" />
+                <line x1="350" y1="0" :x2="valAdj.cameraOriginX * 10" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="2.5" class="text-brand-primary/50" />
+                <line x1="550" y1="0" :x2="valAdj.cameraOriginX * 10" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="1.5" class="text-cyan-400/40" />
+                <line x1="750" y1="0" :x2="valAdj.cameraOriginX * 10" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="2" class="text-brand-primary/50" />
+                <line x1="1000" y1="0" :x2="valAdj.cameraOriginX * 10" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="3" class="text-cyan-400/60" />
+
+                <line x1="1000" y1="150" :x2="valAdj.cameraOriginX * 10" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="1.5" class="text-brand-primary/40" />
+                <line x1="1000" y1="300" :x2="valAdj.cameraOriginX * 10" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="2.5" class="text-brand-primary/50" />
+                <line x1="1000" y1="450" :x2="valAdj.cameraOriginX * 10" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="1.5" class="text-cyan-400/50" />
+                <line x1="1000" y1="600" :x2="valAdj.cameraOriginX * 10" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="3" class="text-brand-primary/50" />
+
+                <line x1="800" y1="600" :x2="valAdj.cameraOriginX * 10" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="1.5" class="text-brand-primary/40" />
+                <line x1="600" y1="600" :x2="valAdj.cameraOriginX * 10" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="2" class="text-brand-primary/50" />
+                <line x1="400" y1="600" :x2="valAdj.cameraOriginX * 10" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="1.5" class="text-cyan-400/40" />
+                <line x1="200" y1="600" :x2="valAdj.cameraOriginX * 10" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="2" class="text-brand-primary/50" />
+                <line x1="0" y1="600" :x2="valAdj.cameraOriginX * 10" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="3" class="text-brand-primary/50" />
+
+                <line x1="0" y1="450" :x2="valAdj.cameraOriginX * 10" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="1.5" class="text-brand-primary/40" />
+                <line x1="0" y1="300" :x2="valAdj.cameraOriginX * 10" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="2.5" class="text-brand-primary/50" />
+                <line x1="0" y1="150" :x2="valAdj.cameraOriginX * 10" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="1.5" class="text-cyan-400/50" />
+              </g>
+            </svg>
+          </div>
+
+          <!-- Left 6 Columns: Interactive Capsule Card & Vertical Thumbnails (Clipped to Half) -->
+          <div
+            class="relative z-20 col-span-4 md:col-span-10 lg:col-span-6 lg:border-r border-grid flex flex-col justify-between min-h-0 overflow-hidden bg-brand-bg"
           >
             <!-- Top Container: Vertical Thumbnails Strip + Active Project Showcase (Stretched to PREV/NEXT) -->
             <div class="flex flex-1 border-b border-grid min-h-0 overflow-hidden">
@@ -182,7 +219,7 @@
 
           <!-- Right 4 Columns: High-Fashion Freestanding Muse (Funny Valentine & D4C Stand Reveal) -->
           <div
-            class="group/side relative z-30 hidden lg:col-span-4 lg:flex flex-col justify-end overflow-hidden px-4 pb-2 bg-brand-primary/[0.015] border-b border-grid min-h-0 select-none"
+            class="group/side relative z-30 hidden lg:col-span-4 lg:flex flex-col justify-end overflow-visible px-4 pb-2 bg-brand-primary/[0.015] border-b border-grid min-h-0 select-none"
           >
             <!-- Valentine Calibrator Trigger Button -->
             <button
@@ -226,43 +263,6 @@
               D4C
             </div>
 
-            <!-- Anime Speedline Action Lines (Burst on summon + energetic pulse) -->
-            <div
-              v-if="isStandActive"
-              class="absolute inset-0 pointer-events-none z-20 overflow-hidden transition-opacity duration-500"
-              :class="showSpeedlineBurst ? 'opacity-90' : 'opacity-40'"
-            >
-              <svg class="w-full h-full" viewBox="0 0 400 600" fill="none" preserveAspectRatio="none">
-                <g :class="showSpeedlineBurst ? 'animate-pulse' : ''">
-                  <!-- Dynamic anime speedlines radiating towards camera focus center -->
-                  <line x1="0" y1="0" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="2" class="text-cyan-400/50" />
-                  <line x1="50" y1="0" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="1.5" class="text-brand-primary/40" />
-                  <line x1="120" y1="0" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="2.5" class="text-brand-primary/50" />
-                  <line x1="200" y1="0" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="1" class="text-cyan-400/40" />
-                  <line x1="280" y1="0" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="2" class="text-brand-primary/50" />
-                  <line x1="350" y1="0" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="1.5" class="text-brand-primary/40" />
-                  <line x1="400" y1="0" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="3" class="text-cyan-400/60" />
-                  
-                  <line x1="400" y1="100" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="1.5" class="text-brand-primary/40" />
-                  <line x1="400" y1="180" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="2.5" class="text-brand-primary/50" />
-                  <line x1="400" y1="280" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="1.5" class="text-cyan-400/40" />
-                  <line x1="400" y1="380" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="2" class="text-brand-primary/50" />
-                  <line x1="400" y1="480" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="1.5" class="text-brand-primary/40" />
-                  <line x1="400" y1="600" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="2.5" class="text-cyan-400/50" />
-
-                  <line x1="300" y1="600" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="1.5" class="text-brand-primary/40" />
-                  <line x1="200" y1="600" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="2" class="text-brand-primary/50" />
-                  <line x1="100" y1="600" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="1.5" class="text-cyan-400/40" />
-                  <line x1="0" y1="600" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="3" class="text-brand-primary/50" />
-
-                  <line x1="0" y1="480" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="1.5" class="text-brand-primary/40" />
-                  <line x1="0" y1="360" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="2.5" class="text-brand-primary/50" />
-                  <line x1="0" y1="240" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="1.5" class="text-cyan-400/50" />
-                  <line x1="0" y1="120" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="2" class="text-brand-primary/40" />
-                </g>
-              </svg>
-            </div>
-
             <!-- Comic / Manga Speech Bubble (Animated on Click) -->
             <transition
               enter-active-class="transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
@@ -297,10 +297,9 @@
               </div>
             </transition>
 
-            <!-- 2.5D Interactive Diorama Camera Stage -->
+            <!-- 2.5D Interactive Diorama Muse Stage -->
             <div
-              class="relative w-full flex-1 min-h-0 flex items-end justify-center overflow-visible pointer-events-auto cursor-pointer group/muse will-change-transform"
-              :style="getCameraStageStyle()"
+              class="relative w-full flex-1 min-h-0 flex items-end justify-center overflow-visible pointer-events-auto cursor-pointer group/muse"
               @click="toggleValentineStand"
               :title="isStandActive ? 'Click to zoom out (ESC)' : 'Click to summon D4C & zoom in!'"
             >
@@ -480,7 +479,7 @@
               <span class="text-neutral-300 text-[0.62rem] font-bold uppercase">Zoom Scale</span>
               <span class="text-cyan-300 font-bold font-mono text-[0.65rem]">{{ valAdj.cameraZoom.toFixed(2) }}x</span>
             </div>
-            <input type="range" min="1.0" max="2.2" step="0.05" v-model.number="valAdj.cameraZoom" class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
+            <input type="range" min="1.0" max="2.8" step="0.05" v-model.number="valAdj.cameraZoom" class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
           </div>
 
           <!-- Camera Focus Origin X & Y -->
@@ -505,24 +504,24 @@
           <div class="flex gap-1">
             <button
               type="button"
-              @click="valAdj.cameraOriginX = 50; valAdj.cameraOriginY = 28"
+              @click="valAdj.cameraOriginX = 84; valAdj.cameraOriginY = 28"
               class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.58rem] text-neutral-300 cursor-pointer"
             >
-              Head Focus
+              Valentine Head
             </button>
             <button
               type="button"
-              @click="valAdj.cameraOriginX = 50; valAdj.cameraOriginY = 42"
+              @click="valAdj.cameraOriginX = 84; valAdj.cameraOriginY = 40"
               class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.58rem] text-neutral-300 cursor-pointer"
             >
-              Chest Focus
+              Valentine Chest
             </button>
             <button
               type="button"
-              @click="valAdj.cameraOriginX = 50; valAdj.cameraOriginY = 55"
+              @click="valAdj.cameraOriginX = 50; valAdj.cameraOriginY = 50"
               class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.58rem] text-neutral-300 cursor-pointer"
             >
-              Mid Body
+              Center Stage
             </button>
           </div>
         </div>
@@ -588,8 +587,11 @@
 
         <!-- Valentine Alone Sliders (Visible when isStandActive is false) -->
         <div v-if="!isStandActive" class="space-y-2 border-b border-neutral-800/80 pb-2.5">
-          <div class="text-[0.65rem] text-amber-400 uppercase tracking-widest font-bold">
-            Valentine (Alone Mode)
+          <div class="flex justify-between items-center">
+            <span class="text-[0.65rem] text-amber-400 uppercase tracking-widest font-bold">
+              Valentine (Alone Mode)
+            </span>
+            <span class="text-amber-400/80 font-mono text-[0.58rem]">Overlap Banner Atas</span>
           </div>
           
           <!-- Position X & Y -->
@@ -599,15 +601,40 @@
                 <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">Pos X</span>
                 <span class="text-amber-300 font-bold font-mono text-[0.62rem]">{{ valAdj.aloneX }}px</span>
               </div>
-              <input type="range" min="-120" max="120" step="1" v-model.number="valAdj.aloneX" class="w-full accent-amber-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
+              <input type="range" min="-150" max="150" step="1" v-model.number="valAdj.aloneX" class="w-full accent-amber-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
             </div>
             <div class="bg-neutral-900/90 p-2 border border-neutral-800">
               <div class="flex justify-between items-center mb-1">
-                <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">Pos Y</span>
+                <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">Pos Y (Overlap)</span>
                 <span class="text-amber-300 font-bold font-mono text-[0.62rem]">{{ valAdj.aloneY }}px</span>
               </div>
-              <input type="range" min="-150" max="100" step="1" v-model.number="valAdj.aloneY" class="w-full accent-amber-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
+              <input type="range" min="-400" max="150" step="1" v-model.number="valAdj.aloneY" class="w-full accent-amber-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
             </div>
+          </div>
+
+          <!-- Quick Overlap Presets for Alone -->
+          <div class="flex gap-1">
+            <button
+              type="button"
+              @click="valAdj.aloneY = -160"
+              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.55rem] text-amber-300/90 cursor-pointer"
+            >
+              Overlap (-160)
+            </button>
+            <button
+              type="button"
+              @click="valAdj.aloneY = -220"
+              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.55rem] text-amber-300/90 cursor-pointer"
+            >
+              Tinggi (-220)
+            </button>
+            <button
+              type="button"
+              @click="valAdj.aloneY = -20"
+              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.55rem] text-neutral-400 cursor-pointer"
+            >
+              Rata (-20)
+            </button>
           </div>
 
           <!-- Scale -->
@@ -616,14 +643,17 @@
               <span class="text-neutral-300 text-[0.62rem] font-bold uppercase">Scale</span>
               <span class="text-amber-300 font-bold font-mono text-[0.65rem]">{{ valAdj.aloneScale.toFixed(2) }}x</span>
             </div>
-            <input type="range" min="0.6" max="2.0" step="0.02" v-model.number="valAdj.aloneScale" class="w-full accent-amber-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
+            <input type="range" min="0.6" max="2.2" step="0.02" v-model.number="valAdj.aloneScale" class="w-full accent-amber-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
           </div>
         </div>
 
         <!-- Valentine With Stand Sliders (Visible when isStandActive is true) -->
         <div v-else class="space-y-2 border-b border-neutral-800/80 pb-2.5">
-          <div class="text-[0.65rem] text-cyan-400 uppercase tracking-widest font-bold">
-            Valentine + D4C Stand Sprite
+          <div class="flex justify-between items-center">
+            <span class="text-[0.65rem] text-cyan-400 uppercase tracking-widest font-bold">
+              Valentine + D4C Stand Sprite
+            </span>
+            <span class="text-cyan-400/80 font-mono text-[0.58rem]">Overlap Banner Atas</span>
           </div>
 
           <!-- Stand Position X & Y -->
@@ -633,15 +663,40 @@
                 <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">D4C Pos X</span>
                 <span class="text-cyan-300 font-bold font-mono text-[0.62rem]">{{ valAdj.standX }}px</span>
               </div>
-              <input type="range" min="-120" max="120" step="1" v-model.number="valAdj.standX" class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
+              <input type="range" min="-150" max="150" step="1" v-model.number="valAdj.standX" class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
             </div>
             <div class="bg-neutral-900/90 p-2 border border-neutral-800">
               <div class="flex justify-between items-center mb-1">
                 <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">D4C Pos Y</span>
                 <span class="text-cyan-300 font-bold font-mono text-[0.62rem]">{{ valAdj.standY }}px</span>
               </div>
-              <input type="range" min="-150" max="100" step="1" v-model.number="valAdj.standY" class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
+              <input type="range" min="-400" max="150" step="1" v-model.number="valAdj.standY" class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
             </div>
+          </div>
+
+          <!-- Quick Overlap Presets for Stand -->
+          <div class="flex gap-1">
+            <button
+              type="button"
+              @click="valAdj.standY = -160"
+              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.55rem] text-cyan-300/90 cursor-pointer"
+            >
+              Overlap (-160)
+            </button>
+            <button
+              type="button"
+              @click="valAdj.standY = -220"
+              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.55rem] text-cyan-300/90 cursor-pointer"
+            >
+              Tinggi (-220)
+            </button>
+            <button
+              type="button"
+              @click="valAdj.standY = -20"
+              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.55rem] text-neutral-400 cursor-pointer"
+            >
+              Rata (-20)
+            </button>
           </div>
 
           <!-- Stand Scale -->
@@ -650,7 +705,7 @@
               <span class="text-neutral-300 text-[0.62rem] font-bold uppercase">D4C Scale</span>
               <span class="text-cyan-300 font-bold font-mono text-[0.65rem]">{{ valAdj.standScale.toFixed(2) }}x</span>
             </div>
-            <input type="range" min="0.6" max="2.0" step="0.02" v-model.number="valAdj.standScale" class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
+            <input type="range" min="0.6" max="2.2" step="0.02" v-model.number="valAdj.standScale" class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
           </div>
         </div>
 
@@ -789,14 +844,14 @@ interface ValentineAdjustment {
 }
 
 const defaultValentineAdj: ValentineAdjustment = {
-  cameraZoom: 1.45,
-  cameraOriginX: 50,
-  cameraOriginY: 42,
+  cameraZoom: 1.85,
+  cameraOriginX: 84,
+  cameraOriginY: 36,
   aloneX: 0,
-  aloneY: -20,
+  aloneY: -160,
   aloneScale: 1.15,
   standX: 0,
-  standY: -20,
+  standY: -160,
   standScale: 1.15,
   menacingX: 12,
   menacingY: 20,
@@ -813,7 +868,7 @@ const defaultValentineAdj: ValentineAdjustment = {
   watermarkOpacity: 5,
 }
 
-const VALENTINE_STORAGE_KEY = 'araki_valentine_adjustments_v2'
+const VALENTINE_STORAGE_KEY = 'araki_valentine_adjustments_v3'
 
 const loadValentineAdjustments = (): ValentineAdjustment => {
   try {
@@ -868,12 +923,12 @@ watch(
   { deep: true }
 )
 
-const getCameraStageStyle = () => {
+const getUniversalCameraStyle = () => {
   const scale = isStandActive.value ? valAdj.value.cameraZoom : 1.0
   return {
     transform: `scale(${scale}) translate3d(0, 0, 0)`,
     transformOrigin: `${valAdj.value.cameraOriginX}% ${valAdj.value.cameraOriginY}%`,
-    transition: 'transform 600ms cubic-bezier(0.16, 1, 0.3, 1)',
+    transition: 'transform 750ms cubic-bezier(0.16, 1, 0.3, 1)',
   }
 }
 
