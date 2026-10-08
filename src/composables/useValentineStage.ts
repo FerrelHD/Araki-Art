@@ -1,4 +1,5 @@
 import { ref, computed, watch } from 'vue'
+import { lenis } from '@/lenis'
 
 export interface ValentineConfig {
   // Camera Zoom Focus
@@ -74,16 +75,22 @@ const loadSavedConfig = (): ValentineConfig => {
   return { ...defaultValentineConfig }
 }
 
-// Global shared state across components
+// Global shared state across components (Persona 5 SkillsScreen architecture)
 const config = ref<ValentineConfig>(loadSavedConfig())
 const isStandActive = ref(false)
-const isZoomedIn = ref(false)
-const showSpeedlineBurst = ref(false)
+const showSpeedlines = ref(false)
 const showValentineAdjuster = ref(false)
-const editorTab = ref<'idle' | 'stand'>('idle')
+const editorTab = ref<'char' | 'camera' | 'bubble' | 'kanji'>('char')
 const currentQuoteIdx = ref(0)
 const copySuccess = ref(false)
-const targetRect = ref<{ left: number; top: number; width: number; height: number } | null>(null)
+
+// Track the focal camera origin so zoom-out scales back from the exact same point without jerking
+const lastFocusOrigin = ref<{ originX: number; originY: number }>({
+  originX: config.value.cameraOriginX,
+  originY: config.value.cameraOriginY,
+})
+
+let speedlinesTimer: ReturnType<typeof setTimeout> | null = null
 
 export const valentineQuotes = [
   "Dojyaaa~~n!",
@@ -108,41 +115,47 @@ watch(
 )
 
 export function useValentineStage() {
-  const setTargetRect = (rect: { left: number; top: number; width: number; height: number }) => {
-    targetRect.value = {
-      left: Math.round(rect.left),
-      top: Math.round(rect.top),
-      width: Math.round(rect.width),
-      height: Math.round(rect.height),
+  const handleSelectValentine = (origin?: { originX: number; originY: number }) => {
+    if (speedlinesTimer) {
+      clearTimeout(speedlinesTimer)
+    }
+    showSpeedlines.value = true
+    speedlinesTimer = setTimeout(() => {
+      showSpeedlines.value = false
+      speedlinesTimer = null
+    }, 400)
+
+    lastFocusOrigin.value = origin || {
+      originX: config.value.cameraOriginX,
+      originY: config.value.cameraOriginY,
+    }
+
+    isStandActive.value = true
+
+    try {
+      lenis?.stop?.()
+    } catch {
+      // ignore
     }
   }
 
-  const openStandMode = () => {
-    isStandActive.value = true
-    showSpeedlineBurst.value = true
-    
-    // Animate camera zoom in next frame for FLIP transition
-    requestAnimationFrame(() => {
-      isZoomedIn.value = true
-    })
+  const handleResetCamera = () => {
+    isStandActive.value = false
+    // NOTE: lastFocusOrigin is deliberately preserved so that CSS transform-origin
+    // stays pinned to the character's focus point while the camera smoothly scales back down to 1!
 
-    setTimeout(() => {
-      showSpeedlineBurst.value = false
-    }, 450)
-  }
-
-  const closeStandMode = () => {
-    isZoomedIn.value = false
-    setTimeout(() => {
-      isStandActive.value = false
-    }, 400)
+    try {
+      lenis?.start?.()
+    } catch {
+      // ignore
+    }
   }
 
   const toggleStandMode = () => {
     if (isStandActive.value) {
-      closeStandMode()
+      handleResetCamera()
     } else {
-      openStandMode()
+      handleSelectValentine()
     }
   }
 
@@ -157,6 +170,10 @@ export function useValentineStage() {
 
   const resetConfig = () => {
     config.value = { ...defaultValentineConfig }
+    lastFocusOrigin.value = {
+      originX: defaultValentineConfig.cameraOriginX,
+      originY: defaultValentineConfig.cameraOriginY,
+    }
     localStorage.removeItem(STORAGE_KEY)
   }
 
@@ -173,17 +190,15 @@ export function useValentineStage() {
   return {
     config,
     isStandActive,
-    isZoomedIn,
-    showSpeedlineBurst,
+    showSpeedlines,
     showValentineAdjuster,
     editorTab,
     currentQuoteIdx,
     currentQuote,
     copySuccess,
-    targetRect,
-    setTargetRect,
-    openStandMode,
-    closeStandMode,
+    lastFocusOrigin,
+    handleSelectValentine,
+    handleResetCamera,
     toggleStandMode,
     cycleQuote,
     matchStandToIdle,

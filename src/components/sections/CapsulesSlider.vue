@@ -38,10 +38,9 @@
         >
           <!-- Left 6 Columns: Interactive Capsule Card & Vertical Thumbnails (snug, zero space kosong) -->
           <div
-            class="relative z-20 col-span-4 md:col-span-10 lg:col-span-6 lg:border-r border-grid flex flex-col justify-between min-h-0 overflow-hidden bg-brand-bg transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
-            :class="isStandActive ? 'filter blur-[5px] opacity-35 cursor-pointer select-none' : 'filter blur-0 opacity-100'"
-            @click="isStandActive ? closeStandMode() : null"
-            :title="isStandActive ? 'Klik untuk kembali ke slider komik (ESC)' : ''"
+            class="relative z-20 col-span-4 md:col-span-10 lg:col-span-6 lg:border-r border-grid flex flex-col justify-between min-h-0 overflow-hidden bg-brand-bg transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+            :class="isStandActive ? 'filter blur-[4px] opacity-20 cursor-pointer select-none pointer-events-none' : 'filter blur-0 opacity-100'"
+            :title="isStandActive ? 'Klik latar belakang untuk kembali (ESC)' : ''"
           >
             <!-- Top Container: Vertical Thumbnails Strip + Active Project Showcase (Stretched to PREV/NEXT) -->
             <div class="flex flex-1 border-b border-grid min-h-0 overflow-hidden">
@@ -185,10 +184,10 @@
             </div>
           </div>
 
-          <!-- Right 4 Columns: High-Fashion Freestanding Muse (Funny Valentine - Idle Anchor) -->
+          <!-- Right 4 Columns: High-Fashion Freestanding Muse (Funny Valentine & D4C) -->
           <div
             ref="valentineAnchorRef"
-            class="group/side relative z-30 hidden lg:col-span-4 lg:flex flex-col justify-end overflow-visible px-4 pb-2 bg-brand-primary/[0.015] border-b border-grid min-h-0 select-none"
+            class="group/side relative z-35 hidden lg:col-span-4 lg:flex flex-col justify-end overflow-visible px-4 pb-2 bg-brand-primary/[0.015] border-b border-grid min-h-0 select-none"
           >
             <!-- Valentine Calibrator Trigger Button -->
             <button
@@ -196,7 +195,7 @@
               @click.stop="showValentineAdjuster = !showValentineAdjuster"
               class="absolute top-3 left-3 z-40 bg-black/85 hover:bg-neutral-900 text-white/80 hover:text-white border border-white/20 px-2 py-1 text-[0.58rem] font-mono tracking-wider uppercase transition-all shadow-md backdrop-blur-xs flex items-center gap-1.5 cursor-pointer select-none"
               :class="showValentineAdjuster ? 'ring-1 ring-cyan-400 text-cyan-300' : ''"
-              title="Buka Live Calibrator Valentine & D4C"
+              title="Buka Live Calibrator Valentine & D4C (Shift+C)"
             >
               <span class="w-1.5 h-1.5 rounded-full" :class="showValentineAdjuster ? 'bg-cyan-400 animate-pulse' : 'bg-neutral-500'"></span>
               <span>⚙ ATUR VALENTINE</span>
@@ -204,26 +203,29 @@
 
             <!-- Watermark Background ("D4C") -->
             <div
-              class="absolute font-mono font-bold leading-none select-none pointer-events-none opacity-5 text-current"
+              class="absolute font-mono font-bold leading-none select-none pointer-events-none transition-opacity duration-500"
+              :class="isStandActive ? 'opacity-15 text-cyan-400' : 'opacity-5 text-current'"
               :style="{ top: '-24px', right: '8px', fontSize: '8rem' }"
             >
               D4C
             </div>
 
-            <!-- Freestanding Muse Stage (Click to Launch Virtual Camera Zoom Focus) -->
+            <!-- Freestanding Muse Stage -->
             <div
               class="relative w-full flex-1 min-h-0 flex items-end justify-center overflow-visible pointer-events-auto cursor-pointer group/muse"
               @click="handleValentineClick"
-              title="Click to summon D4C // Camera Zoom Focus"
+              :title="isStandActive ? 'Click to cycle quote / Klik untuk ganti quote' : 'Click to summon D4C // Anime Snap Zoom'"
             >
               <!-- Contact Floor Shadow (Soft Optical Depth) -->
               <div
-                class="absolute bottom-0 w-44 h-5 rounded-full bg-black/40 blur-md pointer-events-none transition-all duration-500 group-hover/muse:opacity-60"
+                class="absolute bottom-0 w-44 h-5 rounded-full bg-black/40 blur-md pointer-events-none transition-all duration-500"
+                :class="isStandActive ? 'w-56 h-6 opacity-70 bg-black/80' : 'group-hover/muse:opacity-60'"
               ></div>
 
-              <!-- Mode Alone: Funny Valentine (Overlapping Statement Section) -->
+              <!-- Mode 1: Alone - Funny Valentine Idle -->
               <div
-                class="relative h-full w-full flex items-end justify-center origin-bottom pointer-events-none transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/muse:brightness-105"
+                class="relative h-full w-full flex items-end justify-center origin-bottom transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                :class="isStandActive ? 'opacity-0 scale-95 pointer-events-none' : 'opacity-100 scale-100 pointer-events-none group-hover/muse:brightness-105'"
                 :style="getValentineAloneStyle()"
               >
                 <img
@@ -233,15 +235,78 @@
                 />
               </div>
 
-              <!-- Interactive Summon Hint Badge (Pill) -->
+              <!-- Mode 2: Stand - Funny Valentine with D4C Manifestation -->
               <div
+                class="absolute inset-0 h-full w-full flex items-end justify-center origin-bottom transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                :class="isStandActive ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'"
+                :style="getValentineStandStyle()"
+              >
+                <img
+                  src="/images/funny-valentine-stand.png"
+                  alt="Funny Valentine & D4C Stand"
+                  class="h-full w-auto max-h-[460px] xl:max-h-[520px] object-contain object-bottom filter contrast-110 brightness-105 drop-shadow-[0_16px_48px_rgba(6,182,212,0.5)] pointer-events-none select-none transition-transform duration-300 hover:scale-[1.02]"
+                />
+              </div>
+
+              <!-- ── GIANT JOJO MENACING KANJI FX (ゴゴゴ) ── -->
+              <div
+                v-if="isStandActive"
+                class="absolute z-35 pointer-events-none select-none animate-menacing-float transition-all duration-300"
+                :style="menacingStyle"
+              >
+                <img
+                  src="/images/jojo-menacing.png"
+                  alt="JoJo Menacing Effect"
+                  class="w-32 sm:w-40 md:w-52 h-auto pointer-events-none select-none drop-shadow-[0_4px_24px_rgba(0,0,0,0.8)]"
+                  :style="menacingImageStyle"
+                />
+              </div>
+
+              <!-- ── MANGA DIALOGUE SPEECH BUBBLE (POP-IN WITH QUOTE) ── -->
+              <div
+                v-if="isStandActive"
+                @click.stop="cycleQuote"
+                class="absolute z-40 cursor-pointer pointer-events-auto select-none transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                :style="bubbleStyle"
+                title="Click to cycle quote / Klik untuk ganti quote"
+              >
+                <div class="relative bg-brand-bg text-brand-primary border-2 border-brand-primary shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] p-3 sm:p-4 max-w-[240px] sm:max-w-[290px]">
+                  <div class="flex items-center justify-between gap-2 border-b border-brand-primary/30 pb-0.5 mb-1.5">
+                    <span class="font-mono text-[0.58rem] font-black tracking-widest uppercase text-cyan-600">FUNNY VALENTINE</span>
+                    <span class="text-[0.58rem] font-mono opacity-50">#0{{ currentQuoteIdx + 1 }}</span>
+                  </div>
+                  <p class="font-serif font-bold text-xs sm:text-sm leading-snug tracking-tight text-neutral-900">
+                    "{{ currentQuote }}"
+                  </p>
+                  <div class="absolute -bottom-3 left-6 w-0 h-0 border-l-[7px] border-l-transparent border-r-[7px] border-r-transparent border-t-[11px] border-t-brand-primary"></div>
+                  <div class="absolute -bottom-2.5 left-[25px] w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[9px] border-t-brand-bg"></div>
+                </div>
+              </div>
+
+              <!-- Interactive Summon Hint Badge (Pill) - Mode Idle -->
+              <div
+                v-if="!isStandActive"
                 class="absolute bottom-2 z-30 transition-all duration-300 opacity-85 group-hover/muse:opacity-100 group-hover/muse:scale-105"
               >
                 <div
                   class="flex items-center gap-1.5 bg-black/85 text-white border border-white/20 px-2.5 py-1 font-mono text-[0.58rem] tracking-wider uppercase backdrop-blur-xs shadow-lg"
                 >
                   <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
-                  <span>✦ CLICK TO SUMMON D4C // CAMERA FOCUS</span>
+                  <span>✦ CLICK TO SUMMON D4C // ANIME SNAP ZOOM</span>
+                </div>
+              </div>
+
+              <!-- Dismiss Hint Badge (Pill) - Mode Stand -->
+              <div
+                v-else
+                @click.stop="handleResetCamera"
+                class="absolute -bottom-8 z-30 transition-all duration-300 cursor-pointer hover:scale-105"
+              >
+                <div
+                  class="flex items-center gap-1.5 bg-black/90 text-white border border-cyan-400/60 px-3 py-1 font-mono text-[0.62rem] tracking-wider uppercase backdrop-blur-xs shadow-xl hover:bg-neutral-900"
+                >
+                  <span class="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse"></span>
+                  <span>✕ DISMISS FOCUS (ESC)</span>
                 </div>
               </div>
             </div>
@@ -295,7 +360,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import RollingText from '@/components/common/RollingText.vue'
 import { gsap } from '@/lenis'
 import { useValentineStage } from '@/composables/useValentineStage'
@@ -323,19 +388,30 @@ const {
   config,
   isStandActive,
   showValentineAdjuster,
-  setTargetRect,
-  openStandMode,
-  closeStandMode,
+  currentQuoteIdx,
+  currentQuote,
+  handleSelectValentine,
+  handleResetCamera,
+  cycleQuote,
 } = useValentineStage()
 
 const valentineAnchorRef = ref<HTMLElement | null>(null)
 
 const handleValentineClick = () => {
+  if (isStandActive.value) {
+    cycleQuote()
+    return
+  }
+
   if (valentineAnchorRef.value) {
     const rect = valentineAnchorRef.value.getBoundingClientRect()
-    setTargetRect(rect)
+    const originX = Math.round(((rect.left + rect.width * 0.5) / window.innerWidth) * 100)
+    const originY = Math.round(((rect.top + rect.height * 0.36) / window.innerHeight) * 100)
+    handleSelectValentine({ originX, originY })
+    return
   }
-  openStandMode()
+
+  handleSelectValentine()
 }
 
 const getValentineAloneStyle = () => {
@@ -343,6 +419,37 @@ const getValentineAloneStyle = () => {
     transform: `translate(${config.value.aloneX}px, ${config.value.aloneY}px) scale(${config.value.aloneScale})`,
   }
 }
+
+const getValentineStandStyle = () => {
+  return {
+    transform: `translate(${config.value.standX}px, ${config.value.standY}px) scale(${config.value.standScale})`,
+  }
+}
+
+const menacingStyle = computed(() => {
+  return {
+    left: `${config.value.menacingX}%`,
+    top: `${config.value.menacingY}%`,
+  }
+})
+
+const menacingImageStyle = computed(() => {
+  const flipFactor = config.value.menacingFlip ? -1 : 1
+  return {
+    transform: `scale(${config.value.menacingScale}) scaleX(${flipFactor})`,
+    opacity: config.value.menacingOpacity / 100,
+    transformOrigin: 'center center',
+  }
+})
+
+const bubbleStyle = computed(() => {
+  return {
+    left: `${config.value.bubbleX}%`,
+    top: `${config.value.bubbleY}%`,
+    transform: `rotate(${config.value.bubbleRotate}deg) scale(${config.value.bubbleScale})`,
+    transformOrigin: 'bottom left',
+  }
+})
 
 const defaultAdjustments: Record<number, CoverAdjustment> = {
   0: { posX: 50, posY: 15, scale: 1.0, fitMode: 'cover' }, // Part 1
