@@ -12,20 +12,6 @@
       :class="isStandActive ? 'opacity-20 pointer-events-none transition-opacity duration-600' : 'opacity-100 transition-opacity duration-600'"
     />
 
-    <!-- ── CINEMATIC LETTERBOX BLACK BARS (FOREGROUND LAYER - Z-INDEX 60) ── -->
-    <!-- Top Black Bar -->
-    <div
-      class="fixed top-0 inset-x-0 z-[60] bg-black pointer-events-none transition-all duration-700 h-10 sm:h-12 md:h-14 lg:h-16"
-      :class="isStandActive ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'"
-      style="transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1)"
-    />
-
-    <!-- Bottom Black Bar -->
-    <div
-      class="fixed bottom-0 inset-x-0 z-[60] bg-black pointer-events-none transition-all duration-700 h-10 sm:h-12 md:h-14 lg:h-16"
-      :class="isStandActive ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'"
-      style="transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1)"
-    />
 
     <!-- ── VIRTUAL 2.5D CAMERA STAGE (EXACT PERSONA 5 / SKILLSSCREEN ARCHITECTURE) ── -->
     <div
