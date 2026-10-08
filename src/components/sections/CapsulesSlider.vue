@@ -84,47 +84,80 @@
                   <div
                     v-for="(capsule, idx) in capsules"
                     :key="capsule.id"
-                    class="w-full h-full shrink-0 flex flex-col justify-between min-h-0 overflow-hidden"
+                    class="w-full h-full shrink-0 flex flex-col sm:flex-row min-h-0 overflow-hidden"
                   >
-                    <!-- Capsule Information Block (Slim 1-Line Bar) -->
+                    <!-- SISI KIRI: Cover Manga Pas (Snug Framing, Zero Space Kosong) -->
+                    <div class="relative h-1/2 sm:h-full w-full sm:w-[48%] md:w-[46%] shrink-0 border-b sm:border-b-0 sm:border-r border-grid overflow-hidden bg-black/5 select-none min-h-0">
+                      <div class="w-full h-full overflow-hidden flex items-center justify-center">
+                        <img
+                          :src="capsule.image"
+                          :alt="capsule.title"
+                          class="h-full w-full object-cover transition-transform duration-500 ease-out select-none"
+                          :style="getCoverStyle(idx)"
+                        />
+                      </div>
+                      <div class="absolute inset-0 bg-brand-primary/[0.03] pointer-events-none z-10"></div>
+
+                      <!-- Subtitle Watermark on Cover -->
+                      <span class="absolute top-2 left-2 bg-black/75 text-white font-mono text-[0.55rem] font-bold px-1.5 py-0.5 tracking-wider uppercase select-none">
+                        PART 0{{ idx + 1 }}
+                      </span>
+                    </div>
+
+                    <!-- SISI KANAN: Capsule Information Panel (Gaya A: Dark Editorial, Clean, Breathing Room) -->
                     <div
-                      class="w-full bg-brand-primary text-brand-bg px-4 py-2.5 sm:px-6 sm:py-3 flex items-center justify-between gap-4 border-b border-grid shrink-0"
+                      class="flex-1 bg-brand-primary text-brand-bg p-5 sm:p-6 md:p-7 lg:p-8 flex flex-col justify-between min-h-0 overflow-y-auto no-scrollbar"
                     >
-                      <!-- Judul Part & Kategori -->
-                      <div class="flex items-baseline gap-3 min-w-0">
-                        <h3 class="text-base sm:text-lg md:text-xl font-bold tracking-tight truncate">
+                      <!-- Bagian Atas: Metadata, Judul, Kategori & Sinopsis dengan Spasi Bernapas -->
+                      <div class="flex flex-col gap-3 md:gap-4">
+                        <!-- Label Arsip Monospace -->
+                        <div class="flex items-center gap-2 opacity-50 font-mono text-[0.58rem] sm:text-[0.62rem] tracking-[0.2em] uppercase">
+                          <span>ARCHIVE COLLECTION</span>
+                          <span>·</span>
+                          <span>VOL. 0{{ idx + 1 }}</span>
+                        </div>
+
+                        <!-- Judul Part (Clean Display Typography) -->
+                        <h3 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight leading-[1.1] text-brand-bg">
                           {{ capsule.title }}
                         </h3>
-                        <span class="text-[0.6rem] sm:text-[0.65rem] font-mono uppercase tracking-[0.18em] opacity-65 truncate hidden sm:inline">
+
+                        <!-- Era & Kategori (Clean Monospace, Tanpa Badge/Card) -->
+                        <p class="font-mono text-[0.65rem] sm:text-[0.72rem] tracking-[0.16em] uppercase opacity-75">
                           {{ capsule.category }} · {{ capsule.year }}
-                        </span>
+                        </p>
+
+                        <!-- Sinopsis Editorial dengan Breathing Room Lega -->
+                        <p class="text-xs sm:text-sm md:text-base leading-relaxed opacity-85 font-sans font-light max-w-[42ch] pt-1">
+                          {{ capsule.summary }}
+                        </p>
+
+                        <!-- Tags Karakter & Motif (Clean Slash-Separated, Tanpa Badge/Pill) -->
+                        <div
+                          v-if="capsule.tags && capsule.tags.length"
+                          class="pt-2 flex flex-wrap items-center gap-x-2.5 gap-y-1 font-mono text-[0.65rem] sm:text-[0.7rem] tracking-wider opacity-60"
+                        >
+                          <span v-for="(tag, tIdx) in capsule.tags" :key="tag">
+                            {{ tag }}<span v-if="tIdx < capsule.tags.length - 1" class="ml-2.5 opacity-35">/</span>
+                          </span>
+                        </div>
                       </div>
 
-                      <!-- Tombol View Archive Rata Kanan -->
-                      <div class="flex items-center shrink-0">
+                      <!-- Bagian Bawah: Tombol View Archive di Paling Bawah Rata Kanan -->
+                      <div class="pt-5 border-t border-brand-bg/15 flex items-center justify-between shrink-0 mt-4">
+                        <span class="font-mono text-[0.58rem] tracking-widest uppercase opacity-40 hidden sm:inline">
+                          OFFICIAL ARCHIVE
+                        </span>
                         <a
                           :href="capsule.link"
                           target="_blank"
                           rel="noopener noreferrer"
-                          class="group/roll inline-flex items-center gap-1.5 text-xs font-mono font-medium tracking-wider uppercase text-brand-bg hover:opacity-75 transition-opacity"
+                          class="group/roll inline-flex items-center gap-2 text-sm sm:text-base md:text-lg font-mono font-medium tracking-wider uppercase text-brand-bg hover:opacity-75 transition-opacity cursor-pointer ml-auto"
                         >
                           <RollingText text="view archive" />
-                          <span class="text-sm transition-transform duration-300 group-hover/roll:translate-x-1">></span>
+                          <span class="text-base sm:text-lg transition-transform duration-300 group-hover/roll:translate-x-1.5">></span>
                         </a>
                       </div>
-                    </div>
-
-                    <!-- Visual Container: Clean Centered Fit Without Scroll -->
-                    <div class="relative w-full flex-1 overflow-hidden bg-neutral-950/5 group select-none min-h-0 flex items-center justify-center p-2 sm:p-3">
-                      <div class="w-full h-full flex items-center justify-center overflow-hidden">
-                        <img
-                          :src="capsule.image"
-                          :alt="capsule.title"
-                          class="h-full w-full object-contain transition-transform duration-500 ease-out select-none drop-shadow-md"
-                          :style="getCoverStyle(idx)"
-                        />
-                      </div>
-                      <div class="absolute inset-0 bg-brand-primary/[0.02] pointer-events-none z-10"></div>
                     </div>
                   </div>
                 </div>
@@ -505,18 +538,18 @@ interface CoverAdjustment {
 }
 
 const defaultAdjustments: Record<number, CoverAdjustment> = {
-  0: { posX: 50, posY: 50, scale: 1.0, fitMode: 'contain' }, // Part 1
-  1: { posX: 50, posY: 50, scale: 1.0, fitMode: 'contain' }, // Part 2
-  2: { posX: 50, posY: 50, scale: 1.0, fitMode: 'contain' }, // Part 3
-  3: { posX: 50, posY: 50, scale: 1.0, fitMode: 'contain' }, // Part 4
-  4: { posX: 50, posY: 50, scale: 1.0, fitMode: 'contain' }, // Part 5
-  5: { posX: 50, posY: 50, scale: 1.0, fitMode: 'contain' }, // Part 6
-  6: { posX: 50, posY: 50, scale: 1.0, fitMode: 'contain' }, // Part 7
-  7: { posX: 50, posY: 50, scale: 1.0, fitMode: 'contain' }, // Part 8 (JoJolion)
-  8: { posX: 50, posY: 50, scale: 1.0, fitMode: 'contain' }, // Part 9 (The JOJOLands)
+  0: { posX: 50, posY: 15, scale: 1.0, fitMode: 'cover' }, // Part 1
+  1: { posX: 50, posY: 12, scale: 1.0, fitMode: 'cover' }, // Part 2
+  2: { posX: 50, posY: 15, scale: 1.0, fitMode: 'cover' }, // Part 3
+  3: { posX: 50, posY: 18, scale: 1.0, fitMode: 'cover' }, // Part 4
+  4: { posX: 50, posY: 15, scale: 1.0, fitMode: 'cover' }, // Part 5
+  5: { posX: 50, posY: 15, scale: 1.0, fitMode: 'cover' }, // Part 6
+  6: { posX: 50, posY: 15, scale: 1.0, fitMode: 'cover' }, // Part 7
+  7: { posX: 50, posY: 20, scale: 1.0, fitMode: 'cover' }, // Part 8 (JoJolion)
+  8: { posX: 50, posY: 30, scale: 1.0, fitMode: 'cover' }, // Part 9 (The JOJOLands)
 }
 
-const STORAGE_KEY = 'araki_cover_adjustments_v2'
+const STORAGE_KEY = 'araki_cover_adjustments_v3'
 
 const loadSavedAdjustments = (): Record<number, CoverAdjustment> => {
   try {
