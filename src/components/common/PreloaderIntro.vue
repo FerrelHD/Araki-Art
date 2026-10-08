@@ -37,10 +37,10 @@
       </div>
 
       <!-- Monumental Title Matching Hero Typography (No clipping) -->
-      <div class="overflow-hidden pb-4 md:pb-6">
+      <div class="overflow-hidden pb-4 md:pb-6 pr-8 sm:pr-12 md:pr-16 pl-2">
         <h1
           ref="titleEl"
-          class="text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-[-0.12em] leading-[0.9] uppercase md:normal-case will-change-transform pb-1"
+          class="text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-[-0.09em] leading-[0.9] uppercase md:normal-case will-change-transform pb-1 pr-4"
         >
           araki.
         </h1>
@@ -228,8 +228,8 @@ function triggerCurtainReveal() {
         starPath,
         {
           fill: '#12100E',
-          duration: 1.1,
-          ease: 'expo.inOut',
+          duration: 1.15,
+          ease: 'power3.inOut',
         },
         0.05
       )
@@ -241,18 +241,33 @@ function triggerCurtainReveal() {
         x: deltaStarX,
         y: deltaStarY,
         scale: scaleStar,
-        rotate: 360,
-        duration: 1.1,
-        ease: 'expo.inOut',
+        rotate: 45,
+        duration: 1.15,
+        ease: 'power3.inOut',
       },
       0.05
     )
   }
+
+  // 5. Seamless handover crossfade: trigger hero elements reveal as travelers land
+  exitTl.call(() => {
+    emit('complete')
+  }, [], 1.1)
+
+  // 6. Smoothly fade out preloader overlay
+  exitTl.to(
+    preloaderRoot.value,
+    {
+      opacity: 0,
+      duration: 0.25,
+      ease: 'power2.out',
+    },
+    1.15
+  )
 }
 
 function finishPreloader() {
   isFinished.value = true
   lenis.start()
-  emit('complete')
 }
 </script>

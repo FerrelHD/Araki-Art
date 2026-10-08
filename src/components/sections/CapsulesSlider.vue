@@ -70,8 +70,7 @@
               <!-- Right: Active Slide Content Card (Stacked: Clean Minimalist Bar on Top + Full Bleed Cover Below) -->
               <div class="min-w-0 flex-1 flex flex-col justify-between bg-brand-bg min-h-0">
                 <!-- Capsule Information Block (Simple & Clean editorial bar like reference) -->
-                <div class="w-full bg-brand-primary text-brand-bg px-4 py-2.5 md:px-6 md:py-3.5 flex flex-col gap-2.5 border-b border-grid shrink-0">
-                  <!-- Row 1: Title on left, Category & Year on right -->
+<div class="w-full bg-brand-primary text-brand-bg px-5 py-5 md:px-8 md:py-6 flex flex-col gap-4 md:gap-5 border-b border-grid shrink-0">                  <!-- Row 1: Title on left, Category & Year on right -->
                   <div class="flex items-baseline justify-between gap-3">
                     <h3 class="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight truncate">
                       {{ currentCapsule.title }}
