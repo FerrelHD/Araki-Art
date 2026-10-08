@@ -408,7 +408,7 @@
           <div class="bg-neutral-900/90 p-2 border border-neutral-800">
             <div class="flex justify-between items-center mb-1">
               <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">Flash Y</span>
-              <span class="text-cyan-300 font-bold font-mono text-[0.62rem]">{{ config.flashY ?? -200 }}px</span>
+              <span class="text-cyan-300 font-bold font-mono text-[0.62rem]">{{ config.flashY ?? -246 }}px</span>
             </div>
             <input
               type="range"
@@ -424,7 +424,7 @@
         <div class="bg-neutral-900/90 p-2 border border-neutral-800">
           <div class="flex justify-between items-center mb-1">
             <span class="text-neutral-300 text-[0.62rem] font-bold uppercase">Flash Scale / Size</span>
-            <span class="text-cyan-300 font-bold font-mono text-[0.65rem]">{{ (config.flashScale ?? 1.25).toFixed(2) }}x</span>
+            <span class="text-cyan-300 font-bold font-mono text-[0.65rem]">{{ (config.flashScale ?? 1.35).toFixed(2) }}x</span>
           </div>
           <input
             type="range"

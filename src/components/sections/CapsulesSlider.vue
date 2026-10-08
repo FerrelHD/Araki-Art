@@ -392,7 +392,7 @@ const {
 
 const flashContainerStyle = computed(() => {
   return {
-    transform: `translate3d(${config.value.flashX ?? -84}px, ${config.value.flashY ?? -200}px, 0) scale(${config.value.flashScale ?? 1.25})`,
+    transform: `translate3d(${config.value.flashX ?? -84}px, ${config.value.flashY ?? -246}px, 0) scale(${config.value.flashScale ?? 1.35})`,
     transformOrigin: 'center center',
   }
 })
