@@ -1,7 +1,10 @@
 <template>
   <div class="relative min-h-screen bg-brand-bg text-brand-primary overflow-x-hidden selection:bg-brand-primary selection:text-brand-bg">
     <!-- Cinematic 12-Slat Preloader Intro -->
-    <PreloaderIntro @complete="onIntroComplete" />
+    <PreloaderIntro
+      @start-transition="onIntroStartTransition"
+      @complete="onIntroComplete"
+    />
 
     <!-- 12-Column Blueprint Grid Overlay -->
     <GridOverlay />
@@ -39,14 +42,21 @@ import StatementSection from '@/components/sections/StatementSection.vue'
 import CapsulesSlider from '@/components/sections/CapsulesSlider.vue'
 import AnatomyAccordion from '@/components/sections/AnatomyAccordion.vue'
 import FooterSection from '@/components/sections/FooterSection.vue'
-import { ScrollTrigger } from '@/lenis'
+import { ScrollTrigger, lenis } from '@/lenis'
 
 const heroSectionRef = ref<any>(null)
 
+function onIntroStartTransition() {
+  if (heroSectionRef.value?.playHandoverEntrance) {
+    heroSectionRef.value.playHandoverEntrance()
+  }
+}
+
 function onIntroComplete() {
   ScrollTrigger.refresh()
-  if (heroSectionRef.value?.playIntroAnimation) {
-    heroSectionRef.value.playIntroAnimation()
+  lenis.start()
+  if (heroSectionRef.value?.finalizeHandover) {
+    heroSectionRef.value.finalizeHandover()
   }
 }
 </script>

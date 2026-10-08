@@ -2,47 +2,67 @@
   <div
     v-if="!isFinished"
     ref="preloaderRoot"
-    class="fixed inset-0 z-[999] pointer-events-auto flex flex-col justify-between overflow-hidden bg-brand-primary text-brand-bg select-none"
+    class="fixed inset-0 z-[999] pointer-events-auto flex flex-col justify-between overflow-hidden bg-transparent text-brand-bg select-none"
   >
     <!-- 12-Column Slats for Curtain Lift -->
     <div class="absolute inset-0 grid grid-cols-4 md:grid-cols-12 pointer-events-none z-0">
       <div
         v-for="i in 12"
         :key="i"
-        class="preloader-slat h-full w-full bg-brand-primary border-r border-brand-bg/15 last:border-r-0 origin-top"
+        class="preloader-slat h-full w-full bg-brand-primary border-r border-brand-bg/10 last:border-r-0 origin-top"
       ></div>
     </div>
 
     <!-- Top Metadata Bar -->
-    <div class="relative z-10 flex items-center justify-between p-4 md:p-8 font-mono text-[0.65rem] md:text-xs tracking-[0.2em] uppercase opacity-75">
-      <div class="flex items-center gap-3">
-       </div>
-      <div>
+    <div
+      ref="topMetaRef"
+      class="relative z-10 flex items-center justify-between p-4 md:p-8 font-mono text-[0.65rem] md:text-xs tracking-[0.2em] uppercase opacity-75"
+    >
+      <div class="flex items-center gap-2.5">
+        <span class="inline-block w-2 h-2 rounded-full bg-brand-accent animate-pulse"></span>
+        <span>HIROHIKO ARAKI · ARCHIVE</span>
+      </div>
+      <div class="hidden sm:block">
+        <span>RUNWAY CATWALK · 1987-2026</span>
       </div>
     </div>
 
-    <!-- Center Monogram & Kinetic Wordmark -->
-    <div class="relative z-10 flex flex-col items-center justify-center gap-4 text-center px-4">
-      <!-- Star Birthmark Subtle Vector -->
-      <div ref="starEl" class="w-10 h-10 opacity-70">
-        <svg viewBox="0 0 24 24" fill="currentColor" class="w-full h-full text-brand-accent">
-          <polygon points="12,1.5 14.8,8.5 22.3,9.2 16.6,14.2 18.3,21.5 12,17.7 5.7,21.5 7.4,14.2 1.7,9.2 9.2,8.5" />
+    <!-- Center Kinetic Wordmark & Star (The Handover Passengers) -->
+    <div
+      class="relative z-20 flex flex-col items-center justify-center gap-3 text-center px-4 my-auto"
+    >
+      <!-- JoJo Star Birthmark Emblem (Identical to Hero) -->
+      <div
+        ref="starEl"
+        class="w-12 h-12 md:w-16 md:h-16 flex items-center justify-center will-change-transform"
+      >
+        <svg
+          viewBox="0 0 100 100"
+          class="w-full h-full fill-brand-accent"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M50 0 L58 35 L93 25 L68 52 L98 75 L62 76 L50 100 L38 76 L2 75 L32 52 L7 25 L42 35 Z"
+          />
         </svg>
       </div>
 
-      <!-- Masked Monumental Title -->
+      <!-- Monumental Title Matching Hero Typography -->
       <div class="overflow-hidden">
         <h1
           ref="titleEl"
-          class="text-6xl sm:text-8xl md:text-9xl font-bold tracking-[-0.06em] leading-none"
+          class="text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-[-0.12em] leading-none uppercase md:normal-case will-change-transform"
         >
           araki.
         </h1>
       </div>
-   </div>
+    </div>
 
     <!-- Bottom Counter & Progress Bar -->
-    <div class="relative z-10 p-4 md:p-8 flex flex-col gap-3 font-mono">
+    <div
+      ref="bottomEl"
+      class="relative z-10 p-4 md:p-8 flex flex-col gap-3 font-mono"
+    >
       <div class="flex items-end justify-between">
         <div>
           <span class="text-[0.65rem] tracking-widest uppercase opacity-60 block">INITIALIZING RUNWAY</span>
@@ -69,13 +89,15 @@ import { ref, computed, onMounted, nextTick } from 'vue'
 import { gsap, lenis } from '@/lenis'
 
 const emit = defineEmits<{
+  (e: 'start-transition'): void
   (e: 'complete'): void
 }>()
 
 const preloaderRoot = ref<HTMLElement | null>(null)
+const topMetaRef = ref<HTMLElement | null>(null)
 const starEl = ref<HTMLElement | null>(null)
 const titleEl = ref<HTMLElement | null>(null)
-const subEl = ref<HTMLElement | null>(null)
+const bottomEl = ref<HTMLElement | null>(null)
 
 const counter = ref(0)
 const isFinished = ref(false)
@@ -97,43 +119,30 @@ onMounted(async () => {
 
   await nextTick()
 
-  // Initial states
+  // Initial entry state of center logo & star
   gsap.set(titleEl.value, { yPercent: 100, opacity: 0 })
-  gsap.set(subEl.value, { y: 20, opacity: 0 })
-  gsap.set(starEl.value, { scale: 0.5, rotate: -45, opacity: 0 })
+  gsap.set(starEl.value, { scale: 0.4, rotate: -60, opacity: 0 })
 
-  // Entry timeline
   const tl = gsap.timeline()
 
   tl.to(starEl.value, {
     scale: 1,
     rotate: 0,
-    opacity: 0.9,
+    opacity: 1,
     duration: 0.8,
-    ease: 'power3.out',
-  })
-    .to(
-      titleEl.value,
-      {
-        yPercent: 0,
-        opacity: 1,
-        duration: 0.9,
-        ease: 'power4.out',
-      },
-      '-=0.5'
-    )
-    .to(
-      subEl.value,
-      {
-        y: 0,
-        opacity: 0.7,
-        duration: 0.6,
-        ease: 'power3.out',
-      },
-      '-=0.4'
-    )
+    ease: 'back.out(1.7)',
+  }).to(
+    titleEl.value,
+    {
+      yPercent: 0,
+      opacity: 1,
+      duration: 0.9,
+      ease: 'power4.out',
+    },
+    '-=0.5'
+  )
 
-  // Counter tween
+  // Counter animation
   const counterObj = { val: 0 }
   gsap.to(counterObj, {
     val: 100,
@@ -155,45 +164,102 @@ function triggerCurtainReveal() {
     return
   }
 
+  // Signal HeroSection to start revealing background media behind the lifting slats
+  emit('start-transition')
+
   const exitTl = gsap.timeline({
     onComplete: () => {
       finishPreloader()
     },
   })
 
-  // Fade out center text first
-  exitTl.to([titleEl.value, subEl.value, starEl.value], {
-    y: -30,
-    opacity: 0,
-    duration: 0.4,
-    ease: 'power2.in',
-  })
+  // 1. Fade out metadata and progress bar immediately
+  exitTl.to(
+    [topMetaRef.value, bottomEl.value],
+    {
+      y: 20,
+      opacity: 0,
+      duration: 0.35,
+      ease: 'power2.in',
+    },
+    0
+  )
 
-  // Lift 12 slats with staggered curtain reveal
+  // 2. Lift 12 slats with staggered curtain reveal
   exitTl.to(
     slats,
     {
       scaleY: 0,
-      duration: 0.9,
+      duration: 1.1,
       stagger: {
         amount: 0.35,
         from: 'center',
       },
       ease: 'expo.inOut',
     },
-    '-=0.1'
+    0.05
   )
 
-  // Fade out wrapper background
-  exitTl.to(
-    preloaderRoot.value,
-    {
-      opacity: 0,
-      duration: 0.2,
-      ease: 'none',
-    },
-    '-=0.2'
-  )
+  // 3. FLIP Handover: Animate "araki." title to target Hero Title slot
+  const heroTitle = document.getElementById('hero-title')
+  if (heroTitle && titleEl.value) {
+    const r1 = titleEl.value.getBoundingClientRect()
+    const r2 = heroTitle.getBoundingClientRect()
+
+    const scale = r2.height / r1.height
+    const deltaX = r2.left + r2.width / 2 - (r1.left + r1.width / 2)
+    const deltaY = r2.top + r2.height / 2 - (r1.top + r1.height / 2)
+
+    exitTl.to(
+      titleEl.value,
+      {
+        x: deltaX,
+        y: deltaY,
+        scale: scale,
+        color: '#12100E',
+        duration: 1.1,
+        ease: 'expo.inOut',
+      },
+      0.05
+    )
+  }
+
+  // 4. FLIP Handover: Animate Star vector to target Hero Star Slot
+  const heroStar = document.getElementById('hero-star-slot')
+  if (heroStar && starEl.value) {
+    const s1 = starEl.value.getBoundingClientRect()
+    const s2 = heroStar.getBoundingClientRect()
+
+    const scaleStar = s2.width / s1.width
+    const deltaStarX = s2.left + s2.width / 2 - (s1.left + s1.width / 2)
+    const deltaStarY = s2.top + s2.height / 2 - (s1.top + s1.height / 2)
+
+    const starPath = starEl.value.querySelector('path')
+    if (starPath) {
+      exitTl.to(
+        starPath,
+        {
+          fill: '#12100E',
+          duration: 1.1,
+          ease: 'expo.inOut',
+        },
+        0.05
+      )
+    }
+
+    exitTl.to(
+      starEl.value,
+      {
+        x: deltaStarX,
+        y: deltaStarY,
+        scale: scaleStar,
+        rotate: 360,
+        duration: 1.1,
+        ease: 'expo.inOut',
+      },
+      0.05
+    )
+  }
 }
 
 function finishPreloader() {
@@ -202,4 +268,3 @@ function finishPreloader() {
   emit('complete')
 }
 </script>
-

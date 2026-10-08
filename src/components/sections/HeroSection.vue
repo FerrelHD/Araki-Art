@@ -62,6 +62,7 @@
       >
         <div class="overflow-hidden w-full">
           <h1
+            id="hero-title"
             ref="titleRef"
             class="text-[clamp(3.8rem,19vw,15.5rem)] leading-[0.8] font-bold tracking-[-0.12em] select-none uppercase md:normal-case will-change-transform"
           >
@@ -93,7 +94,10 @@
       <div
         class="col-span-1 md:col-span-2 border-t md:border-t-0 md:border-l border-grid p-4 flex items-center justify-center group"
       >
-        <div class="relative w-16 h-16 md:w-20 md:h-20 flex items-center justify-center">
+        <div
+          id="hero-star-slot"
+          class="relative w-16 h-16 md:w-20 md:h-20 flex items-center justify-center"
+        >
           <!-- JoJo Star Birthmark Emblem (SVG) -->
           <svg
             ref="starIconRef"
@@ -123,7 +127,7 @@ const starIconRef = ref<SVGElement | null>(null)
 
 let ctx: gsap.Context | null = null
 
-function playIntroAnimation() {
+function playHandoverEntrance() {
   if (!heroRoot.value) return
 
   const tl = gsap.timeline()
@@ -131,30 +135,31 @@ function playIntroAnimation() {
   // Video container & portrait reveal
   tl.fromTo(
     [videoElRef.value, portraitImgRef.value],
-    { scale: 1.1, opacity: 0.6 },
+    { scale: 1.08, opacity: 0.6 },
     { scale: 1, opacity: 1, duration: 1.2, ease: 'power3.out' }
   )
-    // Title mask reveal
-    .fromTo(
-      titleRef.value,
-      { yPercent: 100 },
-      { yPercent: 0, duration: 1, ease: 'power4.out' },
-      '-=0.8'
-    )
     // Disciplines stagger
     .fromTo(
       '.discipline-item',
-      { opacity: 0, x: -20 },
-      { opacity: 1, x: 0, duration: 0.7, stagger: 0.15, ease: 'power3.out' },
-      '-=0.6'
+      { opacity: 0, x: -25 },
+      { opacity: 1, x: 0, duration: 0.8, stagger: 0.12, ease: 'power3.out' },
+      '-=0.7'
     )
-    // Star emblem spin reveal
-    .fromTo(
-      starIconRef.value,
-      { scale: 0, rotate: -90, opacity: 0 },
-      { scale: 1, rotate: 0, opacity: 1, duration: 0.8, ease: 'back.out(1.7)' },
-      '-=0.5'
-    )
+}
+
+function finalizeHandover() {
+  if (titleRef.value) {
+    gsap.set(titleRef.value, { opacity: 1, yPercent: 0, clearProps: 'transform' })
+  }
+  if (starIconRef.value) {
+    gsap.set(starIconRef.value, { opacity: 1, scale: 1, rotate: 0, clearProps: 'transform' })
+  }
+}
+
+// Fallback method
+function playIntroAnimation() {
+  playHandoverEntrance()
+  finalizeHandover()
 }
 
 onMounted(() => {
@@ -212,5 +217,7 @@ onUnmounted(() => {
 
 defineExpose({
   playIntroAnimation,
+  playHandoverEntrance,
+  finalizeHandover,
 })
 </script>
