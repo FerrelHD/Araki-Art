@@ -373,6 +373,69 @@
           </div>
         </div>
       </div>
+
+      <!-- Stand Manifestation Flash FX (Anime Burst) -->
+      <div class="space-y-2 border-b border-neutral-800/80 pb-2.5">
+        <div class="flex justify-between items-center">
+          <span class="text-[0.65rem] text-cyan-400 uppercase tracking-widest font-bold">
+            ✨ Manifestation Flash FX
+          </span>
+          <button
+            type="button"
+            @click="triggerFlash(600)"
+            class="px-2 py-0.5 text-[0.58rem] font-mono bg-cyan-400 hover:bg-cyan-300 text-neutral-950 font-bold uppercase cursor-pointer shadow-sm transition-colors"
+            title="Preview flash animation"
+          >
+            ⚡ Test Flash
+          </button>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2">
+          <div class="bg-neutral-900/90 p-2 border border-neutral-800">
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">Flash X</span>
+              <span class="text-cyan-300 font-bold font-mono text-[0.62rem]">{{ config.flashX ?? 0 }}px</span>
+            </div>
+            <input
+              type="range"
+              min="-120"
+              max="120"
+              step="1"
+              v-model.number="config.flashX"
+              class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none"
+            />
+          </div>
+          <div class="bg-neutral-900/90 p-2 border border-neutral-800">
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">Flash Y</span>
+              <span class="text-cyan-300 font-bold font-mono text-[0.62rem]">{{ config.flashY ?? -25 }}px</span>
+            </div>
+            <input
+              type="range"
+              min="-200"
+              max="100"
+              step="1"
+              v-model.number="config.flashY"
+              class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none"
+            />
+          </div>
+        </div>
+
+        <div class="bg-neutral-900/90 p-2 border border-neutral-800">
+          <div class="flex justify-between items-center mb-1">
+            <span class="text-neutral-300 text-[0.62rem] font-bold uppercase">Flash Scale / Size</span>
+            <span class="text-cyan-300 font-bold font-mono text-[0.65rem]">{{ (config.flashScale ?? 0.75).toFixed(2) }}x</span>
+          </div>
+          <input
+            type="range"
+            min="0.3"
+            max="1.6"
+            step="0.05"
+            v-model.number="config.flashScale"
+            class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none"
+          />
+        </div>
+      </div>
     </div>
 
     <!-- ── TAB 4: MANGA SPEECH BUBBLE ── -->
@@ -480,6 +543,7 @@ import { useValentineStage, defaultValentineConfig } from '@/composables/useVale
 const {
   config,
   isStandActive,
+  triggerFlash,
   showValentineAdjuster,
   editorTab,
   currentQuote,

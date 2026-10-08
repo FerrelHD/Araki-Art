@@ -32,6 +32,11 @@ export interface ValentineConfig {
 
   // Stand Watermark D4C
   watermarkOpacity: number
+
+  // Stand Manifestation Flash FX (Anime Burst)
+  flashX: number
+  flashY: number
+  flashScale: number
 }
 
 export const defaultValentineConfig: ValentineConfig = {
@@ -59,6 +64,10 @@ export const defaultValentineConfig: ValentineConfig = {
   bubbleScale: 1.28,
 
   watermarkOpacity: 6,
+
+  flashX: 0,
+  flashY: -25,
+  flashScale: 0.75,
 }
 
 const STORAGE_KEY = 'araki_valentine_universal_v8'
@@ -78,6 +87,21 @@ const loadSavedConfig = (): ValentineConfig => {
 // Global shared state across components (Persona 5 SkillsScreen architecture)
 const config = ref<ValentineConfig>(loadSavedConfig())
 const isStandActive = ref(false)
+const isManifesting = ref(false)
+let flashTimer: number | null = null
+
+const triggerFlash = (duration = 600) => {
+  if (flashTimer) {
+    clearTimeout(flashTimer)
+    flashTimer = null
+  }
+  isManifesting.value = true
+  flashTimer = window.setTimeout(() => {
+    isManifesting.value = false
+    flashTimer = null
+  }, duration)
+}
+
 const showValentineAdjuster = ref(false)
 const editorTab = ref<'char' | 'camera' | 'bubble' | 'kanji'>('char')
 const currentQuoteIdx = ref(0)
@@ -119,6 +143,7 @@ export function useValentineStage() {
     }
 
     isStandActive.value = true
+    triggerFlash(600)
 
     // Gracefully lock wheel scroll after the 750ms camera glide completes
     setTimeout(() => {
@@ -134,6 +159,11 @@ export function useValentineStage() {
 
   const handleResetCamera = () => {
     isStandActive.value = false
+    isManifesting.value = false
+    if (flashTimer) {
+      clearTimeout(flashTimer)
+      flashTimer = null
+    }
     // NOTE: lastFocusOrigin is deliberately preserved so that CSS transform-origin
     // stays pinned to the character's focus point while the camera smoothly scales back down to 1!
 
@@ -187,6 +217,8 @@ export function useValentineStage() {
   return {
     config,
     isStandActive,
+    isManifesting,
+    triggerFlash,
     showValentineAdjuster,
     editorTab,
     currentQuoteIdx,

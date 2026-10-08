@@ -260,13 +260,14 @@
               <div
                 v-if="isManifesting"
                 class="stand-flash-burst absolute inset-0 z-25 pointer-events-none flex items-center justify-center overflow-visible select-none"
+                :style="flashContainerStyle"
               >
-                <!-- Core Radial Energy Flare -->
-                <div class="stand-flash-core w-[130%] h-[130%] rounded-full"></div>
+                <!-- Core Radial Energy Flare (Focused & Sleek) -->
+                <div class="stand-flash-core w-[65%] h-[65%] rounded-full"></div>
                 <!-- Expanding Dimensional Shockwave Ring -->
-                <div class="stand-flash-ring absolute w-[90%] h-[90%] rounded-full border-2 border-cyan-300/90"></div>
+                <div class="stand-flash-ring absolute w-[55%] h-[55%] rounded-full border border-cyan-300/80"></div>
                 <!-- Vertical Dimensional Slash Ray -->
-                <div class="stand-flash-beam absolute w-2.5 sm:w-3.5 h-[160%] rounded-full"></div>
+                <div class="stand-flash-beam absolute w-2 sm:w-2.5 h-[110%] rounded-full"></div>
               </div>
 
               <!-- ── GIANT JOJO MENACING KANJI FX (ゴゴゴ) ── -->
@@ -384,29 +385,17 @@ interface CoverAdjustment {
 const {
   config,
   isStandActive,
+  isManifesting,
   currentQuoteIdx,
   currentQuote,
   handleSelectValentine,
   cycleQuote,
 } = useValentineStage()
 
-// ── D4C Stand Anime Manifestation Flash FX ──
-const isManifesting = ref(false)
-let flashTimer: number | null = null
-
-watch(isStandActive, (active) => {
-  if (flashTimer) {
-    clearTimeout(flashTimer)
-    flashTimer = null
-  }
-  if (active) {
-    isManifesting.value = true
-    flashTimer = window.setTimeout(() => {
-      isManifesting.value = false
-      flashTimer = null
-    }, 600)
-  } else {
-    isManifesting.value = false
+const flashContainerStyle = computed(() => {
+  return {
+    transform: `translate3d(${config.value.flashX ?? 0}px, ${config.value.flashY ?? -25}px, 0) scale(${config.value.flashScale ?? 0.75})`,
+    transformOrigin: 'center center',
   }
 })
 
@@ -792,7 +781,6 @@ onMounted(() => {
 
 onUnmounted(() => {
   ctx?.revert()
-  if (flashTimer) clearTimeout(flashTimer)
 })
 </script>
 
@@ -831,74 +819,74 @@ onUnmounted(() => {
 @keyframes standFlash {
   0% {
     opacity: 0;
-    transform: scale(0.6);
+    transform: scale(0.65);
   }
   16% {
     opacity: 1;
-    transform: scale(1.06);
+    transform: scale(1.02);
   }
   48% {
     opacity: 1;
-    transform: scale(1.18);
+    transform: scale(1.08);
   }
   75% {
     opacity: 0.7;
-    transform: scale(1.35);
+    transform: scale(1.15);
   }
   100% {
     opacity: 0;
-    transform: scale(1.52);
+    transform: scale(1.22);
   }
 }
 
 @keyframes standRing {
   0% {
     opacity: 0;
-    transform: scale(0.3);
+    transform: scale(0.4);
   }
   20% {
     opacity: 0.95;
   }
   100% {
     opacity: 0;
-    transform: scale(1.65);
+    transform: scale(1.28);
   }
 }
 
 @keyframes standBeam {
   0% {
     opacity: 0;
-    transform: scaleY(0.1) scaleX(2.5);
+    transform: scaleY(0.2) scaleX(2);
   }
   25% {
     opacity: 1;
-    transform: scaleY(1.2) scaleX(1);
+    transform: scaleY(1.05) scaleX(1);
   }
   100% {
     opacity: 0;
-    transform: scaleY(1.75) scaleX(0.15);
+    transform: scaleY(1.3) scaleX(0.2);
   }
 }
 
 .stand-flash-burst {
-  filter: drop-shadow(0 0 32px rgba(6, 182, 212, 0.8));
+  filter: drop-shadow(0 0 20px rgba(6, 182, 212, 0.7));
 }
 
 .stand-flash-core {
   background: radial-gradient(
-    circle at 50% 55%,
+    circle at 50% 50%,
     rgba(255, 255, 255, 1) 0%,
-    rgba(255, 255, 255, 0.96) 32%,
-    rgba(56, 189, 248, 0.88) 55%,
-    rgba(6, 182, 212, 0.45) 72%,
-    transparent 85%
+    rgba(255, 255, 255, 0.96) 28%,
+    rgba(56, 189, 248, 0.82) 48%,
+    rgba(6, 182, 212, 0.35) 64%,
+    transparent 78%
   );
   animation: standFlash 580ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
   will-change: transform, opacity;
 }
 
 .stand-flash-ring {
-  box-shadow: 0 0 24px rgba(56, 189, 248, 0.8), inset 0 0 16px rgba(56, 189, 248, 0.5);
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.75), inset 0 0 10px rgba(56, 189, 248, 0.4);
   animation: standRing 550ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
   will-change: transform, opacity;
 }
@@ -912,7 +900,7 @@ onUnmounted(() => {
     rgba(255, 255, 255, 0.95) 75%,
     transparent 100%
   );
-  box-shadow: 0 0 20px rgba(56, 189, 248, 0.9), 0 0 40px rgba(6, 182, 212, 0.65);
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.8), 0 0 24px rgba(6, 182, 212, 0.5);
   animation: standBeam 500ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
   will-change: transform, opacity;
 }
