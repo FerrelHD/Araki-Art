@@ -185,13 +185,16 @@ function triggerCurtainReveal() {
     const deltaX = r2.left + r2.width / 2 - (r1.left + r1.width / 2)
     const deltaY = r2.top + r2.height / 2 - (r1.top + r1.height / 2)
 
+    const primaryColor =
+      getComputedStyle(document.documentElement).getPropertyValue('--color-primary').trim() || '#fbf8f3'
+
     exitTl.to(
       titleEl.value,
       {
         x: deltaX,
         y: deltaY,
         scale: scale,
-        color: '#12100E',
+        color: primaryColor,
         duration: 1.15,
         ease: 'power3.inOut',
       },
@@ -211,10 +214,12 @@ function triggerCurtainReveal() {
 
     const starPath = starEl.value.querySelector('path')
     if (starPath) {
+      const primaryColor =
+        getComputedStyle(document.documentElement).getPropertyValue('--color-primary').trim() || '#fbf8f3'
       exitTl.to(
         starPath,
         {
-          fill: '#12100E',
+          fill: primaryColor,
           duration: 1.15,
           ease: 'power3.inOut',
         },

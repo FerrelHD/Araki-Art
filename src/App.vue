@@ -8,9 +8,9 @@
 
 
     <!-- Top Fixed Header & Marquee -->
-    <HeaderNav
-      :class="isStandActive ? 'opacity-20 pointer-events-none transition-opacity duration-600' : 'opacity-100 transition-opacity duration-600'"
-    />
+    <div :class="isStandActive ? 'opacity-20 pointer-events-none transition-opacity duration-600' : 'opacity-100 transition-opacity duration-600'">
+      <HeaderNav />
+    </div>
 
 
     <!-- ── VIRTUAL 2.5D CAMERA STAGE (EXACT PERSONA 5 / SKILLSSCREEN ARCHITECTURE) ── -->

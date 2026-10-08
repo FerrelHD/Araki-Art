@@ -8,30 +8,32 @@
   --color-brand-primary: var(--color-primary);
   --color-brand-accent: var(--color-accent);
   --color-brand-stand: var(--color-stand);
+  --color-brand-card-bg: var(--color-card-bg);
+  --color-brand-card-text: var(--color-card-text);
 }
 
 :root {
-  /* Default: Runway Editorial Mode (Option 1: Haute Couture Alabaster & Obsidian) */
-  --color-bg: #f8f7f4;
-  --color-primary: #0d0f0e;
-  --color-accent: #c59a3f;
-  --color-stand: #0891b2;
-  --color-border: rgba(13, 15, 14, 0.32);
-  --color-border-subtle: rgba(13, 15, 14, 0.15);
-  --color-card-bg: #0d0f0e;
-  --color-card-text: #f8f7f4;
+  /* Default: Menacing SBR Midnight Denim Mode */
+  --color-bg: #0b1220;
+  --color-primary: #fbf8f3;
+  --color-accent: #e11d48;
+  --color-stand: #38bdf8;
+  --color-border: rgba(251, 248, 243, 0.28);
+  --color-border-subtle: rgba(251, 248, 243, 0.12);
+  --color-card-bg: #162035;
+  --color-card-text: #fbf8f3;
 }
 
 [data-theme='shift'] {
-  /* Menacing JoJo Color Shift Mode */
-  --color-bg: #130920;
-  --color-primary: #e5f638;
-  --color-accent: #ff3377;
-  --color-stand: #38bdf8;
-  --color-border: rgba(229, 246, 56, 0.3);
-  --color-border-subtle: rgba(229, 246, 56, 0.15);
-  --color-card-bg: #221238;
-  --color-card-text: #e5f638;
+  /* Shift Mode: Johnny Joestar Runway Mode (Editorial Cerulean & Tusk Rose) */
+  --color-bg: #f4f7fb;
+  --color-primary: #0f172a;
+  --color-accent: #fb7185;
+  --color-stand: #0284c7;
+  --color-border: rgba(15, 23, 42, 0.28);
+  --color-border-subtle: rgba(15, 23, 42, 0.12);
+  --color-card-bg: #0f172a;
+  --color-card-text: #f4f7fb;
 }
 
 html {

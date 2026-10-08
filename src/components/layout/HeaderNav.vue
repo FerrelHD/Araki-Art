@@ -66,18 +66,18 @@
       <button
         type="button"
         @click="toggleTheme"
-        :aria-label="isShiftMode ? 'Switch to Runway Palette' : 'Switch to Menacing Palette'"
+        :aria-label="isShiftMode ? 'Switch to Menacing Palette' : 'Switch to Runway Palette'"
         class="group/roll flex h-full cursor-pointer items-center gap-2.5 px-4 md:px-5 transition-colors hover:bg-brand-primary hover:text-brand-bg mr-14 md:mr-16 outline-none"
       >
         <span class="relative block shrink-0 overflow-hidden leading-[1.3] text-[0.65rem] tracking-[0.16em] uppercase font-mono font-medium">
           <span class="block transition-transform duration-[450ms] ease-[cubic-bezier(0.65,0,0.35,1)] group-hover/roll:translate-y-full">
-            {{ isShiftMode ? 'MENACING' : 'RUNWAY' }}
+            {{ isShiftMode ? 'RUNWAY' : 'MENACING' }}
           </span>
           <span
             aria-hidden="true"
             class="absolute inset-0 block -translate-y-full transition-transform duration-[450ms] ease-[cubic-bezier(0.65,0,0.35,1)] group-hover/roll:translate-y-0"
           >
-            {{ isShiftMode ? 'RUNWAY' : 'MENACING' }}
+            {{ isShiftMode ? 'MENACING' : 'RUNWAY' }}
           </span>
         </span>
         <!-- Indicator square dot -->
@@ -87,7 +87,7 @@
         >
           <span
             class="absolute inset-0 bg-brand-primary transition-transform duration-300 group-hover:bg-brand-bg"
-            :class="isShiftMode ? 'translate-x-0 bg-amber-400' : 'translate-x-full'"
+            :class="isShiftMode ? 'translate-x-full' : 'translate-x-0 bg-brand-accent'"
           ></span>
         </span>
       </button>

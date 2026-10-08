@@ -117,7 +117,7 @@
 
                     <!-- SISI KANAN: Capsule Information Panel (Gaya A: Dark Editorial, Clean, Breathing Room) -->
                     <div
-                      class="flex-1 bg-brand-primary text-brand-bg p-4 sm:p-5 lg:p-5 xl:p-7 2xl:p-8 flex flex-col justify-between min-h-0 overflow-y-auto no-scrollbar"
+                      class="flex-1 bg-brand-card-bg text-brand-card-text p-4 sm:p-5 lg:p-5 xl:p-7 2xl:p-8 flex flex-col justify-between min-h-0 overflow-y-auto no-scrollbar border-l border-grid transition-colors duration-500"
                     >
                       <!-- Bagian Atas: Metadata, Judul, Kategori & Sinopsis dengan Spasi Bernapas -->
                       <div class="flex flex-col gap-2 sm:gap-2.5 lg:gap-2.5 xl:gap-3.5">
@@ -129,7 +129,7 @@
                         </div>
 
                         <!-- Judul Part (Clean Display Typography) -->
-                        <h3 class="text-lg sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-bold tracking-tight leading-[1.15] text-brand-bg">
+                        <h3 class="text-lg sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-bold tracking-tight leading-[1.15] text-brand-card-text">
                           {{ capsule.title }}
                         </h3>
 
@@ -155,7 +155,7 @@
                       </div>
 
                       <!-- Bagian Bawah: Tombol View Archive di Paling Bawah Rata Kanan -->
-                      <div class="pt-3 sm:pt-3.5 xl:pt-4 border-t border-brand-bg/15 flex items-center justify-between shrink-0 mt-2.5 sm:mt-3 xl:mt-4">
+                      <div class="pt-3 sm:pt-3.5 xl:pt-4 border-t border-brand-card-text/15 flex items-center justify-between shrink-0 mt-2.5 sm:mt-3 xl:mt-4">
                         <span class="font-mono text-[0.55rem] sm:text-[0.58rem] tracking-widest uppercase opacity-40 hidden sm:inline">
                           OFFICIAL ARCHIVE
                         </span>
@@ -163,7 +163,7 @@
                           :href="capsule.link"
                           target="_blank"
                           rel="noopener noreferrer"
-                          class="group/roll inline-flex items-center gap-1.5 sm:gap-2 text-[0.68rem] sm:text-xs xl:text-[0.78rem] font-mono font-medium tracking-[0.16em] uppercase text-brand-bg hover:opacity-75 transition-opacity cursor-pointer ml-auto"
+                          class="group/roll inline-flex items-center gap-1.5 sm:gap-2 text-[0.68rem] sm:text-xs xl:text-[0.78rem] font-mono font-medium tracking-[0.16em] uppercase text-brand-card-text hover:opacity-75 transition-opacity cursor-pointer ml-auto"
                         >
                           <RollingText text="view archive" />
                           <span class="text-xs xl:text-[0.78rem] transition-transform duration-300 group-hover/roll:translate-x-1">></span>
