@@ -13,19 +13,8 @@
       ></div>
     </div>
 
-    <!-- Top Metadata Bar -->
-    <div
-      ref="topMetaRef"
-      class="relative z-10 flex items-center justify-between p-4 md:p-8 font-mono text-[0.65rem] md:text-xs tracking-[0.2em] uppercase opacity-75"
-    >
-      <div class="flex items-center gap-2.5">
-        <span class="inline-block w-2 h-2 rounded-full bg-brand-accent animate-pulse"></span>
-        <span>HIROHIKO ARAKI · ARCHIVE</span>
-      </div>
-      <div class="hidden sm:block">
-        <span>RUNWAY CATWALK · 1987-2026</span>
-      </div>
-    </div>
+    <!-- Top Spacer (Clean Minimalist - No Text) -->
+    <div class="h-8 md:h-12"></div>
 
     <!-- Center Kinetic Wordmark & Star (The Handover Passengers) -->
     <div
@@ -47,11 +36,11 @@
         </svg>
       </div>
 
-      <!-- Monumental Title Matching Hero Typography -->
-      <div class="overflow-hidden">
+      <!-- Monumental Title Matching Hero Typography (No clipping) -->
+      <div class="overflow-hidden pb-4 md:pb-6">
         <h1
           ref="titleEl"
-          class="text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-[-0.12em] leading-none uppercase md:normal-case will-change-transform"
+          class="text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-[-0.12em] leading-[0.9] uppercase md:normal-case will-change-transform pb-1"
         >
           araki.
         </h1>
@@ -94,7 +83,6 @@ const emit = defineEmits<{
 }>()
 
 const preloaderRoot = ref<HTMLElement | null>(null)
-const topMetaRef = ref<HTMLElement | null>(null)
 const starEl = ref<HTMLElement | null>(null)
 const titleEl = ref<HTMLElement | null>(null)
 const bottomEl = ref<HTMLElement | null>(null)
@@ -173,9 +161,9 @@ function triggerCurtainReveal() {
     },
   })
 
-  // 1. Fade out metadata and progress bar immediately
+  // 1. Fade out progress bar immediately
   exitTl.to(
-    [topMetaRef.value, bottomEl.value],
+    bottomEl.value,
     {
       y: 20,
       opacity: 0,

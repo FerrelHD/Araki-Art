@@ -60,11 +60,11 @@
       <div
         class="col-span-4 md:col-span-7 flex items-end px-3 py-3 md:px-5 md:py-6 overflow-hidden"
       >
-        <div class="overflow-hidden w-full">
+        <div class="overflow-hidden w-full pb-3 md:pb-6">
           <h1
             id="hero-title"
             ref="titleRef"
-            class="text-[clamp(3.8rem,19vw,15.5rem)] leading-[0.8] font-bold tracking-[-0.12em] select-none uppercase md:normal-case will-change-transform"
+            class="text-[clamp(3.8rem,19vw,15.5rem)] leading-[0.88] font-bold tracking-[-0.12em] select-none uppercase md:normal-case will-change-transform pb-1"
           >
             araki.
           </h1>
