@@ -272,32 +272,6 @@
                 </div>
               </div>
 
-              <!-- Interactive Summon Hint Badge (Pill) - Mode Idle -->
-              <div
-                v-if="!isStandActive"
-                class="absolute bottom-2 z-30 transition-all duration-300 opacity-85 group-hover/muse:opacity-100 group-hover/muse:scale-105"
-              >
-                <div
-                  class="flex items-center gap-1.5 bg-black/85 text-white border border-white/20 px-2.5 py-1 font-mono text-[0.58rem] tracking-wider uppercase backdrop-blur-xs shadow-lg"
-                >
-                  <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
-                  <span>✦ CLICK TO SUMMON D4C // ANIME SNAP ZOOM</span>
-                </div>
-              </div>
-
-              <!-- Dismiss Hint Badge (Pill) - Mode Stand -->
-              <div
-                v-else
-                @click.stop="handleResetCamera"
-                class="absolute -bottom-8 z-30 transition-all duration-300 cursor-pointer hover:scale-105"
-              >
-                <div
-                  class="flex items-center gap-1.5 bg-black/90 text-white border border-cyan-400/60 px-3 py-1 font-mono text-[0.62rem] tracking-wider uppercase backdrop-blur-xs shadow-xl hover:bg-neutral-900"
-                >
-                  <span class="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse"></span>
-                  <span>✕ DISMISS FOCUS (ESC)</span>
-                </div>
-              </div>
             </div>
 
             <!-- Bottom Runway Metadata -->
@@ -351,7 +325,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import RollingText from '@/components/common/RollingText.vue'
-import { gsap } from '@/lenis'
+import { gsap, lenis } from '@/lenis'
 import { useValentineStage } from '@/composables/useValentineStage'
 
 interface Capsule {
@@ -379,7 +353,6 @@ const {
   currentQuoteIdx,
   currentQuote,
   handleSelectValentine,
-  handleResetCamera,
   cycleQuote,
 } = useValentineStage()
 
@@ -387,6 +360,13 @@ const handleValentineClick = () => {
   if (isStandActive.value) {
     cycleQuote()
     return
+  }
+
+  // Auto-snap scroll to #capsules so that framing is 100% identical and consistent on every click
+  try {
+    lenis?.scrollTo('#capsules', { immediate: true })
+  } catch {
+    // ignore
   }
 
   handleSelectValentine({
