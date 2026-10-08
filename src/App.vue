@@ -29,26 +29,6 @@
       style="transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1)"
     />
 
-    <!-- ── ANIME SPEED LINES FLASH IMPACT OVERLAY (Z-INDEX 50) ── -->
-    <div
-      v-if="showSpeedlines"
-      class="pointer-events-none fixed inset-0 z-50 overflow-hidden"
-    >
-      <svg class="w-full h-full opacity-70" viewBox="0 0 1000 1000" preserveAspectRatio="none">
-        <line
-          v-for="line in speedlineLines"
-          :key="line.id"
-          :x1="line.x1"
-          :y1="line.y1"
-          :x2="line.x2"
-          :y2="line.y2"
-          :stroke="line.stroke"
-          :stroke-width="line.width"
-          stroke-dasharray="80 160"
-        />
-      </svg>
-    </div>
-
     <!-- ── VIRTUAL 2.5D CAMERA STAGE (EXACT PERSONA 5 / SKILLSSCREEN ARCHITECTURE) ── -->
     <div
       id="camera-world"
@@ -113,7 +93,6 @@ const heroSectionRef = ref<any>(null)
 const {
   config,
   isStandActive,
-  showSpeedlines,
   showValentineAdjuster,
   lastFocusOrigin,
   handleResetCamera,
@@ -131,29 +110,6 @@ const cameraStageStyle = computed(() => {
     WebkitBackfaceVisibility: 'hidden' as const,
     willChange: 'transform' as const,
   }
-})
-
-// Dynamic radial speedlines shooting outward from Valentine's focal coordinates
-const speedlineLines = computed(() => {
-  const cx = lastFocusOrigin.value.originX * 10
-  const cy = lastFocusOrigin.value.originY * 10
-  const count = 28
-  const lines = []
-  for (let i = 0; i < count; i++) {
-    const angle = (i * (360 / count) * Math.PI) / 180
-    const x2 = cx + Math.cos(angle) * 1200
-    const y2 = cy + Math.sin(angle) * 1200
-    lines.push({
-      id: i,
-      x1: cx,
-      y1: cy,
-      x2,
-      y2,
-      stroke: i % 2 === 0 ? '#06b6d4' : '#ffffff',
-      width: i % 4 === 0 ? '3.5' : '1.8',
-    })
-  }
-  return lines
 })
 
 function onIntroStartTransition() {

@@ -78,7 +78,6 @@ const loadSavedConfig = (): ValentineConfig => {
 // Global shared state across components (Persona 5 SkillsScreen architecture)
 const config = ref<ValentineConfig>(loadSavedConfig())
 const isStandActive = ref(false)
-const showSpeedlines = ref(false)
 const showValentineAdjuster = ref(false)
 const editorTab = ref<'char' | 'camera' | 'bubble' | 'kanji'>('char')
 const currentQuoteIdx = ref(0)
@@ -89,8 +88,6 @@ const lastFocusOrigin = ref<{ originX: number; originY: number }>({
   originX: config.value.cameraOriginX,
   originY: config.value.cameraOriginY,
 })
-
-let speedlinesTimer: ReturnType<typeof setTimeout> | null = null
 
 export const valentineQuotes = [
   "Dojyaaa~~n!",
@@ -116,15 +113,6 @@ watch(
 
 export function useValentineStage() {
   const handleSelectValentine = (origin?: { originX: number; originY: number }) => {
-    if (speedlinesTimer) {
-      clearTimeout(speedlinesTimer)
-    }
-    showSpeedlines.value = true
-    speedlinesTimer = setTimeout(() => {
-      showSpeedlines.value = false
-      speedlinesTimer = null
-    }, 400)
-
     lastFocusOrigin.value = origin || {
       originX: config.value.cameraOriginX,
       originY: config.value.cameraOriginY,
@@ -190,7 +178,6 @@ export function useValentineStage() {
   return {
     config,
     isStandActive,
-    showSpeedlines,
     showValentineAdjuster,
     editorTab,
     currentQuoteIdx,
