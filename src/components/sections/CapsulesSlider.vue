@@ -2,29 +2,29 @@
   <section
     id="capsules"
     ref="capsulesRoot"
-    class="border-b border-grid text-brand-primary overflow-visible relative z-20 min-h-screen flex flex-col justify-between"
+    class="border-b border-grid text-brand-primary overflow-hidden relative z-20 h-screen max-h-screen flex flex-col justify-between"
   >
     <div class="grid grid-cols-4 md:grid-cols-12 flex-1 min-h-0">
       <!-- 10 Columns Centered Container -->
       <div
-        class="col-span-4 md:col-span-10 md:col-start-2 border-x border-grid flex flex-col justify-between min-h-0 pt-16 md:pt-24 lg:pt-28"
+        class="col-span-4 md:col-span-10 md:col-start-2 border-x border-grid flex flex-col justify-between min-h-0 pt-14 md:pt-16"
       >
-        <!-- Section Title (Generous Editorial Spacing & Gap) -->
-        <div class="border-b border-grid px-4 py-5 md:px-6 md:py-7 overflow-hidden flex items-baseline justify-between shrink-0">
+        <!-- Section Title (Compact Editorial Bar) -->
+        <div class="border-b border-grid px-4 py-2 sm:px-6 sm:py-2.5 overflow-hidden flex items-baseline justify-between shrink-0">
           <div>
-            <div class="flex items-center gap-3 mb-1">
-              <p class="text-[0.62rem] font-bold tracking-[0.2em] uppercase font-mono opacity-60">
+            <div class="flex items-center gap-2.5 mb-0.5">
+              <p class="text-[0.58rem] font-bold tracking-[0.2em] uppercase font-mono opacity-60">
                 selected
               </p>
               <span class="text-xs opacity-20">/</span>
-              <span class="font-mono text-[0.62rem] tracking-widest uppercase opacity-40">
+              <span class="font-mono text-[0.58rem] tracking-widest uppercase opacity-40">
                 MANGA COVER ARCHIVE · 01-09
               </span>
             </div>
             <div class="overflow-hidden">
               <h2
                 ref="headingRef"
-                class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-[-0.06em] leading-none will-change-transform"
+                class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-[-0.06em] leading-none will-change-transform"
               >
                 capsules.
               </h2>
@@ -33,35 +33,35 @@
         </div>
 
         <!-- Slider Main Grid: Left 6 cols interactive + Right 4 cols Flamboyant Duo Pop-Out -->
-        <div class="grid grid-cols-4 md:grid-cols-10 flex-1 min-h-0 overflow-visible">
+        <div class="grid grid-cols-4 md:grid-cols-10 flex-1 min-h-0 overflow-hidden">
           <!-- Left 6 Columns: Interactive Capsule Card & Vertical Thumbnails (Higher z-index) -->
           <div
             class="relative z-30 col-span-4 md:col-span-10 lg:col-span-6 lg:border-r border-grid flex flex-col justify-between min-h-0"
           >
             <!-- Top Container: Vertical Thumbnails Strip + Active Project Showcase (Stretched to PREV/NEXT) -->
-            <div class="flex flex-1 border-b border-grid min-h-0">
+            <div class="flex flex-1 border-b border-grid min-h-0 overflow-hidden">
               
-              <!-- Left Vertical Thumbnail Strip (Hover to switch 9 Parts) -->
+              <!-- Left Vertical Thumbnail Strip (Hover to switch 9 Parts, compact flex-1) -->
               <div
-                class="flex w-14 sm:w-16 md:w-20 shrink-0 flex-col border-r border-grid select-none overflow-y-auto no-scrollbar max-h-full"
+                class="flex w-12 sm:w-14 md:w-16 shrink-0 flex-col border-r border-grid select-none overflow-hidden h-full"
               >
                 <button
-                  v-for="(capsule, idx) in capsules"
-                  :key="capsule.id"
+                  v-for="(_, idx) in capsules"
+                  :key="capsules[idx].id"
                   type="button"
                   @mouseenter="goToSlide(idx)"
                   @click="goToSlide(idx)"
-                  class="relative w-full flex-1 min-h-[46px] cursor-pointer overflow-hidden border-b last:border-b-0 border-grid transition-all duration-300 group"
+                  class="relative w-full flex-1 min-h-0 cursor-pointer overflow-hidden border-b last:border-b-0 border-grid transition-all duration-300 group"
                   :class="activeIdx === idx ? 'opacity-100 ring-2 ring-inset ring-brand-primary' : 'opacity-40 hover:opacity-90'"
-                  :aria-label="'Select ' + capsule.title"
+                  :aria-label="'Select ' + capsules[idx].title"
                 >
                   <img
-                    :src="capsule.image"
-                    :alt="capsule.title"
+                    :src="capsules[idx].image"
+                    :alt="capsules[idx].title"
                     class="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-110"
                   />
                   <!-- Small number index on thumbnail -->
-                  <span class="absolute bottom-0.5 right-0.5 bg-black/80 text-white text-[0.52rem] font-mono px-1 font-bold">
+                  <span class="absolute bottom-0.5 right-0.5 bg-black/80 text-white text-[0.48rem] font-mono px-0.5 font-bold leading-none">
                     0{{ idx + 1 }}
                   </span>
                 </button>
@@ -84,47 +84,47 @@
                   <div
                     v-for="(capsule, idx) in capsules"
                     :key="capsule.id"
-                    class="w-full h-full shrink-0 flex flex-col justify-between min-h-0"
+                    class="w-full h-full shrink-0 flex flex-col justify-between min-h-0 overflow-hidden"
                   >
-                    <!-- Capsule Information Block (Titel di Atas, Tombol Besar di Bawah) -->
+                    <!-- Capsule Information Block (Slim 1-Line Bar) -->
                     <div
-                      class="w-full bg-brand-primary text-brand-bg px-6 py-6 md:px-8 md:py-8 flex flex-col justify-between gap-8 md:gap-10 border-b border-grid shrink-0"
+                      class="w-full bg-brand-primary text-brand-bg px-4 py-2.5 sm:px-6 sm:py-3 flex items-center justify-between gap-4 border-b border-grid shrink-0"
                     >
-                      <!-- Baris Atas: Judul Part di Kiri, Kategori & Tahun di Kanan -->
-                      <div class="flex items-baseline justify-between gap-4">
-                        <h3 class="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight truncate">
+                      <!-- Judul Part & Kategori -->
+                      <div class="flex items-baseline gap-3 min-w-0">
+                        <h3 class="text-base sm:text-lg md:text-xl font-bold tracking-tight truncate">
                           {{ capsule.title }}
                         </h3>
-                        <span class="text-[0.65rem] sm:text-[0.72rem] font-mono uppercase tracking-[0.2em] opacity-65 shrink-0">
+                        <span class="text-[0.6rem] sm:text-[0.65rem] font-mono uppercase tracking-[0.18em] opacity-65 truncate hidden sm:inline">
                           {{ capsule.category }} · {{ capsule.year }}
                         </span>
                       </div>
 
-                      <!-- Baris Bawah: Tombol View Archive Lebih Besar & Rata Kanan -->
-                      <div class="flex justify-end items-center">
+                      <!-- Tombol View Archive Rata Kanan -->
+                      <div class="flex items-center shrink-0">
                         <a
                           :href="capsule.link"
                           target="_blank"
                           rel="noopener noreferrer"
-                          class="group/roll inline-flex items-center gap-2.5 text-base md:text-lg font-mono font-medium tracking-wider uppercase text-brand-bg hover:opacity-75 transition-opacity"
+                          class="group/roll inline-flex items-center gap-1.5 text-xs font-mono font-medium tracking-wider uppercase text-brand-bg hover:opacity-75 transition-opacity"
                         >
                           <RollingText text="view archive" />
-                          <span class="text-lg md:text-xl transition-transform duration-300 group-hover/roll:translate-x-1.5">></span>
+                          <span class="text-sm transition-transform duration-300 group-hover/roll:translate-x-1">></span>
                         </a>
                       </div>
                     </div>
 
-                    <!-- Large Visual Container (Full Bleed Cover Filling Space Down to PREV/NEXT) -->
-                    <div class="relative block w-full flex-1 overflow-hidden bg-black/10 group select-none min-h-0">
-                      <div class="w-full h-full overflow-hidden">
+                    <!-- Visual Container: Clean Centered Fit Without Scroll -->
+                    <div class="relative w-full flex-1 overflow-hidden bg-neutral-950/5 group select-none min-h-0 flex items-center justify-center p-2 sm:p-3">
+                      <div class="w-full h-full flex items-center justify-center overflow-hidden">
                         <img
                           :src="capsule.image"
                           :alt="capsule.title"
-                          class="h-full w-full object-cover transition-transform duration-500 ease-out"
+                          class="h-full w-full object-contain transition-transform duration-500 ease-out select-none drop-shadow-md"
                           :style="getCoverStyle(idx)"
                         />
                       </div>
-                      <div class="absolute inset-0 bg-brand-primary/5 pointer-events-none z-10"></div>
+                      <div class="absolute inset-0 bg-brand-primary/[0.02] pointer-events-none z-10"></div>
                     </div>
                   </div>
                 </div>
@@ -133,24 +133,24 @@
                 <button
                   type="button"
                   @click="showAdjuster = !showAdjuster"
-                  class="absolute top-3 right-3 z-40 bg-neutral-950/90 hover:bg-neutral-900 text-white px-3 py-1.5 text-[0.68rem] font-mono tracking-wider uppercase border border-neutral-700/80 shadow-lg backdrop-blur-sm transition-all flex items-center gap-2 cursor-pointer select-none"
+                  class="absolute top-2.5 right-2.5 z-40 bg-neutral-950/90 hover:bg-neutral-900 text-white px-2.5 py-1 text-[0.65rem] font-mono tracking-wider uppercase border border-neutral-700/80 shadow-lg backdrop-blur-sm transition-all flex items-center gap-1.5 cursor-pointer select-none"
                   :class="showAdjuster ? 'ring-1 ring-amber-400 text-amber-300' : ''"
                   title="Buka Live Cover Editor"
                 >
                   <span class="w-1.5 h-1.5 rounded-full" :class="showAdjuster ? 'bg-amber-400 animate-pulse' : 'bg-neutral-400'"></span>
                   <span>{{ showAdjuster ? 'TUTUP EDITOR' : '⚙ ATUR COVER' }}</span>
-                  <span class="opacity-60 text-[0.6rem] bg-neutral-800 px-1 py-0.5">P0{{ activeIdx + 1 }}</span>
+                  <span class="opacity-60 text-[0.58rem] bg-neutral-800 px-1 py-0.5">P0{{ activeIdx + 1 }}</span>
                 </button>
               </div>
             </div>
 
             <!-- Bottom Prev / Next Nav Buttons (50% / 50% split) -->
-            <div class="flex h-11 md:h-13 border-b border-grid shrink-0">
+            <div class="flex h-9 sm:h-10 md:h-11 border-b border-grid shrink-0">
               <button
                 type="button"
                 @click="prevSlide"
                 aria-label="Previous capsule"
-                class="flex flex-1 cursor-pointer items-center justify-center border-r border-grid text-sm md:text-base font-mono tracking-wider transition-colors hover:bg-brand-primary hover:text-brand-bg select-none"
+                class="flex flex-1 cursor-pointer items-center justify-center border-r border-grid text-xs sm:text-sm font-mono tracking-wider transition-colors hover:bg-brand-primary hover:text-brand-bg select-none"
               >
                 ← PREV
               </button>
@@ -158,7 +158,7 @@
                 type="button"
                 @click="nextSlide"
                 aria-label="Next capsule"
-                class="flex flex-1 cursor-pointer items-center justify-center text-sm md:text-base font-mono tracking-wider transition-colors hover:bg-brand-primary hover:text-brand-bg select-none"
+                class="flex flex-1 cursor-pointer items-center justify-center text-xs sm:text-sm font-mono tracking-wider transition-colors hover:bg-brand-primary hover:text-brand-bg select-none"
               >
                 NEXT →
               </button>
@@ -167,29 +167,29 @@
 
           <!-- Right 4 Columns: High-Fashion Freestanding Muse (Funny Valentine - Overlapping Banner Above) -->
           <div
-            class="group/side relative z-30 hidden lg:col-span-4 lg:flex flex-col justify-end overflow-visible px-4 pb-2 bg-brand-primary/[0.015] border-b border-grid min-h-0 select-none"
+            class="group/side relative z-30 hidden lg:col-span-4 lg:flex flex-col justify-end overflow-hidden px-4 pb-2 bg-brand-primary/[0.015] border-b border-grid min-h-0 select-none"
           >
             <!-- Watermark Background -->
-            <div class="absolute -top-10 right-4 font-mono text-[8rem] xl:text-[11rem] font-bold leading-none opacity-5 select-none pointer-events-none">
+            <div class="absolute -top-6 right-2 font-mono text-[7rem] xl:text-[9rem] font-bold leading-none opacity-5 select-none pointer-events-none">
               D4C
             </div>
 
-            <!-- Pop-out Cutout Container: Funny Valentine with D4C (Dynamic Live Overlap, NO drop-shadow) -->
+            <!-- Pop-out Cutout Container: Funny Valentine with D4C (Clean Fit, NO drop-shadow) -->
             <div class="relative w-full flex-1 min-h-0 flex items-end justify-center overflow-visible pointer-events-none">
               <div
                 class="relative h-full w-full flex items-end justify-center origin-bottom z-30 pointer-events-none"
-                style="transform: translate(0px, -280px) scale(1.72);"
+                style="transform: translate(0px, -20px) scale(1.15);"
               >
                 <img
                   src="/images/flamboyant-duo.png"
                   alt="Funny Valentine & D4C Runway Cutout"
-                  class="h-full w-auto max-h-[580px] xl:max-h-[660px] object-contain object-bottom filter contrast-110 pointer-events-none select-none"
+                  class="h-full w-auto max-h-[440px] xl:max-h-[500px] object-contain object-bottom filter contrast-110 pointer-events-none select-none"
                 />
               </div>
             </div>
 
             <!-- Bottom Runway Metadata -->
-            <div class="relative z-10 pt-1.5 border-t border-grid/40 flex justify-between items-center text-[0.58rem] font-mono opacity-65 shrink-0 pointer-events-none">
+            <div class="relative z-10 pt-1 border-t border-grid/40 flex justify-between items-center text-[0.55rem] font-mono opacity-65 shrink-0 pointer-events-none">
               <span class="tracking-wider uppercase">FIGURE: FUNNY VALENTINE [D4C]</span>
               <span class="tracking-widest">STEEL BALL RUN ARCHIVE</span>
             </div>
@@ -202,10 +202,10 @@
     <a
       href="#anatomy"
       aria-label="view runway anatomy"
-      class="group/marquee relative block h-9 md:h-11 overflow-hidden border-t border-grid transition-colors hover:bg-brand-primary hover:text-brand-bg shrink-0"
+      class="group/marquee relative block h-8 md:h-9 overflow-hidden border-t border-grid transition-colors hover:bg-brand-primary hover:text-brand-bg shrink-0"
     >
       <div
-        class="animate-marquee-fast flex h-full w-max items-center text-[0.68rem] tracking-[0.2em] font-mono uppercase group-hover/marquee:[animation-play-state:paused]"
+        class="animate-marquee-fast flex h-full w-max items-center text-[0.62rem] tracking-[0.2em] font-mono uppercase group-hover/marquee:[animation-play-state:paused]"
       >
         <span class="flex shrink-0 items-center">
           <span
@@ -275,6 +275,77 @@
 
       <!-- Sliders Section -->
       <div class="mt-3.5 space-y-3">
+        <!-- Display Mode (Contain vs Cover) -->
+        <div class="flex items-center justify-between bg-neutral-900/90 p-2 border border-neutral-800">
+          <span class="text-neutral-300 uppercase tracking-wider text-[0.62rem] font-bold">Display Mode</span>
+          <div class="flex gap-1">
+            <button
+              type="button"
+              @click="currentAdjustment.fitMode = 'contain'"
+              class="px-2 py-0.5 text-[0.6rem] font-bold border transition-colors cursor-pointer"
+              :class="currentAdjustment.fitMode !== 'cover' ? 'bg-amber-400 text-neutral-950 border-amber-400' : 'bg-neutral-800 text-neutral-400 border-neutral-700'"
+            >
+              Contain (Utuh)
+            </button>
+            <button
+              type="button"
+              @click="currentAdjustment.fitMode = 'cover'"
+              class="px-2 py-0.5 text-[0.6rem] font-bold border transition-colors cursor-pointer"
+              :class="currentAdjustment.fitMode === 'cover' ? 'bg-amber-400 text-neutral-950 border-amber-400' : 'bg-neutral-800 text-neutral-400 border-neutral-700'"
+            >
+              Cover (Full)
+            </button>
+          </div>
+        </div>
+
+        <!-- Scale (Zoom / Perkecil) Slider -->
+        <div class="bg-neutral-900/90 p-2.5 border border-neutral-800">
+          <div class="flex justify-between items-center mb-1.5">
+            <span class="text-neutral-300 uppercase tracking-wider text-[0.65rem] font-bold">Scale (Ukuran)</span>
+            <span class="px-1.5 py-0.5 bg-neutral-800 border border-neutral-700 text-amber-300 font-mono text-[0.68rem] font-bold">
+              {{ currentAdjustment.scale.toFixed(2) }}x
+            </span>
+          </div>
+          <input
+            type="range"
+            min="0.5"
+            max="2.0"
+            step="0.02"
+            v-model.number="currentAdjustment.scale"
+            class="w-full accent-amber-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none"
+          />
+          <div class="flex justify-between gap-1 mt-1.5">
+            <button
+              type="button"
+              @click="currentAdjustment.scale = 0.8"
+              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
+            >
+              0.8x Kecil
+            </button>
+            <button
+              type="button"
+              @click="currentAdjustment.scale = 1.0"
+              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
+            >
+              1.0x Normal
+            </button>
+            <button
+              type="button"
+              @click="currentAdjustment.scale = 1.15"
+              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
+            >
+              1.15x
+            </button>
+            <button
+              type="button"
+              @click="currentAdjustment.scale = 1.3"
+              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
+            >
+              1.3x Besar
+            </button>
+          </div>
+        </div>
+
         <!-- Horizontal X Slider -->
         <div class="bg-neutral-900/90 p-2.5 border border-neutral-800">
           <div class="flex justify-between items-center mb-1.5">
@@ -363,54 +434,6 @@
             </button>
           </div>
         </div>
-
-        <!-- Scale (Zoom) Slider -->
-        <div class="bg-neutral-900/90 p-2.5 border border-neutral-800">
-          <div class="flex justify-between items-center mb-1.5">
-            <span class="text-neutral-300 uppercase tracking-wider text-[0.65rem] font-bold">Scale / Zoom</span>
-            <span class="px-1.5 py-0.5 bg-neutral-800 border border-neutral-700 text-amber-300 font-mono text-[0.68rem] font-bold">
-              {{ currentAdjustment.scale.toFixed(2) }}x
-            </span>
-          </div>
-          <input
-            type="range"
-            min="0.8"
-            max="2.5"
-            step="0.02"
-            v-model.number="currentAdjustment.scale"
-            class="w-full accent-amber-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none"
-          />
-          <div class="flex justify-between gap-1 mt-1.5">
-            <button
-              type="button"
-              @click="currentAdjustment.scale = 1.0"
-              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
-            >
-              1.0x Normal
-            </button>
-            <button
-              type="button"
-              @click="currentAdjustment.scale = 1.15"
-              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
-            >
-              1.15x
-            </button>
-            <button
-              type="button"
-              @click="currentAdjustment.scale = 1.3"
-              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
-            >
-              1.3x
-            </button>
-            <button
-              type="button"
-              @click="currentAdjustment.scale = 1.5"
-              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
-            >
-              1.5x
-            </button>
-          </div>
-        </div>
       </div>
 
       <!-- Presets & Reset -->
@@ -478,21 +501,22 @@ interface CoverAdjustment {
   posX: number
   posY: number
   scale: number
+  fitMode: 'contain' | 'cover'
 }
 
 const defaultAdjustments: Record<number, CoverAdjustment> = {
-  0: { posX: 50, posY: 15, scale: 1.0 }, // Part 1
-  1: { posX: 50, posY: 12, scale: 1.0 }, // Part 2
-  2: { posX: 50, posY: 15, scale: 1.0 }, // Part 3
-  3: { posX: 50, posY: 18, scale: 1.0 }, // Part 4
-  4: { posX: 50, posY: 15, scale: 1.0 }, // Part 5
-  5: { posX: 50, posY: 15, scale: 1.0 }, // Part 6
-  6: { posX: 50, posY: 15, scale: 1.0 }, // Part 7
-  7: { posX: 50, posY: 20, scale: 1.0 }, // Part 8 (JoJolion)
-  8: { posX: 50, posY: 45, scale: 1.0 }, // Part 9 (The JOJOLands)
+  0: { posX: 50, posY: 50, scale: 1.0, fitMode: 'contain' }, // Part 1
+  1: { posX: 50, posY: 50, scale: 1.0, fitMode: 'contain' }, // Part 2
+  2: { posX: 50, posY: 50, scale: 1.0, fitMode: 'contain' }, // Part 3
+  3: { posX: 50, posY: 50, scale: 1.0, fitMode: 'contain' }, // Part 4
+  4: { posX: 50, posY: 50, scale: 1.0, fitMode: 'contain' }, // Part 5
+  5: { posX: 50, posY: 50, scale: 1.0, fitMode: 'contain' }, // Part 6
+  6: { posX: 50, posY: 50, scale: 1.0, fitMode: 'contain' }, // Part 7
+  7: { posX: 50, posY: 50, scale: 1.0, fitMode: 'contain' }, // Part 8 (JoJolion)
+  8: { posX: 50, posY: 50, scale: 1.0, fitMode: 'contain' }, // Part 9 (The JOJOLands)
 }
 
-const STORAGE_KEY = 'araki_cover_adjustments_v1'
+const STORAGE_KEY = 'araki_cover_adjustments_v2'
 
 const loadSavedAdjustments = (): Record<number, CoverAdjustment> => {
   try {
@@ -622,7 +646,7 @@ const currentCapsule = computed(() => capsules.value[activeIdx.value])
 const currentAdjustment = computed(() => {
   if (!adjustments.value[activeIdx.value]) {
     adjustments.value[activeIdx.value] = {
-      ...(defaultAdjustments[activeIdx.value] || { posX: 50, posY: 15, scale: 1.0 }),
+      ...(defaultAdjustments[activeIdx.value] || { posX: 50, posY: 50, scale: 1.0, fitMode: 'contain' }),
     }
   }
   return adjustments.value[activeIdx.value]
@@ -645,15 +669,16 @@ watch(
 )
 
 const getCoverStyle = (idx: number) => {
-  const adj = adjustments.value[idx] || defaultAdjustments[idx] || { posX: 50, posY: 15, scale: 1.0 }
+  const adj = adjustments.value[idx] || defaultAdjustments[idx] || { posX: 50, posY: 50, scale: 1.0, fitMode: 'contain' }
   return {
     objectPosition: `${adj.posX}% ${adj.posY}%`,
+    objectFit: (adj.fitMode || 'contain') as 'contain' | 'cover',
     transform: `scale(${adj.scale})`,
   }
 }
 
 const resetActivePart = () => {
-  const def = defaultAdjustments[activeIdx.value] || { posX: 50, posY: 15, scale: 1.0 }
+  const def = defaultAdjustments[activeIdx.value] || { posX: 50, posY: 50, scale: 1.0, fitMode: 'contain' }
   adjustments.value[activeIdx.value] = { ...def }
   persistAdjustments()
 }
@@ -666,7 +691,7 @@ const resetAllParts = () => {
 const copyCurrentPartCSS = () => {
   const adj = currentAdjustment.value
   const capsule = capsules.value[activeIdx.value]
-  const text = `/* ${capsule?.title || 'Part ' + (activeIdx.value + 1)} */\nobjectPosition: '${adj.posX}% ${adj.posY}%',\nscale: ${adj.scale.toFixed(2)},`
+  const text = `/* ${capsule?.title || 'Part ' + (activeIdx.value + 1)} */\nobjectPosition: '${adj.posX}% ${adj.posY}%',\nobjectFit: '${adj.fitMode || 'contain'}',\nscale: ${adj.scale.toFixed(2)},`
   navigator.clipboard.writeText(text).then(() => {
     copySuccess.value = true
     setTimeout(() => {
@@ -679,7 +704,7 @@ const copyAllConfig = () => {
   const text = capsules.value
     .map((c, i) => {
       const adj = adjustments.value[i] || defaultAdjustments[i]
-      return `  // ${c.title}\n  {\n    id: '${c.id}',\n    objectPosition: '${adj.posX}% ${adj.posY}%',\n    scale: ${adj.scale.toFixed(2)},\n  },`
+      return `  // ${c.title}\n  {\n    id: '${c.id}',\n    objectPosition: '${adj.posX}% ${adj.posY}%',\n    objectFit: '${adj.fitMode || 'contain'}',\n    scale: ${adj.scale.toFixed(2)},\n  },`
     })
     .join('\n')
   navigator.clipboard.writeText(`[\n${text}\n]`).then(() => {
