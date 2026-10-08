@@ -10,10 +10,6 @@
       <div class="flex items-center gap-2">
         <span class="text-2xl md:text-3xl leading-none">araki.</span>
       </div>
-      <!-- Joestar Star Birthmark subtle icon -->
-      <span class="text-[0.65rem] font-mono tracking-widest uppercase opacity-50 hidden sm:inline-block">
-        EST. 1987
-      </span>
     </a>
 
     <!-- Col 4-9: Live Fashion Capitals Clock Marquee (Desktop) -->
