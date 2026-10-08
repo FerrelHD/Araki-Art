@@ -256,6 +256,19 @@
                 />
               </div>
 
+              <!-- ── D4C DIMENSIONAL MANIFESTATION FLASH (ANIME STAND BURST FX) ── -->
+              <div
+                v-if="isManifesting"
+                class="stand-flash-burst absolute inset-0 z-25 pointer-events-none flex items-center justify-center overflow-visible select-none"
+              >
+                <!-- Core Radial Energy Flare -->
+                <div class="stand-flash-core w-[130%] h-[130%] rounded-full"></div>
+                <!-- Expanding Dimensional Shockwave Ring -->
+                <div class="stand-flash-ring absolute w-[90%] h-[90%] rounded-full border-2 border-cyan-300/90"></div>
+                <!-- Vertical Dimensional Slash Ray -->
+                <div class="stand-flash-beam absolute w-2.5 sm:w-3.5 h-[160%] rounded-full"></div>
+              </div>
+
               <!-- ── GIANT JOJO MENACING KANJI FX (ゴゴゴ) ── -->
               <div
                 v-if="isStandActive"
@@ -376,6 +389,26 @@ const {
   handleSelectValentine,
   cycleQuote,
 } = useValentineStage()
+
+// ── D4C Stand Anime Manifestation Flash FX ──
+const isManifesting = ref(false)
+let flashTimer: number | null = null
+
+watch(isStandActive, (active) => {
+  if (flashTimer) {
+    clearTimeout(flashTimer)
+    flashTimer = null
+  }
+  if (active) {
+    isManifesting.value = true
+    flashTimer = window.setTimeout(() => {
+      isManifesting.value = false
+      flashTimer = null
+    }, 380)
+  } else {
+    isManifesting.value = false
+  }
+})
 
 const handleValentineClick = () => {
   if (isStandActive.value) {
@@ -759,6 +792,7 @@ onMounted(() => {
 
 onUnmounted(() => {
   ctx?.revert()
+  if (flashTimer) clearTimeout(flashTimer)
 })
 </script>
 
@@ -792,6 +826,90 @@ onUnmounted(() => {
     opacity: 1;
     transform: scale(1) translateY(0);
   }
+}
+
+@keyframes standFlash {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  20% {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+  60% {
+    opacity: 0.85;
+    transform: scale(1.28);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.48);
+  }
+}
+
+@keyframes standRing {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  25% {
+    opacity: 0.95;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.6);
+  }
+}
+
+@keyframes standBeam {
+  0% {
+    opacity: 0;
+    transform: scaleY(0.1) scaleX(2.5);
+  }
+  30% {
+    opacity: 1;
+    transform: scaleY(1.2) scaleX(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scaleY(1.75) scaleX(0.15);
+  }
+}
+
+.stand-flash-burst {
+  filter: drop-shadow(0 0 28px rgba(6, 182, 212, 0.75));
+}
+
+.stand-flash-core {
+  background: radial-gradient(
+    circle at 50% 55%,
+    rgba(255, 255, 255, 0.98) 0%,
+    rgba(56, 189, 248, 0.92) 26%,
+    rgba(6, 182, 212, 0.55) 52%,
+    transparent 74%
+  );
+  animation: standFlash 360ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+
+.stand-flash-ring {
+  box-shadow: 0 0 24px rgba(56, 189, 248, 0.8), inset 0 0 16px rgba(56, 189, 248, 0.5);
+  animation: standRing 360ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+
+.stand-flash-beam {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(255, 255, 255, 0.95) 25%,
+    rgba(56, 189, 248, 0.9) 50%,
+    rgba(255, 255, 255, 0.95) 75%,
+    transparent 100%
+  );
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.9), 0 0 40px rgba(6, 182, 212, 0.65);
+  animation: standBeam 330ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
 }
 
 .animate-menacing-float {
