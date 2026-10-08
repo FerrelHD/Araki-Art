@@ -404,7 +404,7 @@ watch(isStandActive, (active) => {
     flashTimer = window.setTimeout(() => {
       isManifesting.value = false
       flashTimer = null
-    }, 380)
+    }, 600)
   } else {
     isManifesting.value = false
   }
@@ -831,19 +831,23 @@ onUnmounted(() => {
 @keyframes standFlash {
   0% {
     opacity: 0;
-    transform: scale(0.5);
+    transform: scale(0.6);
   }
-  20% {
+  16% {
     opacity: 1;
-    transform: scale(1.12);
+    transform: scale(1.06);
   }
-  60% {
-    opacity: 0.85;
-    transform: scale(1.28);
+  48% {
+    opacity: 1;
+    transform: scale(1.18);
+  }
+  75% {
+    opacity: 0.7;
+    transform: scale(1.35);
   }
   100% {
     opacity: 0;
-    transform: scale(1.48);
+    transform: scale(1.52);
   }
 }
 
@@ -852,12 +856,12 @@ onUnmounted(() => {
     opacity: 0;
     transform: scale(0.3);
   }
-  25% {
+  20% {
     opacity: 0.95;
   }
   100% {
     opacity: 0;
-    transform: scale(1.6);
+    transform: scale(1.65);
   }
 }
 
@@ -866,7 +870,7 @@ onUnmounted(() => {
     opacity: 0;
     transform: scaleY(0.1) scaleX(2.5);
   }
-  30% {
+  25% {
     opacity: 1;
     transform: scaleY(1.2) scaleX(1);
   }
@@ -877,24 +881,25 @@ onUnmounted(() => {
 }
 
 .stand-flash-burst {
-  filter: drop-shadow(0 0 28px rgba(6, 182, 212, 0.75));
+  filter: drop-shadow(0 0 32px rgba(6, 182, 212, 0.8));
 }
 
 .stand-flash-core {
   background: radial-gradient(
     circle at 50% 55%,
-    rgba(255, 255, 255, 0.98) 0%,
-    rgba(56, 189, 248, 0.92) 26%,
-    rgba(6, 182, 212, 0.55) 52%,
-    transparent 74%
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 0.96) 32%,
+    rgba(56, 189, 248, 0.88) 55%,
+    rgba(6, 182, 212, 0.45) 72%,
+    transparent 85%
   );
-  animation: standFlash 360ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: standFlash 580ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
   will-change: transform, opacity;
 }
 
 .stand-flash-ring {
   box-shadow: 0 0 24px rgba(56, 189, 248, 0.8), inset 0 0 16px rgba(56, 189, 248, 0.5);
-  animation: standRing 360ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: standRing 550ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
   will-change: transform, opacity;
 }
 
@@ -908,7 +913,7 @@ onUnmounted(() => {
     transparent 100%
   );
   box-shadow: 0 0 20px rgba(56, 189, 248, 0.9), 0 0 40px rgba(6, 182, 212, 0.65);
-  animation: standBeam 330ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: standBeam 500ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
   will-change: transform, opacity;
 }
 
