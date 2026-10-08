@@ -1,0 +1,104 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Instrument Serif', Georgia, serif;
+  
+  --color-brand-bg: var(--color-bg);
+  --color-brand-primary: var(--color-primary);
+  --color-brand-accent: var(--color-accent);
+}
+
+:root {
+  /* Default: Runway Editorial Mode */
+  --color-bg: #f4ede2;
+  --color-primary: #1f2c24;
+  --color-accent: #b8864e;
+  --color-border: rgba(31, 44, 36, 0.25);
+  --color-border-subtle: rgba(31, 44, 36, 0.12);
+  --color-card-bg: #1f2c24;
+  --color-card-text: #f4ede2;
+}
+
+[data-theme='shift'] {
+  /* Menacing JoJo Color Shift Mode */
+  --color-bg: #130920;
+  --color-primary: #e5f638;
+  --color-accent: #ff3377;
+  --color-border: rgba(229, 246, 56, 0.3);
+  --color-border-subtle: rgba(229, 246, 56, 0.15);
+  --color-card-bg: #221238;
+  --color-card-text: #e5f638;
+}
+
+html {
+  background-color: var(--color-bg);
+  color: var(--color-primary);
+  font-family: var(--font-sans);
+  transition: background-color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Blueprint Grid Lines */
+.border-grid {
+  border-color: var(--color-border);
+}
+
+.border-grid-subtle {
+  border-color: var(--color-border-subtle);
+}
+
+/* Infinite Marquee Keyframes */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 32s linear infinite;
+}
+
+.animate-marquee-fast {
+  display: flex;
+  width: max-content;
+  animation: marquee 20s linear infinite;
+}
+
+.group:hover .animate-marquee,
+.group:hover .animate-marquee-fast {
+  animation-play-state: paused;
+}
+
+/* Smooth Scrolling Setup with Lenis */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+}
