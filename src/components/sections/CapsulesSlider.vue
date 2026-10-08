@@ -205,11 +205,6 @@
               @click="handleValentineClick"
               :title="isStandActive ? 'Click to cycle quote / Klik untuk ganti quote' : 'Click to summon D4C // Anime Snap Zoom'"
             >
-              <!-- Contact Floor Shadow (Soft Optical Depth) -->
-              <div
-                class="absolute bottom-0 w-44 h-5 rounded-full bg-black/40 blur-md pointer-events-none transition-all duration-500"
-                :class="isStandActive ? 'w-56 h-6 opacity-70 bg-black/80' : 'group-hover/muse:opacity-60'"
-              ></div>
 
               <!-- Mode 1: Alone - Funny Valentine Idle -->
               <div
