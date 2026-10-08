@@ -1,6 +1,7 @@
 <template>
   <header
-    class="fixed inset-x-0 top-0 z-40 h-14 md:h-16 border-b border-grid bg-brand-bg grid grid-cols-4 md:grid-cols-12 transition-colors duration-500"
+    class="fixed inset-x-0 top-0 z-40 h-14 md:h-16 border-b border-grid bg-brand-bg grid grid-cols-4 md:grid-cols-12 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+    :class="isStandActive ? '-translate-y-full pointer-events-none' : 'translate-y-0'"
   >
     <!-- Col 1-3: Wordmark Logo -->
     <a
@@ -66,23 +67,23 @@
       <button
         type="button"
         @click="toggleTheme"
-        :aria-label="isShiftMode ? 'Switch to Concrete Palette' : 'Switch to Graphite Palette'"
-        class="group/roll flex h-full cursor-pointer items-center gap-2.5 px-4 md:px-5 transition-colors hover:bg-brand-primary hover:text-brand-bg mr-14 md:mr-16 outline-none"
+        :aria-label="isShiftMode ? 'Switch to Lilac Runway Palette' : 'Switch to Cyber Blackberry Palette'"
+        class="group/roll flex h-full cursor-pointer items-center gap-2 px-3 md:px-5 transition-colors hover:bg-brand-primary hover:text-brand-bg mr-14 md:mr-16 outline-none"
       >
-        <span class="relative block shrink-0 overflow-hidden leading-[1.3] text-[0.65rem] tracking-[0.16em] uppercase font-mono font-medium">
-          <span class="block transition-transform duration-[450ms] ease-[cubic-bezier(0.65,0,0.35,1)] group-hover/roll:translate-y-full">
-            {{ isShiftMode ? 'GRAPHITE' : 'CONCRETE' }}
+        <span class="relative inline-grid grid-cols-1 grid-rows-1 overflow-hidden leading-[1.3] text-[0.65rem] tracking-[0.16em] uppercase font-mono font-medium">
+          <span class="col-start-1 row-start-1 block whitespace-nowrap transition-transform duration-[450ms] ease-[cubic-bezier(0.65,0,0.35,1)] group-hover/roll:translate-y-full">
+            {{ isShiftMode ? 'BLACKBERRY' : 'LILAC' }}<span class="hidden sm:inline">{{ isShiftMode ? ' PUNK' : ' RUNWAY' }}</span>
           </span>
           <span
             aria-hidden="true"
-            class="absolute inset-0 block -translate-y-full transition-transform duration-[450ms] ease-[cubic-bezier(0.65,0,0.35,1)] group-hover/roll:translate-y-0"
+            class="col-start-1 row-start-1 block whitespace-nowrap -translate-y-full transition-transform duration-[450ms] ease-[cubic-bezier(0.65,0,0.35,1)] group-hover/roll:translate-y-0"
           >
-            {{ isShiftMode ? 'CONCRETE' : 'GRAPHITE' }}
+            {{ isShiftMode ? 'LILAC' : 'BLACKBERRY' }}<span class="hidden sm:inline">{{ isShiftMode ? ' RUNWAY' : ' PUNK' }}</span>
           </span>
         </span>
         <!-- Indicator square dot -->
         <span
-          class="relative block h-2.5 w-2.5 overflow-hidden border border-brand-primary transition-colors group-hover:border-brand-bg"
+          class="relative block h-2.5 w-2.5 shrink-0 overflow-hidden border border-brand-primary transition-colors group-hover:border-brand-bg"
           aria-hidden="true"
         >
           <span
@@ -99,7 +100,8 @@
     type="button"
     @click="isMenuOpen = !isMenuOpen"
     :aria-label="isMenuOpen ? 'Close menu' : 'Open menu'"
-    class="group fixed top-0 right-0 z-50 flex h-14 md:h-16 w-14 md:w-16 cursor-pointer items-center justify-center border-b border-l border-grid bg-brand-bg transition-colors hover:bg-brand-primary hover:text-brand-bg outline-none"
+    class="group fixed top-0 right-0 z-50 flex h-14 md:h-16 w-14 md:w-16 cursor-pointer items-center justify-center border-b border-l border-grid bg-brand-bg hover:bg-brand-primary transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] outline-none"
+    :class="isStandActive ? '-translate-y-full pointer-events-none' : 'translate-y-0'"
   >
     <div class="relative flex flex-col justify-center gap-1.5 w-5 h-4">
       <span
@@ -165,7 +167,9 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
+import { useValentineStage } from '@/composables/useValentineStage'
 
+const { isStandActive } = useValentineStage()
 const isShiftMode = ref(false)
 const isMenuOpen = ref(false)
 

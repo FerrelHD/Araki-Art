@@ -13,27 +13,27 @@
 }
 
 :root {
-  /* Default: Concrete Editorial Gray (Maison Margiela / Brutalist Gallery Ash) */
-  --color-bg: #e2e4e8;
-  --color-primary: #111418;
-  --color-accent: #e11d48;
-  --color-stand: #2563eb;
-  --color-border: rgba(17, 20, 24, 0.28);
-  --color-border-subtle: rgba(17, 20, 24, 0.12);
-  --color-card-bg: #111418;
-  --color-card-text: #e2e4e8;
+  /* Default: Jolyne Candy Punk / Y2K Couture (Pastel Lilac Lavender) */
+  --color-bg: #F5EEFD;
+  --color-primary: #1F1032;
+  --color-accent: #84CC16;
+  --color-stand: #F43F5E;
+  --color-border: rgba(31, 16, 50, 0.28);
+  --color-border-subtle: rgba(31, 16, 50, 0.12);
+  --color-card-bg: #1F1032;
+  --color-card-text: #F5EEFD;
 }
 
 [data-theme='shift'] {
-  /* Shift Mode: Titanium Graphite (Dark Mineral Haute Couture) */
-  --color-bg: #181a1f;
-  --color-primary: #e2e4e8;
-  --color-accent: #f43f5e;
-  --color-stand: #38bdf8;
-  --color-border: rgba(226, 228, 232, 0.25);
-  --color-border-subtle: rgba(226, 228, 232, 0.12);
-  --color-card-bg: #22252c;
-  --color-card-text: #e2e4e8;
+  /* Shift Mode: Cyber Blackberry Punk (Inverted Dark Y2K) */
+  --color-bg: #1F1032;
+  --color-primary: #F5EEFD;
+  --color-accent: #84CC16;
+  --color-stand: #38BDF8;
+  --color-border: rgba(245, 238, 253, 0.28);
+  --color-border-subtle: rgba(245, 238, 253, 0.12);
+  --color-card-bg: #2C1845;
+  --color-card-text: #F5EEFD;
 }
 
 html {
