@@ -50,8 +50,8 @@
         >
           <!-- Left 6 Columns: Interactive Capsule Card & Vertical Thumbnails (snug, zero space kosong) -->
           <div
-            class="relative z-10 col-span-4 md:col-span-10 lg:col-span-6 lg:border-r border-grid flex flex-col justify-between min-h-0 overflow-hidden bg-brand-bg transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
-            :class="isStandActive ? 'filter blur-[4px] opacity-20 cursor-pointer select-none pointer-events-none' : 'filter blur-0 opacity-100'"
+            class="relative z-10 col-span-4 md:col-span-10 lg:col-span-6 lg:border-r border-grid flex flex-col justify-between min-h-0 overflow-hidden bg-brand-bg transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+            :class="isStandActive ? 'opacity-20 brightness-90 cursor-pointer select-none pointer-events-none' : 'opacity-100 brightness-100'"
             :title="isStandActive ? 'Klik latar belakang untuk kembali (ESC)' : ''"
           >
             <!-- Top Container: Vertical Thumbnails Strip + Active Project Showcase (Stretched to PREV/NEXT) -->
@@ -221,7 +221,7 @@
 
               <!-- Mode 1: Alone - Funny Valentine Idle -->
               <div
-                class="relative h-full w-full flex items-end justify-center origin-bottom transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                class="relative h-full w-full flex items-end justify-center origin-bottom transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
                 :class="isStandActive ? 'opacity-0 scale-95 pointer-events-none' : 'opacity-100 scale-100 pointer-events-none group-hover/muse:brightness-105'"
                 :style="getValentineAloneStyle()"
               >
@@ -234,7 +234,7 @@
 
               <!-- Mode 2: Stand - Funny Valentine with D4C Manifestation -->
               <div
-                class="absolute inset-0 h-full w-full flex items-end justify-center origin-bottom transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                class="absolute inset-0 h-full w-full flex items-end justify-center origin-bottom transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
                 :class="isStandActive ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'"
                 :style="getValentineStandStyle()"
               >
@@ -248,22 +248,24 @@
               <!-- ── GIANT JOJO MENACING KANJI FX (ゴゴゴ) ── -->
               <div
                 v-if="isStandActive"
-                class="absolute z-35 pointer-events-none select-none animate-menacing-float transition-all duration-300"
+                class="absolute z-35 pointer-events-none select-none animate-fx-in transition-all duration-500"
                 :style="menacingStyle"
               >
-                <img
-                  src="/images/jojo-menacing.png"
-                  alt="JoJo Menacing Effect"
-                  class="w-32 sm:w-40 md:w-52 h-auto pointer-events-none select-none drop-shadow-[0_4px_24px_rgba(0,0,0,0.8)]"
-                  :style="menacingImageStyle"
-                />
+                <div class="animate-menacing-float">
+                  <img
+                    src="/images/jojo-menacing.png"
+                    alt="JoJo Menacing Effect"
+                    class="w-32 sm:w-40 md:w-52 h-auto pointer-events-none select-none drop-shadow-[0_4px_24px_rgba(0,0,0,0.8)]"
+                    :style="menacingImageStyle"
+                  />
+                </div>
               </div>
 
               <!-- ── MANGA DIALOGUE SPEECH BUBBLE (POP-IN WITH QUOTE) ── -->
               <div
                 v-if="isStandActive"
                 @click.stop="cycleQuote"
-                class="absolute z-40 cursor-pointer pointer-events-auto select-none transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                class="absolute z-40 cursor-pointer pointer-events-auto select-none animate-bubble-in transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)]"
                 :style="bubbleStyle"
                 title="Click to cycle quote / Klik untuk ganti quote"
               >
@@ -370,11 +372,17 @@ const handleValentineClick = () => {
     return
   }
 
-  // 1. Auto-snap scroll to #capsules so that framing is aligned
-  try {
-    lenis?.scrollTo('#capsules', { immediate: true })
-  } catch {
-    // ignore
+  // 1. Gently align scroll only if #capsules is substantially off-center, avoiding instant teleport jumps
+  const capsulesEl = document.getElementById('capsules')
+  if (capsulesEl) {
+    const rect = capsulesEl.getBoundingClientRect()
+    if (Math.abs(rect.top) > 80) {
+      try {
+        lenis?.scrollTo(capsulesEl, { duration: 0.75, easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) })
+      } catch {
+        // ignore
+      }
+    }
   }
 
   // 2. Use calibrated camera origin from config (supports live tuning via Shift + C)
@@ -389,10 +397,16 @@ const handleValentineMobileTrigger = () => {
     cycleQuote()
     return
   }
-  try {
-    lenis?.scrollTo('#capsules', { immediate: true })
-  } catch {
-    // ignore
+  const capsulesEl = document.getElementById('capsules')
+  if (capsulesEl) {
+    const rect = capsulesEl.getBoundingClientRect()
+    if (Math.abs(rect.top) > 80) {
+      try {
+        lenis?.scrollTo(capsulesEl, { duration: 0.75, easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) })
+      } catch {
+        // ignore
+      }
+    }
   }
   handleSelectValentine({ originX: 50, originY: 50 })
 }
@@ -745,7 +759,37 @@ onUnmounted(() => {
   }
 }
 
+@keyframes fxPopIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.78);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes bubblePopIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.82) translateY(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
 .animate-menacing-float {
   animation: menacingFloat 2.4s ease-in-out infinite;
+}
+
+.animate-fx-in {
+  animation: fxPopIn 450ms cubic-bezier(0.22, 1, 0.36, 1) 100ms both;
+}
+
+.animate-bubble-in {
+  animation: bubblePopIn 420ms cubic-bezier(0.22, 1, 0.36, 1) 160ms both;
 }
 </style>

@@ -9,22 +9,22 @@
 
     <!-- Top Fixed Header & Marquee -->
     <HeaderNav
-      :class="isStandActive ? 'opacity-20 pointer-events-none transition-opacity duration-400' : 'opacity-100 transition-opacity duration-400'"
+      :class="isStandActive ? 'opacity-20 pointer-events-none transition-opacity duration-600' : 'opacity-100 transition-opacity duration-600'"
     />
 
     <!-- ── CINEMATIC LETTERBOX BLACK BARS (FOREGROUND LAYER - Z-INDEX 60) ── -->
     <!-- Top Black Bar -->
     <div
-      class="fixed top-0 inset-x-0 z-[60] bg-black pointer-events-none transition-all duration-500 h-10 sm:h-12 md:h-14 lg:h-16"
+      class="fixed top-0 inset-x-0 z-[60] bg-black pointer-events-none transition-all duration-700 h-10 sm:h-12 md:h-14 lg:h-16"
       :class="isStandActive ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'"
-      style="transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1)"
+      style="transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1)"
     />
 
     <!-- Bottom Black Bar -->
     <div
-      class="fixed bottom-0 inset-x-0 z-[60] bg-black pointer-events-none transition-all duration-500 h-10 sm:h-12 md:h-14 lg:h-16"
+      class="fixed bottom-0 inset-x-0 z-[60] bg-black pointer-events-none transition-all duration-700 h-10 sm:h-12 md:h-14 lg:h-16"
       :class="isStandActive ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'"
-      style="transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1)"
+      style="transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1)"
     />
 
     <!-- ── VIRTUAL 2.5D CAMERA STAGE (EXACT PERSONA 5 / SKILLSSCREEN ARCHITECTURE) ── -->
@@ -36,7 +36,7 @@
       <!-- Ambient Dark Dim Overlay (active when zoomed in, clickable to reset) -->
       <div
         @click="handleResetCamera"
-        class="fixed inset-0 bg-black/60 transition-opacity duration-500 z-20"
+        class="fixed inset-0 bg-black/60 transition-opacity duration-700 z-20"
         :class="isStandActive ? 'opacity-100 pointer-events-auto cursor-pointer' : 'opacity-0 pointer-events-none'"
       />
 
@@ -45,12 +45,12 @@
         <!-- 01 Hero Section -->
         <HeroSection
           ref="heroSectionRef"
-          :class="isStandActive ? 'opacity-20 pointer-events-none transition-opacity duration-400' : 'opacity-100 transition-opacity duration-400'"
+          :class="isStandActive ? 'opacity-20 pointer-events-none transition-opacity duration-600' : 'opacity-100 transition-opacity duration-600'"
         />
 
         <!-- 02 Statement / Aesthetic Thesis -->
         <StatementSection
-          :class="isStandActive ? 'opacity-20 pointer-events-none transition-opacity duration-400' : 'opacity-100 transition-opacity duration-400'"
+          :class="isStandActive ? 'opacity-20 pointer-events-none transition-opacity duration-600' : 'opacity-100 transition-opacity duration-600'"
         />
 
         <!-- 03 Selected Capsules (Mijobello Slider + Funny Valentine) -->
@@ -58,14 +58,14 @@
 
         <!-- 04 Anatomy (Mijobello Expanding Accordion) -->
         <AnatomyAccordion
-          :class="isStandActive ? 'opacity-20 pointer-events-none transition-opacity duration-400' : 'opacity-100 transition-opacity duration-400'"
+          :class="isStandActive ? 'opacity-20 pointer-events-none transition-opacity duration-600' : 'opacity-100 transition-opacity duration-600'"
         />
       </main>
     </div>
 
     <!-- 05 Footer & Monumental Watermark -->
     <FooterSection
-      :class="isStandActive ? 'opacity-20 pointer-events-none transition-opacity duration-400' : 'opacity-100 transition-opacity duration-400'"
+      :class="isStandActive ? 'opacity-20 pointer-events-none transition-opacity duration-600' : 'opacity-100 transition-opacity duration-600'"
     />
 
     <!-- Tactical Position Calibrator Drawer (Shift + C / button) -->
@@ -102,7 +102,7 @@ const cameraStageStyle = computed(() => {
       ? `scale(${config.value.cameraZoom}) translate3d(0, 0, 0)`
       : 'scale(1) translate3d(0, 0, 0)',
     transformOrigin: `${lastFocusOrigin.value.originX}% ${lastFocusOrigin.value.originY}%`,
-    transition: 'transform 600ms cubic-bezier(0.16, 1, 0.3, 1)',
+    transition: 'transform 750ms cubic-bezier(0.22, 1, 0.36, 1)',
     backfaceVisibility: 'hidden' as const,
     WebkitBackfaceVisibility: 'hidden' as const,
     willChange: 'transform' as const,

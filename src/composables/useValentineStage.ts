@@ -120,11 +120,16 @@ export function useValentineStage() {
 
     isStandActive.value = true
 
-    try {
-      lenis?.stop?.()
-    } catch {
-      // ignore
-    }
+    // Gracefully lock wheel scroll after the 750ms camera glide completes
+    setTimeout(() => {
+      if (isStandActive.value) {
+        try {
+          lenis?.stop?.()
+        } catch {
+          // ignore
+        }
+      }
+    }, 800)
   }
 
   const handleResetCamera = () => {
