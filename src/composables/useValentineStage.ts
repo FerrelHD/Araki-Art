@@ -139,11 +139,14 @@ export function useValentineStage() {
     }
   }
 
-  const toggleStandMode = () => {
+  const toggleStandMode = (origin?: { originX: number; originY: number } | Event) => {
     if (isStandActive.value) {
       handleResetCamera()
     } else {
-      handleSelectValentine()
+      const validOrigin = (origin && 'originX' in origin && typeof origin.originX === 'number')
+        ? (origin as { originX: number; originY: number })
+        : undefined
+      handleSelectValentine(validOrigin)
     }
   }
 

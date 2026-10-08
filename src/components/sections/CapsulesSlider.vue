@@ -30,6 +30,18 @@
               </h2>
             </div>
           </div>
+          <!-- Mobile/Tablet Valentine Trigger (< lg) -->
+          <div class="lg:hidden flex items-center">
+            <button
+              type="button"
+              @click="handleValentineMobileTrigger"
+              class="flex items-center gap-1.5 px-2.5 py-1 text-[0.62rem] font-mono tracking-wider uppercase border border-grid bg-brand-bg text-brand-primary hover:bg-brand-primary hover:text-brand-bg transition-colors cursor-pointer select-none"
+              title="Summon Funny Valentine & D4C"
+            >
+              <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+              <span>✦ D4C MUSE</span>
+            </button>
+          </div>
         </div>
 
         <!-- Slider Main Grid (Clean Static Layout) -->
@@ -186,7 +198,8 @@
 
           <!-- Right 4 Columns: High-Fashion Freestanding Muse (Funny Valentine & D4C) -->
           <div
-            class="group/side relative z-40 hidden lg:col-span-4 lg:flex flex-col justify-end overflow-visible px-4 pb-2 bg-brand-primary/[0.015] border-b border-grid min-h-0 select-none"
+            class="group/side relative z-40 overflow-visible px-4 pb-2 select-none"
+            :class="isStandActive ? 'fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-xs lg:relative lg:inset-auto lg:z-40 lg:col-span-4 lg:flex lg:flex-col lg:justify-end lg:p-0 lg:px-4 lg:pb-2 lg:bg-brand-primary/[0.015] lg:border-b lg:border-grid min-h-0' : 'hidden lg:col-span-4 lg:flex lg:flex-col lg:justify-end bg-brand-primary/[0.015] border-b border-grid min-h-0'"
           >
 
 
@@ -215,7 +228,7 @@
                 <img
                   src="/images/funny-valentine-alone.png"
                   alt="Funny Valentine (President)"
-                  class="h-full w-auto max-h-[440px] xl:max-h-[500px] object-contain object-bottom filter contrast-105 pointer-events-none select-none transition-transform duration-300 group-hover/muse:scale-[1.02]"
+                  class="h-[85%] max-h-[62vh] xl:max-h-[72vh] w-auto object-contain object-bottom filter contrast-105 pointer-events-none select-none transition-transform duration-300 group-hover/muse:scale-[1.02]"
                 />
               </div>
 
@@ -228,7 +241,7 @@
                 <img
                   src="/images/funny-valentine-stand.png"
                   alt="Funny Valentine & D4C Stand"
-                  class="h-full w-auto max-h-[460px] xl:max-h-[520px] object-contain object-bottom filter contrast-110 brightness-105 drop-shadow-[0_16px_48px_rgba(6,182,212,0.5)] pointer-events-none select-none transition-transform duration-300 hover:scale-[1.02]"
+                  class="h-[85%] max-h-[65vh] xl:max-h-[75vh] w-auto object-contain object-bottom filter contrast-110 brightness-105 drop-shadow-[0_16px_48px_rgba(6,182,212,0.5)] pointer-events-none select-none transition-transform duration-300 hover:scale-[1.02]"
                 />
               </div>
 
@@ -351,23 +364,52 @@ const {
   cycleQuote,
 } = useValentineStage()
 
-const handleValentineClick = () => {
+const handleValentineClick = (e?: MouseEvent) => {
   if (isStandActive.value) {
     cycleQuote()
     return
   }
 
-  // Auto-snap scroll to #capsules so that framing is 100% identical and consistent on every click
+  // 1. Auto-snap scroll to #capsules so that framing is aligned
   try {
     lenis?.scrollTo('#capsules', { immediate: true })
   } catch {
     // ignore
   }
 
-  handleSelectValentine({
-    originX: config.value.cameraOriginX,
-    originY: config.value.cameraOriginY,
-  })
+  // 2. Target the clicked character element
+  let originX = config.value.cameraOriginX
+  let originY = config.value.cameraOriginY
+
+  const stageEl = (e?.currentTarget as HTMLElement) || (document.querySelector('.group\\/muse') as HTMLElement | null)
+  if (stageEl) {
+    const rect = stageEl.getBoundingClientRect()
+    // Compute exact focal point (head/chest area: center X, ~35% from top of stage)
+    const focalX = rect.left + rect.width * 0.5
+    const focalY = rect.top + rect.height * 0.35
+
+    // Convert to viewport percentage (0 - 100%)
+    if (window.innerWidth > 0 && window.innerHeight > 0) {
+      originX = Number(((focalX / window.innerWidth) * 100).toFixed(2))
+      originY = Number(((focalY / window.innerHeight) * 100).toFixed(2))
+    }
+  }
+
+  // 3. Trigger zoom with dynamically calculated origin
+  handleSelectValentine({ originX, originY })
+}
+
+const handleValentineMobileTrigger = () => {
+  if (isStandActive.value) {
+    cycleQuote()
+    return
+  }
+  try {
+    lenis?.scrollTo('#capsules', { immediate: true })
+  } catch {
+    // ignore
+  }
+  handleSelectValentine({ originX: 50, originY: 50 })
 }
 
 const getValentineAloneStyle = () => {

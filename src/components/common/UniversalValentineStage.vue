@@ -151,7 +151,7 @@
       <!-- Toggle Stand Focus Preview -->
       <button
         type="button"
-        @click="toggleStandMode"
+        @click="toggleStandMode()"
         class="w-full py-2 font-bold text-[0.65rem] tracking-wider uppercase transition-colors cursor-pointer flex items-center justify-center gap-2 shadow-md border"
         :class="isStandActive ? 'bg-red-950/80 hover:bg-red-900 text-red-200 border-red-500/60' : 'bg-cyan-500 hover:bg-cyan-400 text-neutral-950 border-cyan-300'"
       >
