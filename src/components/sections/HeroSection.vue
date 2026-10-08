@@ -58,13 +58,13 @@
     <div class="grid grid-cols-4 md:grid-cols-12 items-stretch overflow-hidden">
       <!-- 7 Cols: Massive 'araki.' Title -->
       <div
-        class="col-span-4 md:col-span-7 flex items-end px-3 py-3 md:px-5 md:py-6 overflow-hidden"
+        class="col-span-4 md:col-span-7 flex items-end px-3 py-3 md:px-5 md:py-6 overflow-visible"
       >
-        <div class="overflow-hidden w-full pb-3 md:pb-6 pr-8 md:pr-14 pl-1">
+        <div class="overflow-hidden w-full pb-4 md:pb-6 pr-8 md:pr-14 pl-1">
           <h1
             id="hero-title"
             ref="titleRef"
-            class="text-[clamp(3.8rem,19vw,15.5rem)] leading-[0.88] font-bold tracking-[-0.09em] select-none uppercase md:normal-case will-change-transform pb-1 pr-4"
+            class="text-[clamp(3.8rem,19vw,15.5rem)] leading-[0.88] font-bold tracking-[-0.08em] select-none uppercase md:normal-case will-change-transform pb-1 pr-6"
           >
             araki.
           </h1>

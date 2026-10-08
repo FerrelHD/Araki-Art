@@ -20,7 +20,7 @@
     <div
       class="relative z-20 flex flex-col items-center justify-center gap-3 text-center px-4 my-auto"
     >
-      <!-- JoJo Star Birthmark Emblem (Identical to Hero) -->
+      <!-- JoJo Star Birthmark Emblem (Centered precisely above title) -->
       <div
         ref="starEl"
         class="w-12 h-12 md:w-16 md:h-16 flex items-center justify-center will-change-transform"
@@ -36,11 +36,11 @@
         </svg>
       </div>
 
-      <!-- Monumental Title Matching Hero Typography (No clipping) -->
-      <div class="overflow-hidden pb-4 md:pb-6 pr-8 sm:pr-12 md:pr-16 pl-2">
+      <!-- Monumental Title Matching Hero Typography (Symmetrical padding so star is 100% centered) -->
+      <div class="overflow-hidden pb-4 md:pb-6 px-6 sm:px-10 md:px-14">
         <h1
           ref="titleEl"
-          class="text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-[-0.09em] leading-[0.9] uppercase md:normal-case will-change-transform pb-1 pr-4"
+          class="text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-[-0.08em] leading-[0.9] uppercase md:normal-case will-change-transform pb-1"
         >
           araki.
         </h1>
@@ -107,30 +107,17 @@ onMounted(async () => {
 
   await nextTick()
 
-  // Initial entry state of center logo & star
-  gsap.set(titleEl.value, { yPercent: 100, opacity: 0 })
-  gsap.set(starEl.value, { scale: 0.4, rotate: -60, opacity: 0 })
-
-  const tl = gsap.timeline()
-
-  tl.to(starEl.value, {
-    scale: 1,
-    rotate: 0,
-    opacity: 1,
-    duration: 0.8,
-    ease: 'back.out(1.7)',
-  }).to(
-    titleEl.value,
-    {
-      yPercent: 0,
+  // Title and Star are fully visible and perfectly centered right from the start (0%)
+  if (titleEl.value && starEl.value) {
+    gsap.set([titleEl.value, starEl.value], {
       opacity: 1,
-      duration: 0.9,
-      ease: 'power4.out',
-    },
-    '-=0.5'
-  )
+      yPercent: 0,
+      scale: 1,
+      rotate: 0,
+    })
+  }
 
-  // Counter animation
+  // Counter progress bar animation
   const counterObj = { val: 0 }
   gsap.to(counterObj, {
     val: 100,
@@ -178,7 +165,7 @@ function triggerCurtainReveal() {
     slats,
     {
       scaleY: 0,
-      duration: 1.1,
+      duration: 1.15,
       stagger: {
         amount: 0.35,
         from: 'center',
@@ -205,20 +192,20 @@ function triggerCurtainReveal() {
         y: deltaY,
         scale: scale,
         color: '#12100E',
-        duration: 1.1,
-        ease: 'expo.inOut',
+        duration: 1.15,
+        ease: 'power3.inOut',
       },
       0.05
     )
   }
 
-  // 4. FLIP Handover: Animate Star vector to target Hero Star Slot
+  // 4. FLIP Handover: Animate Star vector smoothly to target Hero Star Slot
   const heroStar = document.getElementById('hero-star-slot')
   if (heroStar && starEl.value) {
     const s1 = starEl.value.getBoundingClientRect()
     const s2 = heroStar.getBoundingClientRect()
 
-    const scaleStar = s2.width / s1.width
+    const scaleStar = (s2.width * 0.9) / s1.width
     const deltaStarX = s2.left + s2.width / 2 - (s1.left + s1.width / 2)
     const deltaStarY = s2.top + s2.height / 2 - (s1.top + s1.height / 2)
 
@@ -252,7 +239,7 @@ function triggerCurtainReveal() {
   // 5. Seamless handover crossfade: trigger hero elements reveal as travelers land
   exitTl.call(() => {
     emit('complete')
-  }, [], 1.1)
+  }, [], 1.15)
 
   // 6. Smoothly fade out preloader overlay
   exitTl.to(
@@ -262,7 +249,7 @@ function triggerCurtainReveal() {
       duration: 0.25,
       ease: 'power2.out',
     },
-    1.15
+    1.2
   )
 }
 

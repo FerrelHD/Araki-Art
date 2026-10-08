@@ -69,34 +69,22 @@
 
               <!-- Right: Active Slide Content Card (Stacked: Clean Minimalist Bar on Top + Full Bleed Cover Below) -->
               <div class="min-w-0 flex-1 flex flex-col justify-between bg-brand-bg min-h-0">
-                <!-- Capsule Information Block (Simple & Clean editorial bar like reference) -->
-<div class="w-full bg-brand-primary text-brand-bg px-5 py-5 md:px-8 md:py-6 flex flex-col gap-4 md:gap-5 border-b border-grid shrink-0">                  <!-- Row 1: Title on left, Category & Year on right -->
-                  <div class="flex items-baseline justify-between gap-3">
-                    <h3 class="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight truncate">
-                      {{ currentCapsule.title }}
-                    </h3>
-                    <span class="text-[0.62rem] sm:text-[0.68rem] font-mono uppercase tracking-[0.18em] opacity-65 shrink-0">
+                <!-- Capsule Information Block (Clean Editorial Bar dengan Extra Breathing Space di Bawah) -->
+                <div class="w-full bg-brand-primary text-brand-bg px-6 pt-6 pb-12 md:px-9 md:pt-8 md:pb-16 flex items-start justify-between gap-4 border-b border-grid shrink-0">
+                  <h3 class="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight truncate leading-tight">
+                    {{ currentCapsule.title }}
+                  </h3>
+
+                  <div class="flex items-center gap-4 md:gap-6 shrink-0 pt-1">
+                    <span class="text-[0.62rem] sm:text-[0.68rem] font-mono uppercase tracking-[0.18em] opacity-65">
                       {{ currentCapsule.category }} · {{ currentCapsule.year }}
                     </span>
-                  </div>
-
-                  <!-- Row 2: Outline Tag Badges on left, VIEW ARCHIVE > on right -->
-                  <div class="flex items-center justify-between gap-3">
-                    <div class="flex flex-wrap gap-1.5 sm:gap-2">
-                      <span
-                        v-for="(tag, tIdx) in currentCapsule.tags"
-                        :key="tIdx"
-                        class="border border-brand-bg/40 px-2 py-0.5 text-[0.6rem] sm:text-[0.65rem] font-mono uppercase tracking-wider text-brand-bg/90"
-                      >
-                        {{ tag }}
-                      </span>
-                    </div>
 
                     <a
                       :href="currentCapsule.link"
                       target="_blank"
                       rel="noopener noreferrer"
-                      class="group/roll shrink-0 inline-flex items-center gap-1.5 text-xs sm:text-sm font-mono tracking-wider uppercase text-brand-bg hover:opacity-80"
+                      class="group/roll inline-flex items-center gap-1.5 text-xs sm:text-sm font-mono tracking-wider uppercase text-brand-bg hover:opacity-80"
                     >
                       <RollingText text="view archive" />
                       <span class="transition-transform group-hover/roll:translate-x-1">></span>
@@ -106,22 +94,22 @@
 
                 <!-- Large Visual Container (Full Bleed Cover Filling All Remaining Space Down to PREV/NEXT) -->
                 <div class="relative block w-full flex-1 overflow-hidden bg-black/10 group select-none min-h-0">
-                 <!-- Base Outgoing Layer -->
-<img
-  :src="outgoingImage"
-  :alt="currentCapsule.title"
-  class="absolute inset-0 h-full w-full object-cover transition-all duration-300"
-  :style="{ objectPosition: currentCapsule.objectPosition || '50% 12%' }"
-/>
+                  <!-- Base Outgoing Layer -->
+                  <img
+                    :src="outgoingImage"
+                    :alt="currentCapsule.title"
+                    class="absolute inset-0 h-full w-full object-cover transition-all duration-300"
+                    :style="{ objectPosition: currentCapsule.objectPosition || '50% 12%' }"
+                  />
 
-<!-- Top Incoming Layer -->
-<img
-  ref="incomingImgRef"
-  :src="currentCapsule.image"
-  :alt="currentCapsule.title"
-  class="absolute inset-0 h-full w-full object-cover will-change-[opacity] transition-all duration-300"
-  :style="{ objectPosition: currentCapsule.objectPosition || '50% 12%' }"
-/>
+                  <!-- Top Incoming Layer -->
+                  <img
+                    ref="incomingImgRef"
+                    :src="currentCapsule.image"
+                    :alt="currentCapsule.title"
+                    class="absolute inset-0 h-full w-full object-cover will-change-[opacity] transition-all duration-300"
+                    :style="{ objectPosition: currentCapsule.objectPosition || '50% 12%' }"
+                  />
                   <div class="absolute inset-0 bg-brand-primary/5 pointer-events-none z-10"></div>
                 </div>
               </div>
@@ -156,8 +144,6 @@
             <div class="absolute -top-10 right-4 font-mono text-[8rem] xl:text-[11rem] font-bold leading-none opacity-5 select-none pointer-events-none">
               D4C
             </div>
-
-
 
             <!-- Pop-out Cutout Container: Funny Valentine with D4C (Dynamic Live Overlap, NO drop-shadow) -->
             <div class="relative w-full flex-1 min-h-0 flex items-end justify-center overflow-visible pointer-events-none">
@@ -324,22 +310,21 @@ const capsules = ref<Capsule[]>([
     link: 'https://jojo-portal.com',
   },
   {
-  id: 'part-9-the-jojolands',
-  year: '2023 – Present',
-  title: 'Part 9: The JOJOLands',
-  category: 'Contemporary Pacific Island Luxury',
-  tags: ['Jodio Joestar', 'Oahu Hawaii', 'Streetwear Luxury'],
-  summary: '...',
-  image: '/images/cover-part-9.jpg',
-  link: 'https://jojo-portal.com',
-  objectPosition: '50% 50%', // Atur di sini: 0%, 5%, atau nilai negatif seperti '50% -15px'
-},
+    id: 'part-9-the-jojolands',
+    year: '2023 – Present',
+    title: 'Part 9: The JOJOLands',
+    category: 'Contemporary Pacific Island Luxury',
+    tags: ['Jodio Joestar', 'Oahu Hawaii', 'Streetwear Luxury'],
+    summary: '...',
+    image: '/images/cover-part-9.jpg',
+    link: 'https://jojo-portal.com',
+    objectPosition: '50% 50%',
+  },
 ])
 
 const capsulesRoot = ref<HTMLElement | null>(null)
 const headingRef = ref<HTMLElement | null>(null)
 const incomingImgRef = ref<HTMLImageElement | null>(null)
-
 
 const activeIdx = ref(0)
 const outgoingImage = ref(capsules.value[0].image)
