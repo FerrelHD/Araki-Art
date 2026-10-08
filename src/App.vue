@@ -30,6 +30,7 @@
     <!-- ── VIRTUAL 2.5D CAMERA STAGE (EXACT PERSONA 5 / SKILLSSCREEN ARCHITECTURE) ── -->
     <div
       id="camera-world"
+      ref="cameraWorldRef"
       class="relative w-full select-none will-change-transform"
       :style="cameraStageStyle"
     >
@@ -74,7 +75,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import PreloaderIntro from '@/components/common/PreloaderIntro.vue'
 import HeaderNav from '@/components/layout/HeaderNav.vue'
 import HeroSection from '@/components/sections/HeroSection.vue'
@@ -84,9 +85,12 @@ import AnatomyAccordion from '@/components/sections/AnatomyAccordion.vue'
 import FooterSection from '@/components/sections/FooterSection.vue'
 import UniversalValentineStage from '@/components/common/UniversalValentineStage.vue'
 import { useValentineStage } from '@/composables/useValentineStage'
-import { ScrollTrigger, lenis } from '@/lenis'
+import { ScrollTrigger, lenis, gsap } from '@/lenis'
 
 const heroSectionRef = ref<any>(null)
+const cameraWorldRef = ref<HTMLElement | null>(null)
+let cameraTween: gsap.core.Tween | null = null
+
 const {
   config,
   isStandActive,
@@ -95,19 +99,74 @@ const {
   handleResetCamera,
 } = useValentineStage()
 
-// Virtual 2.5D Camera Stage Style - hardware accelerated zoom pinned to character focus point
+// Virtual 2.5D Camera Stage Style - hardware-accelerated composition base
 const cameraStageStyle = computed(() => {
   return {
-    transform: isStandActive.value
-      ? `scale(${config.value.cameraZoom}) translate3d(0, 0, 0)`
-      : 'scale(1) translate3d(0, 0, 0)',
     transformOrigin: `${lastFocusOrigin.value.originX}% ${lastFocusOrigin.value.originY}%`,
-    transition: 'transform 750ms cubic-bezier(0.22, 1, 0.36, 1)',
     backfaceVisibility: 'hidden' as const,
     WebkitBackfaceVisibility: 'hidden' as const,
     willChange: 'transform' as const,
   }
 })
+
+// GSAP Camera Engine: Physics-driven exponential glide (expo.out) for buttery smooth motion & interruptibility
+watch(
+  isStandActive,
+  (active) => {
+    if (!cameraWorldRef.value) return
+
+    // Pin origin to current focal target
+    cameraWorldRef.value.style.transformOrigin = `${lastFocusOrigin.value.originX}% ${lastFocusOrigin.value.originY}%`
+
+    if (cameraTween) {
+      cameraTween.kill()
+    }
+
+    if (active) {
+      cameraTween = gsap.to(cameraWorldRef.value, {
+        scale: config.value.cameraZoom,
+        duration: 0.85,
+        ease: 'expo.out',
+        force3D: true,
+        overwrite: 'auto',
+      })
+    } else {
+      cameraTween = gsap.to(cameraWorldRef.value, {
+        scale: 1,
+        duration: 0.75,
+        ease: 'expo.out',
+        force3D: true,
+        overwrite: 'auto',
+      })
+    }
+  },
+  { flush: 'post' }
+)
+
+// Live adjustment watchers when calibrating via Shift + C
+watch(
+  () => config.value.cameraZoom,
+  (newZoom) => {
+    if (isStandActive.value && cameraWorldRef.value) {
+      gsap.to(cameraWorldRef.value, {
+        scale: newZoom,
+        duration: 0.2,
+        ease: 'power2.out',
+        force3D: true,
+        overwrite: 'auto',
+      })
+    }
+  }
+)
+
+watch(
+  () => [lastFocusOrigin.value.originX, lastFocusOrigin.value.originY],
+  ([x, y]) => {
+    if (cameraWorldRef.value) {
+      cameraWorldRef.value.style.transformOrigin = `${x}% ${y}%`
+    }
+  }
+)
 
 function onIntroStartTransition() {
   if (heroSectionRef.value?.playHandoverEntrance) {
@@ -146,5 +205,8 @@ onMounted(() => {
 
 onUnmounted(() => {
   window.removeEventListener('keydown', handleKeyDown)
+  if (cameraTween) {
+    cameraTween.kill()
+  }
 })
 </script>
