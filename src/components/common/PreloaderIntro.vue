@@ -27,7 +27,7 @@
       >
         <svg
           viewBox="0 0 100 100"
-          class="w-full h-full fill-brand-accent drop-shadow-[0_0_12px_rgba(200,165,100,0.35)]"
+          class="w-full h-full fill-brand-accent"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
