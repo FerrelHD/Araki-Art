@@ -52,7 +52,7 @@
     <!-- ── VIRTUAL 2.5D CAMERA STAGE (EXACT PERSONA 5 / SKILLSSCREEN ARCHITECTURE) ── -->
     <div
       id="camera-world"
-      class="relative z-10 w-full select-none will-change-transform"
+      class="relative w-full select-none will-change-transform"
       :style="cameraStageStyle"
     >
       <!-- Ambient Dark Dim Overlay (active when zoomed in, clickable to reset) -->
@@ -63,7 +63,7 @@
       />
 
       <!-- Main Content Area -->
-      <main class="relative z-10 pt-14 md:pt-16">
+      <main class="relative pt-14 md:pt-16">
         <!-- 01 Hero Section -->
         <HeroSection
           ref="heroSectionRef"

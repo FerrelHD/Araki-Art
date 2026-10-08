@@ -37,31 +37,31 @@ export interface ValentineConfig {
 export const defaultValentineConfig: ValentineConfig = {
   cameraZoom: 1.8,
   cameraOriginX: 84,
-  cameraOriginY: 56,
+  cameraOriginY: 51,
 
   aloneX: 0,
   aloneY: -151,
   aloneScale: 2.02,
 
-  standX: 7,
-  standY: -400,
-  standScale: 1.7,
+  standX: -13,
+  standY: -258,
+  standScale: 2.1,
 
-  menacingX: 9,
+  menacingX: 3,
   menacingY: 0,
-  menacingScale: 1.2,
+  menacingScale: 1.3,
   menacingOpacity: 85,
   menacingFlip: false,
 
   bubbleX: 59,
   bubbleY: 0,
-  bubbleRotate: -2,
-  bubbleScale: 1.18,
+  bubbleRotate: -7,
+  bubbleScale: 1.28,
 
   watermarkOpacity: 6,
 }
 
-const STORAGE_KEY = 'araki_valentine_universal_v2'
+const STORAGE_KEY = 'araki_valentine_universal_v3'
 
 const loadSavedConfig = (): ValentineConfig => {
   try {

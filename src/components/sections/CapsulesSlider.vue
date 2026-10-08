@@ -38,7 +38,7 @@
         >
           <!-- Left 6 Columns: Interactive Capsule Card & Vertical Thumbnails (snug, zero space kosong) -->
           <div
-            class="relative z-20 col-span-4 md:col-span-10 lg:col-span-6 lg:border-r border-grid flex flex-col justify-between min-h-0 overflow-hidden bg-brand-bg transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+            class="relative z-10 col-span-4 md:col-span-10 lg:col-span-6 lg:border-r border-grid flex flex-col justify-between min-h-0 overflow-hidden bg-brand-bg transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
             :class="isStandActive ? 'filter blur-[4px] opacity-20 cursor-pointer select-none pointer-events-none' : 'filter blur-0 opacity-100'"
             :title="isStandActive ? 'Klik latar belakang untuk kembali (ESC)' : ''"
           >
@@ -186,7 +186,7 @@
 
           <!-- Right 4 Columns: High-Fashion Freestanding Muse (Funny Valentine & D4C) -->
           <div
-            class="group/side relative z-35 hidden lg:col-span-4 lg:flex flex-col justify-end overflow-visible px-4 pb-2 bg-brand-primary/[0.015] border-b border-grid min-h-0 select-none"
+            class="group/side relative z-40 hidden lg:col-span-4 lg:flex flex-col justify-end overflow-visible px-4 pb-2 bg-brand-primary/[0.015] border-b border-grid min-h-0 select-none"
           >
 
 
