@@ -7,7 +7,7 @@
     <div class="grid grid-cols-4 md:grid-cols-12 flex-1 min-h-0 overflow-visible">
       <!-- 10 Columns Centered Container -->
       <div
-        class="col-span-4 md:col-span-10 md:col-start-2 border-x border-grid flex flex-col justify-between min-h-0 pt-14 md:pt-16 overflow-visible relative"
+        class="col-span-4 md:col-span-10 md:col-start-2 border-x border-grid flex flex-col justify-between min-h-0 pt-12 md:pt-14 xl:pt-16 overflow-visible relative"
       >
         <!-- Section Title (Compact Editorial Bar) -->
         <div class="border-b border-grid px-4 py-2 sm:px-6 sm:py-2.5 overflow-hidden flex items-baseline justify-between shrink-0">
@@ -24,7 +24,7 @@
             <div class="overflow-hidden">
               <h2
                 ref="headingRef"
-                class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-[-0.06em] leading-none will-change-transform"
+                class="text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-bold tracking-[-0.06em] leading-none will-change-transform"
               >
                 capsules.
               </h2>
@@ -117,56 +117,56 @@
 
                     <!-- SISI KANAN: Capsule Information Panel (Gaya A: Dark Editorial, Clean, Breathing Room) -->
                     <div
-                      class="flex-1 bg-brand-primary text-brand-bg p-5 sm:p-6 md:p-7 lg:p-8 flex flex-col justify-between min-h-0 overflow-y-auto no-scrollbar"
+                      class="flex-1 bg-brand-primary text-brand-bg p-4 sm:p-5 lg:p-5 xl:p-7 2xl:p-8 flex flex-col justify-between min-h-0 overflow-y-auto no-scrollbar"
                     >
                       <!-- Bagian Atas: Metadata, Judul, Kategori & Sinopsis dengan Spasi Bernapas -->
-                      <div class="flex flex-col gap-3 md:gap-4">
+                      <div class="flex flex-col gap-2 sm:gap-2.5 lg:gap-2.5 xl:gap-3.5">
                         <!-- Label Arsip Monospace -->
-                        <div class="flex items-center gap-2 opacity-50 font-mono text-[0.58rem] sm:text-[0.62rem] tracking-[0.2em] uppercase">
+                        <div class="flex items-center gap-2 opacity-50 font-mono text-[0.55rem] sm:text-[0.62rem] tracking-[0.2em] uppercase">
                           <span>ARCHIVE COLLECTION</span>
                           <span>·</span>
                           <span>VOL. 0{{ idx + 1 }}</span>
                         </div>
 
                         <!-- Judul Part (Clean Display Typography) -->
-                        <h3 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight leading-[1.1] text-brand-bg">
+                        <h3 class="text-lg sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-bold tracking-tight leading-[1.15] text-brand-bg">
                           {{ capsule.title }}
                         </h3>
 
                         <!-- Era & Kategori (Clean Monospace, Tanpa Badge/Card) -->
-                        <p class="font-mono text-[0.65rem] sm:text-[0.72rem] tracking-[0.16em] uppercase opacity-75">
+                        <p class="font-mono text-[0.6rem] sm:text-[0.68rem] tracking-[0.16em] uppercase opacity-75">
                           {{ capsule.category }} · {{ capsule.year }}
                         </p>
 
                         <!-- Sinopsis Editorial dengan Breathing Room Lega -->
-                        <p class="text-xs sm:text-sm md:text-base leading-relaxed opacity-85 font-sans font-light max-w-[42ch] pt-1">
+                        <p class="text-xs sm:text-[0.82rem] md:text-sm lg:text-[0.82rem] xl:text-sm leading-relaxed opacity-85 font-sans font-light max-w-[42ch]">
                           {{ capsule.summary }}
                         </p>
 
                         <!-- Tags Karakter & Motif (Clean Slash-Separated, Tanpa Badge/Pill) -->
                         <div
                           v-if="capsule.tags && capsule.tags.length"
-                          class="pt-2 flex flex-wrap items-center gap-x-2.5 gap-y-1 font-mono text-[0.65rem] sm:text-[0.7rem] tracking-wider opacity-60"
+                          class="pt-1 sm:pt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-[0.58rem] sm:text-[0.65rem] tracking-wider opacity-60"
                         >
                           <span v-for="(tag, tIdx) in capsule.tags" :key="tag">
-                            {{ tag }}<span v-if="tIdx < capsule.tags.length - 1" class="ml-2.5 opacity-35">/</span>
+                            {{ tag }}<span v-if="tIdx < capsule.tags.length - 1" class="ml-2 opacity-35">/</span>
                           </span>
                         </div>
                       </div>
 
                       <!-- Bagian Bawah: Tombol View Archive di Paling Bawah Rata Kanan -->
-                      <div class="pt-5 border-t border-brand-bg/15 flex items-center justify-between shrink-0 mt-4">
-                        <span class="font-mono text-[0.58rem] tracking-widest uppercase opacity-40 hidden sm:inline">
+                      <div class="pt-3 sm:pt-3.5 xl:pt-4 border-t border-brand-bg/15 flex items-center justify-between shrink-0 mt-2.5 sm:mt-3 xl:mt-4">
+                        <span class="font-mono text-[0.55rem] sm:text-[0.58rem] tracking-widest uppercase opacity-40 hidden sm:inline">
                           OFFICIAL ARCHIVE
                         </span>
                         <a
                           :href="capsule.link"
                           target="_blank"
                           rel="noopener noreferrer"
-                          class="group/roll inline-flex items-center gap-2 text-sm sm:text-base md:text-lg font-mono font-medium tracking-wider uppercase text-brand-bg hover:opacity-75 transition-opacity cursor-pointer ml-auto"
+                          class="group/roll inline-flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm xl:text-base font-mono font-medium tracking-wider uppercase text-brand-bg hover:opacity-75 transition-opacity cursor-pointer ml-auto"
                         >
                           <RollingText text="view archive" />
-                          <span class="text-base sm:text-lg transition-transform duration-300 group-hover/roll:translate-x-1.5">></span>
+                          <span class="text-sm sm:text-base transition-transform duration-300 group-hover/roll:translate-x-1.5">></span>
                         </a>
                       </div>
                     </div>
