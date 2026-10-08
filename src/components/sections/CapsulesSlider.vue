@@ -230,7 +230,7 @@
                   alt="Funny Valentine (President)"
                   loading="eager"
                   decoding="async"
-                  class="h-[85%] max-h-[62vh] xl:max-h-[72vh] w-auto object-contain object-bottom filter contrast-105 pointer-events-none select-none transition-transform duration-300 group-hover/muse:scale-[1.02]"
+                  class="h-[85%] max-h-[65vh] xl:max-h-[75vh] w-auto object-contain object-bottom filter contrast-105 pointer-events-none select-none transition-transform duration-300 group-hover/muse:scale-[1.02]"
                 />
               </div>
 

@@ -43,9 +43,9 @@ export const defaultValentineConfig: ValentineConfig = {
   aloneY: 14,
   aloneScale: 1.28,
 
-  standX: -150,
-  standY: 19,
-  standScale: 1.6,
+  standX: -80,
+  standY: 14,
+  standScale: 1.28,
 
   menacingX: 47,
   menacingY: 0,
@@ -61,7 +61,7 @@ export const defaultValentineConfig: ValentineConfig = {
   watermarkOpacity: 6,
 }
 
-const STORAGE_KEY = 'araki_valentine_universal_v6'
+const STORAGE_KEY = 'araki_valentine_universal_v7'
 
 const loadSavedConfig = (): ValentineConfig => {
   try {
@@ -162,6 +162,7 @@ export function useValentineStage() {
   const matchStandToIdle = () => {
     config.value.standX = config.value.aloneX
     config.value.standY = config.value.aloneY
+    config.value.standScale = config.value.aloneScale
   }
 
   const resetConfig = () => {
