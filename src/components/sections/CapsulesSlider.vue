@@ -69,28 +69,31 @@
 
               <!-- Right: Active Slide Content Card (Stacked: Clean Minimalist Bar on Top + Full Bleed Cover Below) -->
               <div class="min-w-0 flex-1 flex flex-col justify-between bg-brand-bg min-h-0">
-                <!-- Capsule Information Block (Clean Editorial Bar dengan Extra Breathing Space di Bawah) -->
-                <div class="w-full bg-brand-primary text-brand-bg px-6 pt-6 pb-12 md:px-9 md:pt-8 md:pb-16 flex items-start justify-between gap-4 border-b border-grid shrink-0">
-                  <h3 class="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight truncate leading-tight">
-                    {{ currentCapsule.title }}
-                  </h3>
+                <!-- Capsule Information Block (Titel di Atas, Tombol Besar di Bawah) -->
+<div class="w-full bg-brand-primary text-brand-bg px-6 py-6 md:px-8 md:py-8 flex flex-col justify-between gap-8 md:gap-10 border-b border-grid shrink-0">
+  <!-- Baris Atas: Judul Part di Kiri, Kategori & Tahun di Kanan -->
+  <div class="flex items-baseline justify-between gap-4">
+    <h3 class="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight truncate">
+      {{ currentCapsule.title }}
+    </h3>
+    <span class="text-[0.65rem] sm:text-[0.72rem] font-mono uppercase tracking-[0.2em] opacity-65 shrink-0">
+      {{ currentCapsule.category }} · {{ currentCapsule.year }}
+    </span>
+  </div>
 
-                  <div class="flex items-center gap-4 md:gap-6 shrink-0 pt-1">
-                    <span class="text-[0.62rem] sm:text-[0.68rem] font-mono uppercase tracking-[0.18em] opacity-65">
-                      {{ currentCapsule.category }} · {{ currentCapsule.year }}
-                    </span>
-
-                    <a
-                      :href="currentCapsule.link"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="group/roll inline-flex items-center gap-1.5 text-xs sm:text-sm font-mono tracking-wider uppercase text-brand-bg hover:opacity-80"
-                    >
-                      <RollingText text="view archive" />
-                      <span class="transition-transform group-hover/roll:translate-x-1">></span>
-                    </a>
-                  </div>
-                </div>
+  <!-- Baris Bawah: Tombol View Archive Lebih Besar & Rata Kanan -->
+  <div class="flex justify-end items-center">
+    <a
+      :href="currentCapsule.link"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="group/roll inline-flex items-center gap-2.5 text-base md:text-lg font-mono font-medium tracking-wider uppercase text-brand-bg hover:opacity-75 transition-opacity"
+    >
+      <RollingText text="view archive" />
+      <span class="text-lg md:text-xl transition-transform duration-300 group-hover/roll:translate-x-1.5">></span>
+    </a>
+  </div>
+</div>
 
                 <!-- Large Visual Container (Full Bleed Cover Filling All Remaining Space Down to PREV/NEXT) -->
                 <div class="relative block w-full flex-1 overflow-hidden bg-black/10 group select-none min-h-0">

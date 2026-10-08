@@ -100,6 +100,7 @@
         >
           <!-- JoJo Star Birthmark Emblem (SVG) -->
           <svg
+            id="hero-star-svg"
             ref="starIconRef"
             viewBox="0 0 100 100"
             class="w-full h-full fill-brand-primary transition-transform duration-700 ease-out group-hover:rotate-45"
