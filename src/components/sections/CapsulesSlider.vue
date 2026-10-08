@@ -202,12 +202,71 @@
           <div
             class="group/side relative z-30 hidden lg:col-span-4 lg:flex flex-col justify-end overflow-hidden px-4 pb-2 bg-brand-primary/[0.015] border-b border-grid min-h-0 select-none"
           >
+            <!-- Dismiss Stand / Reset Camera Button (Pill) -->
+            <transition
+              enter-active-class="transition-opacity duration-300"
+              enter-from-class="opacity-0"
+              enter-to-class="opacity-100"
+              leave-active-class="transition-opacity duration-200"
+              leave-from-class="opacity-100"
+              leave-to-class="opacity-0"
+            >
+              <button
+                v-if="isStandActive"
+                type="button"
+                @click.stop="isStandActive = false"
+                class="absolute top-3 right-3 z-50 bg-black/85 hover:bg-red-950 text-white border border-white/20 hover:border-red-500/80 px-2.5 py-1 text-[0.6rem] font-mono tracking-widest uppercase transition-all shadow-lg backdrop-blur-xs flex items-center gap-1.5 cursor-pointer"
+                title="Dismiss Stand & Reset Camera (ESC)"
+              >
+                <span class="text-red-400 font-bold">✕</span>
+                <span>RESET</span>
+                <span class="opacity-50 text-[0.55rem]">(ESC)</span>
+              </button>
+            </transition>
+
             <!-- Watermark Background (Reactivates & Glows when Stand is Manifested) -->
             <div
               class="absolute font-mono font-bold leading-none select-none pointer-events-none transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
               :style="getWatermarkStyle()"
             >
               D4C
+            </div>
+
+            <!-- Anime Speedline Action Lines (Burst on summon + energetic pulse) -->
+            <div
+              v-if="isStandActive"
+              class="absolute inset-0 pointer-events-none z-20 overflow-hidden transition-opacity duration-500"
+              :class="showSpeedlineBurst ? 'opacity-90' : 'opacity-40'"
+            >
+              <svg class="w-full h-full" viewBox="0 0 400 600" fill="none" preserveAspectRatio="none">
+                <g :class="showSpeedlineBurst ? 'animate-pulse' : ''">
+                  <!-- Dynamic anime speedlines radiating towards camera focus center -->
+                  <line x1="0" y1="0" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="2" class="text-cyan-400/50" />
+                  <line x1="50" y1="0" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="1.5" class="text-brand-primary/40" />
+                  <line x1="120" y1="0" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="2.5" class="text-brand-primary/50" />
+                  <line x1="200" y1="0" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="1" class="text-cyan-400/40" />
+                  <line x1="280" y1="0" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="2" class="text-brand-primary/50" />
+                  <line x1="350" y1="0" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="1.5" class="text-brand-primary/40" />
+                  <line x1="400" y1="0" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="3" class="text-cyan-400/60" />
+                  
+                  <line x1="400" y1="100" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="1.5" class="text-brand-primary/40" />
+                  <line x1="400" y1="180" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="2.5" class="text-brand-primary/50" />
+                  <line x1="400" y1="280" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="1.5" class="text-cyan-400/40" />
+                  <line x1="400" y1="380" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="2" class="text-brand-primary/50" />
+                  <line x1="400" y1="480" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="1.5" class="text-brand-primary/40" />
+                  <line x1="400" y1="600" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="2.5" class="text-cyan-400/50" />
+
+                  <line x1="300" y1="600" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="1.5" class="text-brand-primary/40" />
+                  <line x1="200" y1="600" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="2" class="text-brand-primary/50" />
+                  <line x1="100" y1="600" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="1.5" class="text-cyan-400/40" />
+                  <line x1="0" y1="600" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="3" class="text-brand-primary/50" />
+
+                  <line x1="0" y1="480" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="1.5" class="text-brand-primary/40" />
+                  <line x1="0" y1="360" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="2.5" class="text-brand-primary/50" />
+                  <line x1="0" y1="240" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="1.5" class="text-cyan-400/50" />
+                  <line x1="0" y1="120" :x2="valAdj.cameraOriginX * 4" :y2="valAdj.cameraOriginY * 6" stroke="currentColor" stroke-width="2" class="text-brand-primary/40" />
+                </g>
+              </svg>
             </div>
 
             <!-- Comic / Manga Speech Bubble (Animated on Click) -->
@@ -221,7 +280,7 @@
             >
               <div
                 v-if="isStandActive"
-                @click="cycleValentineQuote"
+                @click.stop="cycleValentineQuote"
                 class="absolute z-40 cursor-pointer pointer-events-auto select-none"
                 :style="getBubbleStyle()"
                 title="Click to cycle quote / Klik untuk ganti quote"
@@ -244,28 +303,36 @@
               </div>
             </transition>
 
-            <!-- Speedline Flash Effect Burst (400ms on click) -->
+            <!-- 2.5D Interactive Diorama Camera Stage -->
             <div
-              v-if="showSpeedlineBurst"
-              class="absolute inset-0 pointer-events-none z-35 flex items-center justify-center opacity-60 transition-opacity duration-400"
-            >
-              <svg class="w-full h-full" viewBox="0 0 400 400" fill="none">
-                <line x1="200" y1="200" x2="0" y2="0" stroke="currentColor" stroke-width="1.5" class="text-brand-primary/40" />
-                <line x1="200" y1="200" x2="400" y2="0" stroke="currentColor" stroke-width="1.5" class="text-brand-primary/40" />
-                <line x1="200" y1="200" x2="0" y2="400" stroke="currentColor" stroke-width="1.5" class="text-brand-primary/40" />
-                <line x1="200" y1="200" x2="400" y2="400" stroke="currentColor" stroke-width="1.5" class="text-brand-primary/40" />
-                <line x1="200" y1="200" x2="200" y2="0" stroke="currentColor" stroke-width="1.5" class="text-brand-primary/30" />
-                <line x1="200" y1="200" x2="0" y2="200" stroke="currentColor" stroke-width="1.5" class="text-brand-primary/30" />
-                <line x1="200" y1="200" x2="400" y2="200" stroke="currentColor" stroke-width="1.5" class="text-brand-primary/30" />
-              </svg>
-            </div>
-
-            <!-- Interactive Cutout Stage Container -->
-            <div
-              class="relative w-full flex-1 min-h-0 flex items-end justify-center overflow-visible pointer-events-auto cursor-pointer group/muse"
+              class="relative w-full flex-1 min-h-0 flex items-end justify-center overflow-visible pointer-events-auto cursor-pointer group/muse will-change-transform"
+              :style="getCameraStageStyle()"
               @click="toggleValentineStand"
-              :title="isStandActive ? 'Click to dismiss Stand (ESC)' : 'Click to summon D4C!'"
+              :title="isStandActive ? 'Click to zoom out (ESC)' : 'Click to summon D4C & zoom in!'"
             >
+              <!-- JoJo Menacing FX (ゴゴゴ...) -->
+              <transition
+                enter-active-class="transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                enter-from-class="opacity-0 scale-50"
+                enter-to-class="opacity-100 scale-100"
+                leave-active-class="transition-all duration-200 ease-in"
+                leave-from-class="opacity-100 scale-100"
+                leave-to-class="opacity-0 scale-50"
+              >
+                <div
+                  v-if="isStandActive"
+                  class="absolute z-25 pointer-events-none select-none animate-menacing-float"
+                  :style="getMenacingWrapperStyle()"
+                >
+                  <img
+                    src="/images/jojo-menacing.png"
+                    alt="JoJo Menacing Effect"
+                    class="w-32 xl:w-40 h-auto pointer-events-none select-none transition-transform duration-200 drop-shadow-[0_4px_16px_rgba(0,0,0,0.55)]"
+                    :style="getMenacingImageStyle()"
+                  />
+                </div>
+              </transition>
+
               <!-- Contact Floor Shadow (Soft Optical Depth) -->
               <div
                 class="absolute bottom-0 w-44 h-5 rounded-full bg-black/40 blur-md pointer-events-none transition-all duration-500"
@@ -651,76 +718,199 @@
           </div>
         </div>
 
+        <!-- CAMERA 2.5D CONTROLS -->
+        <div class="space-y-2 border-b border-neutral-800/80 pb-2.5">
+          <div class="flex justify-between items-center">
+            <span class="text-[0.65rem] text-cyan-400 uppercase tracking-widest font-bold">
+              📷 2.5D Camera Zoom-In
+            </span>
+            <span class="text-neutral-500 font-mono text-[0.58rem]">Saat D4C Aktif</span>
+          </div>
+
+          <!-- Camera Zoom Scale -->
+          <div class="bg-neutral-900/90 p-2 border border-neutral-800">
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-neutral-300 text-[0.62rem] font-bold uppercase">Zoom Scale</span>
+              <span class="text-cyan-300 font-bold font-mono text-[0.65rem]">{{ valAdj.cameraZoom.toFixed(2) }}x</span>
+            </div>
+            <input type="range" min="1.0" max="2.2" step="0.05" v-model.number="valAdj.cameraZoom" class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
+          </div>
+
+          <!-- Camera Focus Origin X & Y -->
+          <div class="grid grid-cols-2 gap-2">
+            <div class="bg-neutral-900/90 p-2 border border-neutral-800">
+              <div class="flex justify-between items-center mb-1">
+                <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">Focus X</span>
+                <span class="text-cyan-300 font-bold font-mono text-[0.62rem]">{{ valAdj.cameraOriginX }}%</span>
+              </div>
+              <input type="range" min="0" max="100" step="1" v-model.number="valAdj.cameraOriginX" class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
+            </div>
+            <div class="bg-neutral-900/90 p-2 border border-neutral-800">
+              <div class="flex justify-between items-center mb-1">
+                <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">Focus Y</span>
+                <span class="text-cyan-300 font-bold font-mono text-[0.62rem]">{{ valAdj.cameraOriginY }}%</span>
+              </div>
+              <input type="range" min="0" max="100" step="1" v-model.number="valAdj.cameraOriginY" class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
+            </div>
+          </div>
+
+          <!-- Quick Focus Presets -->
+          <div class="flex gap-1">
+            <button
+              type="button"
+              @click="valAdj.cameraOriginX = 50; valAdj.cameraOriginY = 28"
+              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.58rem] text-neutral-300 cursor-pointer"
+            >
+              Head Focus
+            </button>
+            <button
+              type="button"
+              @click="valAdj.cameraOriginX = 50; valAdj.cameraOriginY = 42"
+              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.58rem] text-neutral-300 cursor-pointer"
+            >
+              Chest Focus
+            </button>
+            <button
+              type="button"
+              @click="valAdj.cameraOriginX = 50; valAdj.cameraOriginY = 55"
+              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.58rem] text-neutral-300 cursor-pointer"
+            >
+              Mid Body
+            </button>
+          </div>
+        </div>
+
+        <!-- JOJO MENACING FX CONTROLS (Visible when Stand is Active) -->
+        <div v-if="isStandActive" class="space-y-2 border-b border-neutral-800/80 pb-2.5">
+          <div class="flex justify-between items-center">
+            <span class="text-[0.65rem] text-purple-400 uppercase tracking-widest font-bold">
+              ⚡ JoJo Menacing FX (ゴゴゴ)
+            </span>
+            <span class="text-neutral-500 font-mono text-[0.58rem]">Aura Stand</span>
+          </div>
+
+          <!-- FLIP HORISONTAL TOGGLE BUTTON -->
+          <button
+            type="button"
+            @click="valAdj.menacingFlip = !valAdj.menacingFlip"
+            class="w-full py-1.5 font-mono text-[0.65rem] tracking-wider uppercase font-bold border transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-sm"
+            :class="valAdj.menacingFlip ? 'bg-purple-700 hover:bg-purple-600 text-white border-purple-400' : 'bg-neutral-900 hover:bg-neutral-800 text-purple-300 border-neutral-700'"
+          >
+            <span>ARAH KANJI (FLIP):</span>
+            <span class="px-2 py-0.5 rounded text-[0.62rem] font-bold" :class="valAdj.menacingFlip ? 'bg-yellow-400 text-neutral-950' : 'bg-neutral-800 text-purple-300 border border-purple-500/30'">
+              {{ valAdj.menacingFlip ? 'FLIPPED (MIRROR) ⇌' : 'NORMAL ⇋' }}
+            </span>
+          </button>
+
+          <!-- Menacing Position X & Y -->
+          <div class="grid grid-cols-2 gap-2">
+            <div class="bg-neutral-900/90 p-2 border border-neutral-800">
+              <div class="flex justify-between items-center mb-1">
+                <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">Pos X</span>
+                <span class="text-purple-300 font-bold font-mono text-[0.62rem]">{{ valAdj.menacingX }}%</span>
+              </div>
+              <input type="range" min="-10" max="90" step="1" v-model.number="valAdj.menacingX" class="w-full accent-purple-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
+            </div>
+            <div class="bg-neutral-900/90 p-2 border border-neutral-800">
+              <div class="flex justify-between items-center mb-1">
+                <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">Pos Y</span>
+                <span class="text-purple-300 font-bold font-mono text-[0.62rem]">{{ valAdj.menacingY }}%</span>
+              </div>
+              <input type="range" min="0" max="90" step="1" v-model.number="valAdj.menacingY" class="w-full accent-purple-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
+            </div>
+          </div>
+
+          <!-- Menacing Scale & Opacity -->
+          <div class="grid grid-cols-2 gap-2">
+            <div class="bg-neutral-900/90 p-2 border border-neutral-800">
+              <div class="flex justify-between items-center mb-1">
+                <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">Scale</span>
+                <span class="text-purple-300 font-bold font-mono text-[0.62rem]">{{ valAdj.menacingScale.toFixed(2) }}x</span>
+              </div>
+              <input type="range" min="0.4" max="2.5" step="0.05" v-model.number="valAdj.menacingScale" class="w-full accent-purple-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
+            </div>
+            <div class="bg-neutral-900/90 p-2 border border-neutral-800">
+              <div class="flex justify-between items-center mb-1">
+                <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">Opacity</span>
+                <span class="text-purple-300 font-bold font-mono text-[0.62rem]">{{ valAdj.menacingOpacity }}%</span>
+              </div>
+              <input type="range" min="10" max="100" step="5" v-model.number="valAdj.menacingOpacity" class="w-full accent-purple-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
+            </div>
+          </div>
+        </div>
+
         <!-- Valentine Alone Sliders (Visible when isStandActive is false) -->
-        <div v-if="!isStandActive" class="space-y-2.5">
+        <div v-if="!isStandActive" class="space-y-2 border-b border-neutral-800/80 pb-2.5">
           <div class="text-[0.65rem] text-amber-400 uppercase tracking-widest font-bold">
             Valentine (Alone Mode)
           </div>
           
-          <!-- Position X -->
-          <div class="bg-neutral-900/90 p-2 border border-neutral-800">
-            <div class="flex justify-between items-center mb-1">
-              <span class="text-neutral-300 text-[0.62rem] font-bold uppercase">Position X (px)</span>
-              <span class="text-amber-300 font-bold text-[0.65rem]">{{ valAdj.aloneX }}px</span>
+          <!-- Position X & Y -->
+          <div class="grid grid-cols-2 gap-2">
+            <div class="bg-neutral-900/90 p-2 border border-neutral-800">
+              <div class="flex justify-between items-center mb-1">
+                <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">Pos X</span>
+                <span class="text-amber-300 font-bold font-mono text-[0.62rem]">{{ valAdj.aloneX }}px</span>
+              </div>
+              <input type="range" min="-120" max="120" step="1" v-model.number="valAdj.aloneX" class="w-full accent-amber-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
             </div>
-            <input type="range" min="-120" max="120" step="1" v-model.number="valAdj.aloneX" class="w-full accent-amber-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
-          </div>
-
-          <!-- Position Y -->
-          <div class="bg-neutral-900/90 p-2 border border-neutral-800">
-            <div class="flex justify-between items-center mb-1">
-              <span class="text-neutral-300 text-[0.62rem] font-bold uppercase">Position Y (px)</span>
-              <span class="text-amber-300 font-bold text-[0.65rem]">{{ valAdj.aloneY }}px</span>
+            <div class="bg-neutral-900/90 p-2 border border-neutral-800">
+              <div class="flex justify-between items-center mb-1">
+                <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">Pos Y</span>
+                <span class="text-amber-300 font-bold font-mono text-[0.62rem]">{{ valAdj.aloneY }}px</span>
+              </div>
+              <input type="range" min="-150" max="100" step="1" v-model.number="valAdj.aloneY" class="w-full accent-amber-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
             </div>
-            <input type="range" min="-150" max="100" step="1" v-model.number="valAdj.aloneY" class="w-full accent-amber-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
           </div>
 
           <!-- Scale -->
           <div class="bg-neutral-900/90 p-2 border border-neutral-800">
             <div class="flex justify-between items-center mb-1">
-              <span class="text-neutral-300 text-[0.62rem] font-bold uppercase">Scale (Zoom)</span>
-              <span class="text-amber-300 font-bold text-[0.65rem]">{{ valAdj.aloneScale.toFixed(2) }}x</span>
+              <span class="text-neutral-300 text-[0.62rem] font-bold uppercase">Scale</span>
+              <span class="text-amber-300 font-bold font-mono text-[0.65rem]">{{ valAdj.aloneScale.toFixed(2) }}x</span>
             </div>
             <input type="range" min="0.6" max="2.0" step="0.02" v-model.number="valAdj.aloneScale" class="w-full accent-amber-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
           </div>
         </div>
 
         <!-- Valentine With Stand Sliders (Visible when isStandActive is true) -->
-        <div v-else class="space-y-2.5">
+        <div v-else class="space-y-2 border-b border-neutral-800/80 pb-2.5">
           <div class="text-[0.65rem] text-cyan-400 uppercase tracking-widest font-bold">
-            Valentine + D4C Stand Mode
+            Valentine + D4C Stand Sprite
           </div>
 
-          <!-- Stand Position X -->
-          <div class="bg-neutral-900/90 p-2 border border-neutral-800">
-            <div class="flex justify-between items-center mb-1">
-              <span class="text-neutral-300 text-[0.62rem] font-bold uppercase">D4C Position X</span>
-              <span class="text-cyan-300 font-bold text-[0.65rem]">{{ valAdj.standX }}px</span>
+          <!-- Stand Position X & Y -->
+          <div class="grid grid-cols-2 gap-2">
+            <div class="bg-neutral-900/90 p-2 border border-neutral-800">
+              <div class="flex justify-between items-center mb-1">
+                <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">D4C Pos X</span>
+                <span class="text-cyan-300 font-bold font-mono text-[0.62rem]">{{ valAdj.standX }}px</span>
+              </div>
+              <input type="range" min="-120" max="120" step="1" v-model.number="valAdj.standX" class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
             </div>
-            <input type="range" min="-120" max="120" step="1" v-model.number="valAdj.standX" class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
-          </div>
-
-          <!-- Stand Position Y -->
-          <div class="bg-neutral-900/90 p-2 border border-neutral-800">
-            <div class="flex justify-between items-center mb-1">
-              <span class="text-neutral-300 text-[0.62rem] font-bold uppercase">D4C Position Y</span>
-              <span class="text-cyan-300 font-bold text-[0.65rem]">{{ valAdj.standY }}px</span>
+            <div class="bg-neutral-900/90 p-2 border border-neutral-800">
+              <div class="flex justify-between items-center mb-1">
+                <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">D4C Pos Y</span>
+                <span class="text-cyan-300 font-bold font-mono text-[0.62rem]">{{ valAdj.standY }}px</span>
+              </div>
+              <input type="range" min="-150" max="100" step="1" v-model.number="valAdj.standY" class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
             </div>
-            <input type="range" min="-150" max="100" step="1" v-model.number="valAdj.standY" class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
           </div>
 
           <!-- Stand Scale -->
           <div class="bg-neutral-900/90 p-2 border border-neutral-800">
             <div class="flex justify-between items-center mb-1">
               <span class="text-neutral-300 text-[0.62rem] font-bold uppercase">D4C Scale</span>
-              <span class="text-cyan-300 font-bold text-[0.65rem]">{{ valAdj.standScale.toFixed(2) }}x</span>
+              <span class="text-cyan-300 font-bold font-mono text-[0.65rem]">{{ valAdj.standScale.toFixed(2) }}x</span>
             </div>
             <input type="range" min="0.6" max="2.0" step="0.02" v-model.number="valAdj.standScale" class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
           </div>
+        </div>
 
-          <!-- Speech Bubble Controls -->
-          <div class="text-[0.65rem] text-cyan-400 uppercase tracking-widest font-bold pt-1">
-            Manga Speech Bubble
+        <!-- Speech Bubble Controls (Visible when Stand is Active) -->
+        <div v-if="isStandActive" class="space-y-2">
+          <div class="text-[0.65rem] text-cyan-400 uppercase tracking-widest font-bold">
+            💬 Manga Speech Bubble
           </div>
 
           <!-- Bubble X & Y -->
@@ -728,14 +918,14 @@
             <div class="bg-neutral-900/90 p-2 border border-neutral-800">
               <div class="flex justify-between items-center mb-1">
                 <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">Bubble X</span>
-                <span class="text-cyan-300 font-bold text-[0.62rem]">{{ valAdj.bubbleX }}%</span>
+                <span class="text-cyan-300 font-bold font-mono text-[0.62rem]">{{ valAdj.bubbleX }}%</span>
               </div>
               <input type="range" min="0" max="85" step="1" v-model.number="valAdj.bubbleX" class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
             </div>
             <div class="bg-neutral-900/90 p-2 border border-neutral-800">
               <div class="flex justify-between items-center mb-1">
                 <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">Bubble Y</span>
-                <span class="text-cyan-300 font-bold text-[0.62rem]">{{ valAdj.bubbleY }}%</span>
+                <span class="text-cyan-300 font-bold font-mono text-[0.62rem]">{{ valAdj.bubbleY }}%</span>
               </div>
               <input type="range" min="0" max="80" step="1" v-model.number="valAdj.bubbleY" class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
             </div>
@@ -745,15 +935,15 @@
           <div class="grid grid-cols-2 gap-2">
             <div class="bg-neutral-900/90 p-2 border border-neutral-800">
               <div class="flex justify-between items-center mb-1">
-                <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">Bubble Scale</span>
-                <span class="text-cyan-300 font-bold text-[0.62rem]">{{ valAdj.bubbleScale.toFixed(2) }}x</span>
+                <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">Scale</span>
+                <span class="text-cyan-300 font-bold font-mono text-[0.62rem]">{{ valAdj.bubbleScale.toFixed(2) }}x</span>
               </div>
               <input type="range" min="0.6" max="1.5" step="0.02" v-model.number="valAdj.bubbleScale" class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
             </div>
             <div class="bg-neutral-900/90 p-2 border border-neutral-800">
               <div class="flex justify-between items-center mb-1">
-                <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">Bubble Rotate</span>
-                <span class="text-cyan-300 font-bold text-[0.62rem]">{{ valAdj.bubbleRotate }}°</span>
+                <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">Rotate</span>
+                <span class="text-cyan-300 font-bold font-mono text-[0.62rem]">{{ valAdj.bubbleRotate }}°</span>
               </div>
               <input type="range" min="-25" max="25" step="1" v-model.number="valAdj.bubbleRotate" class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
             </div>
@@ -816,16 +1006,35 @@ interface CoverAdjustment {
 }
 
 interface ValentineAdjustment {
+  // 2.5D Camera Diorama
+  cameraZoom: number
+  cameraOriginX: number
+  cameraOriginY: number
+
+  // Valentine Alone Mode
   aloneX: number
   aloneY: number
   aloneScale: number
+
+  // Valentine With D4C Stand Mode
   standX: number
   standY: number
   standScale: number
+
+  // JoJo Menacing FX (ゴゴゴ)
+  menacingX: number
+  menacingY: number
+  menacingScale: number
+  menacingOpacity: number
+  menacingFlip: boolean
+
+  // Manga Speech Bubble
   bubbleX: number
   bubbleY: number
   bubbleRotate: number
   bubbleScale: number
+
+  // Watermark D4C
   watermarkX: number
   watermarkY: number
   watermarkScale: number
@@ -833,12 +1042,20 @@ interface ValentineAdjustment {
 }
 
 const defaultValentineAdj: ValentineAdjustment = {
+  cameraZoom: 1.45,
+  cameraOriginX: 50,
+  cameraOriginY: 42,
   aloneX: 0,
   aloneY: -20,
   aloneScale: 1.15,
   standX: 0,
   standY: -20,
   standScale: 1.15,
+  menacingX: 12,
+  menacingY: 20,
+  menacingScale: 1.0,
+  menacingOpacity: 85,
+  menacingFlip: false,
   bubbleX: 6,
   bubbleY: 20,
   bubbleRotate: -2,
@@ -849,7 +1066,7 @@ const defaultValentineAdj: ValentineAdjustment = {
   watermarkOpacity: 5,
 }
 
-const VALENTINE_STORAGE_KEY = 'araki_valentine_adjustments_v1'
+const VALENTINE_STORAGE_KEY = 'araki_valentine_adjustments_v2'
 
 const loadValentineAdjustments = (): ValentineAdjustment => {
   try {
@@ -904,6 +1121,31 @@ watch(
   },
   { deep: true }
 )
+
+const getCameraStageStyle = () => {
+  const scale = isStandActive.value ? valAdj.value.cameraZoom : 1.0
+  return {
+    transform: `scale(${scale}) translate3d(0, 0, 0)`,
+    transformOrigin: `${valAdj.value.cameraOriginX}% ${valAdj.value.cameraOriginY}%`,
+    transition: 'transform 600ms cubic-bezier(0.16, 1, 0.3, 1)',
+  }
+}
+
+const getMenacingWrapperStyle = () => {
+  return {
+    left: `${valAdj.value.menacingX}%`,
+    top: `${valAdj.value.menacingY}%`,
+  }
+}
+
+const getMenacingImageStyle = () => {
+  const flipFactor = valAdj.value.menacingFlip ? -1 : 1
+  return {
+    transform: `scale(${valAdj.value.menacingScale}) scaleX(${flipFactor})`,
+    opacity: valAdj.value.menacingOpacity / 100,
+    transformOrigin: 'center center',
+  }
+}
 
 const getValentineAloneStyle = () => {
   return {
@@ -1255,3 +1497,18 @@ onUnmounted(() => {
   ctx?.revert()
 })
 </script>
+
+<style scoped>
+@keyframes menacingFloat {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(-1.5deg);
+  }
+}
+
+.animate-menacing-float {
+  animation: menacingFloat 2.4s ease-in-out infinite;
+}
+</style>
