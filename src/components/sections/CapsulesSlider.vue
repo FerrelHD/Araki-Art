@@ -67,54 +67,80 @@
                 </button>
               </div>
 
-              <!-- Right: Active Slide Content Card (Stacked: Clean Minimalist Bar on Top + Full Bleed Cover Below) -->
-              <div class="min-w-0 flex-1 flex flex-col justify-between bg-brand-bg min-h-0">
-                <!-- Capsule Information Block (Titel di Atas, Tombol Besar di Bawah) -->
-<div class="w-full bg-brand-primary text-brand-bg px-6 py-6 md:px-8 md:py-8 flex flex-col justify-between gap-8 md:gap-10 border-b border-grid shrink-0">
-  <!-- Baris Atas: Judul Part di Kiri, Kategori & Tahun di Kanan -->
-  <div class="flex items-baseline justify-between gap-4">
-    <h3 class="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight truncate">
-      {{ currentCapsule.title }}
-    </h3>
-    <span class="text-[0.65rem] sm:text-[0.72rem] font-mono uppercase tracking-[0.2em] opacity-65 shrink-0">
-      {{ currentCapsule.category }} · {{ currentCapsule.year }}
-    </span>
-  </div>
+              <!-- Right: Sliding Carousel Viewport (Mijobello style horizontal track) -->
+              <div
+                class="min-w-0 flex-1 overflow-hidden relative flex flex-col bg-brand-bg min-h-0 select-none"
+                @touchstart.passive="handleTouchStart"
+                @touchend.passive="handleTouchEnd"
+                @mousedown="handleMouseDown"
+                @mouseup="handleMouseUp"
+                @mouseleave="handleMouseLeave"
+              >
+                <!-- Horizontal Track with signature Mijobello cubic-bezier easing -->
+                <div
+                  class="flex h-full w-full transition-transform duration-700 ease-[cubic-bezier(0.65,0,0.35,1)] will-change-transform"
+                  :style="{ transform: `translateX(-${activeIdx * 100}%)` }"
+                >
+                  <div
+                    v-for="(capsule, idx) in capsules"
+                    :key="capsule.id"
+                    class="w-full h-full shrink-0 flex flex-col justify-between min-h-0"
+                  >
+                    <!-- Capsule Information Block (Titel di Atas, Tombol Besar di Bawah) -->
+                    <div
+                      class="w-full bg-brand-primary text-brand-bg px-6 py-6 md:px-8 md:py-8 flex flex-col justify-between gap-8 md:gap-10 border-b border-grid shrink-0"
+                    >
+                      <!-- Baris Atas: Judul Part di Kiri, Kategori & Tahun di Kanan -->
+                      <div class="flex items-baseline justify-between gap-4">
+                        <h3 class="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight truncate">
+                          {{ capsule.title }}
+                        </h3>
+                        <span class="text-[0.65rem] sm:text-[0.72rem] font-mono uppercase tracking-[0.2em] opacity-65 shrink-0">
+                          {{ capsule.category }} · {{ capsule.year }}
+                        </span>
+                      </div>
 
-  <!-- Baris Bawah: Tombol View Archive Lebih Besar & Rata Kanan -->
-  <div class="flex justify-end items-center">
-    <a
-      :href="currentCapsule.link"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="group/roll inline-flex items-center gap-2.5 text-base md:text-lg font-mono font-medium tracking-wider uppercase text-brand-bg hover:opacity-75 transition-opacity"
-    >
-      <RollingText text="view archive" />
-      <span class="text-lg md:text-xl transition-transform duration-300 group-hover/roll:translate-x-1.5">></span>
-    </a>
-  </div>
-</div>
+                      <!-- Baris Bawah: Tombol View Archive Lebih Besar & Rata Kanan -->
+                      <div class="flex justify-end items-center">
+                        <a
+                          :href="capsule.link"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="group/roll inline-flex items-center gap-2.5 text-base md:text-lg font-mono font-medium tracking-wider uppercase text-brand-bg hover:opacity-75 transition-opacity"
+                        >
+                          <RollingText text="view archive" />
+                          <span class="text-lg md:text-xl transition-transform duration-300 group-hover/roll:translate-x-1.5">></span>
+                        </a>
+                      </div>
+                    </div>
 
-                <!-- Large Visual Container (Full Bleed Cover Filling All Remaining Space Down to PREV/NEXT) -->
-                <div class="relative block w-full flex-1 overflow-hidden bg-black/10 group select-none min-h-0">
-                  <!-- Base Outgoing Layer -->
-                  <img
-                    :src="outgoingImage"
-                    :alt="currentCapsule.title"
-                    class="absolute inset-0 h-full w-full object-cover transition-all duration-300"
-                    :style="{ objectPosition: currentCapsule.objectPosition || '50% 12%' }"
-                  />
-
-                  <!-- Top Incoming Layer -->
-                  <img
-                    ref="incomingImgRef"
-                    :src="currentCapsule.image"
-                    :alt="currentCapsule.title"
-                    class="absolute inset-0 h-full w-full object-cover will-change-[opacity] transition-all duration-300"
-                    :style="{ objectPosition: currentCapsule.objectPosition || '50% 12%' }"
-                  />
-                  <div class="absolute inset-0 bg-brand-primary/5 pointer-events-none z-10"></div>
+                    <!-- Large Visual Container (Full Bleed Cover Filling Space Down to PREV/NEXT) -->
+                    <div class="relative block w-full flex-1 overflow-hidden bg-black/10 group select-none min-h-0">
+                      <div class="w-full h-full overflow-hidden">
+                        <img
+                          :src="capsule.image"
+                          :alt="capsule.title"
+                          class="h-full w-full object-cover transition-transform duration-500 ease-out"
+                          :style="getCoverStyle(idx)"
+                        />
+                      </div>
+                      <div class="absolute inset-0 bg-brand-primary/5 pointer-events-none z-10"></div>
+                    </div>
+                  </div>
                 </div>
+
+                <!-- Floating Live Adjuster Trigger Button (Editorial Pill) -->
+                <button
+                  type="button"
+                  @click="showAdjuster = !showAdjuster"
+                  class="absolute top-3 right-3 z-40 bg-neutral-950/90 hover:bg-neutral-900 text-white px-3 py-1.5 text-[0.68rem] font-mono tracking-wider uppercase border border-neutral-700/80 shadow-lg backdrop-blur-sm transition-all flex items-center gap-2 cursor-pointer select-none"
+                  :class="showAdjuster ? 'ring-1 ring-amber-400 text-amber-300' : ''"
+                  title="Buka Live Cover Editor"
+                >
+                  <span class="w-1.5 h-1.5 rounded-full" :class="showAdjuster ? 'bg-amber-400 animate-pulse' : 'bg-neutral-400'"></span>
+                  <span>{{ showAdjuster ? 'TUTUP EDITOR' : '⚙ ATUR COVER' }}</span>
+                  <span class="opacity-60 text-[0.6rem] bg-neutral-800 px-1 py-0.5">P0{{ activeIdx + 1 }}</span>
+                </button>
               </div>
             </div>
 
@@ -203,11 +229,236 @@
         </span>
       </div>
     </a>
+
+    <!-- Live Cover Image Adjuster Widget (Floating Tool Panel) -->
+    <div
+      v-if="showAdjuster"
+      class="fixed bottom-4 right-4 z-50 w-[330px] sm:w-[370px] bg-neutral-950/95 text-neutral-100 border border-neutral-700 shadow-2xl backdrop-blur-md p-4 font-mono text-xs select-none max-h-[88vh] overflow-y-auto no-scrollbar"
+    >
+      <!-- Panel Header -->
+      <div class="flex items-center justify-between pb-3 border-b border-neutral-800">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+          <span class="font-bold tracking-wider uppercase text-[0.72rem] text-amber-300">
+            Cover Position Editor
+          </span>
+        </div>
+        <button
+          type="button"
+          @click="showAdjuster = false"
+          class="text-neutral-400 hover:text-white p-1 text-sm font-bold leading-none cursor-pointer"
+          title="Close editor"
+        >
+          ✕
+        </button>
+      </div>
+
+      <!-- Quick Part Navigation / Selector (Buttons 01 - 09) -->
+      <div class="mt-3">
+        <div class="text-[0.65rem] text-neutral-400 uppercase tracking-widest mb-1.5 flex justify-between items-baseline">
+          <span>Active Part</span>
+          <span class="text-amber-400 font-bold truncate max-w-[200px]">{{ currentCapsule?.title }}</span>
+        </div>
+        <div class="grid grid-cols-9 gap-1">
+          <button
+            v-for="(_, idx) in capsules"
+            :key="'adj-p-' + idx"
+            type="button"
+            @click="goToSlide(idx)"
+            class="py-1 text-[0.65rem] font-bold text-center border transition-all cursor-pointer"
+            :class="activeIdx === idx ? 'bg-amber-400 text-neutral-950 border-amber-400 shadow' : 'bg-neutral-900 border-neutral-700 text-neutral-400 hover:text-white hover:border-neutral-500'"
+          >
+            0{{ idx + 1 }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Sliders Section -->
+      <div class="mt-3.5 space-y-3">
+        <!-- Horizontal X Slider -->
+        <div class="bg-neutral-900/90 p-2.5 border border-neutral-800">
+          <div class="flex justify-between items-center mb-1.5">
+            <span class="text-neutral-300 uppercase tracking-wider text-[0.65rem] font-bold">Position X (Horizontal)</span>
+            <span class="px-1.5 py-0.5 bg-neutral-800 border border-neutral-700 text-amber-300 font-mono text-[0.68rem] font-bold">
+              {{ currentAdjustment.posX }}%
+            </span>
+          </div>
+          <input
+            type="range"
+            min="0"
+            max="100"
+            step="1"
+            v-model.number="currentAdjustment.posX"
+            class="w-full accent-amber-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none"
+          />
+          <div class="flex justify-between gap-1 mt-1.5">
+            <button
+              type="button"
+              @click="currentAdjustment.posX = 0"
+              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
+            >
+              0% Left
+            </button>
+            <button
+              type="button"
+              @click="currentAdjustment.posX = 50"
+              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
+            >
+              50% Mid
+            </button>
+            <button
+              type="button"
+              @click="currentAdjustment.posX = 100"
+              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
+            >
+              100% Right
+            </button>
+          </div>
+        </div>
+
+        <!-- Vertical Y Slider -->
+        <div class="bg-neutral-900/90 p-2.5 border border-neutral-800">
+          <div class="flex justify-between items-center mb-1.5">
+            <span class="text-neutral-300 uppercase tracking-wider text-[0.65rem] font-bold">Position Y (Vertical)</span>
+            <span class="px-1.5 py-0.5 bg-neutral-800 border border-neutral-700 text-amber-300 font-mono text-[0.68rem] font-bold">
+              {{ currentAdjustment.posY }}%
+            </span>
+          </div>
+          <input
+            type="range"
+            min="0"
+            max="100"
+            step="1"
+            v-model.number="currentAdjustment.posY"
+            class="w-full accent-amber-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none"
+          />
+          <div class="flex justify-between gap-1 mt-1.5">
+            <button
+              type="button"
+              @click="currentAdjustment.posY = 0"
+              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
+            >
+              0% Top
+            </button>
+            <button
+              type="button"
+              @click="currentAdjustment.posY = 15"
+              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
+            >
+              15% Face
+            </button>
+            <button
+              type="button"
+              @click="currentAdjustment.posY = 50"
+              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
+            >
+              50% Mid
+            </button>
+            <button
+              type="button"
+              @click="currentAdjustment.posY = 100"
+              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
+            >
+              100% Bot
+            </button>
+          </div>
+        </div>
+
+        <!-- Scale (Zoom) Slider -->
+        <div class="bg-neutral-900/90 p-2.5 border border-neutral-800">
+          <div class="flex justify-between items-center mb-1.5">
+            <span class="text-neutral-300 uppercase tracking-wider text-[0.65rem] font-bold">Scale / Zoom</span>
+            <span class="px-1.5 py-0.5 bg-neutral-800 border border-neutral-700 text-amber-300 font-mono text-[0.68rem] font-bold">
+              {{ currentAdjustment.scale.toFixed(2) }}x
+            </span>
+          </div>
+          <input
+            type="range"
+            min="0.8"
+            max="2.5"
+            step="0.02"
+            v-model.number="currentAdjustment.scale"
+            class="w-full accent-amber-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none"
+          />
+          <div class="flex justify-between gap-1 mt-1.5">
+            <button
+              type="button"
+              @click="currentAdjustment.scale = 1.0"
+              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
+            >
+              1.0x Normal
+            </button>
+            <button
+              type="button"
+              @click="currentAdjustment.scale = 1.15"
+              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
+            >
+              1.15x
+            </button>
+            <button
+              type="button"
+              @click="currentAdjustment.scale = 1.3"
+              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
+            >
+              1.3x
+            </button>
+            <button
+              type="button"
+              @click="currentAdjustment.scale = 1.5"
+              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
+            >
+              1.5x
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Presets & Reset -->
+      <div class="mt-3 flex gap-2">
+        <button
+          type="button"
+          @click="resetActivePart"
+          class="flex-1 py-1.5 bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-[0.62rem] text-neutral-300 hover:text-white uppercase tracking-wider cursor-pointer"
+        >
+          Reset Part 0{{ activeIdx + 1 }}
+        </button>
+        <button
+          type="button"
+          @click="resetAllParts"
+          class="flex-1 py-1.5 bg-neutral-900 hover:bg-neutral-800 border border-red-900/60 text-[0.62rem] text-red-400 hover:text-red-300 uppercase tracking-wider cursor-pointer"
+        >
+          Reset All
+        </button>
+      </div>
+
+      <!-- Live CSS Output & Copy Action -->
+      <div class="mt-3 pt-3 border-t border-neutral-800">
+        <div class="p-2 bg-black border border-neutral-800 text-[0.62rem] text-neutral-300 break-all select-all font-mono">
+          objectPosition: '{{ currentAdjustment.posX }}% {{ currentAdjustment.posY }}%', scale: {{ currentAdjustment.scale.toFixed(2) }}
+        </div>
+        <div class="mt-2 flex gap-2">
+          <button
+            type="button"
+            @click="copyCurrentPartCSS"
+            class="flex-1 py-1.5 bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold text-[0.65rem] tracking-wider uppercase transition-colors cursor-pointer"
+          >
+            {{ copySuccess ? '✓ COPIED!' : '📋 COPY PART CSS' }}
+          </button>
+          <button
+            type="button"
+            @click="copyAllConfig"
+            class="flex-1 py-1.5 bg-neutral-800 hover:bg-neutral-700 text-neutral-200 font-bold text-[0.65rem] tracking-wider uppercase transition-colors cursor-pointer"
+          >
+            {{ copyAllSuccess ? '✓ ALL COPIED!' : '📋 COPY ALL (TS)' }}
+          </button>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import RollingText from '@/components/common/RollingText.vue'
 import { gsap } from '@/lenis'
 
@@ -222,6 +473,44 @@ interface Capsule {
   link: string
   objectPosition?: string
 }
+
+interface CoverAdjustment {
+  posX: number
+  posY: number
+  scale: number
+}
+
+const defaultAdjustments: Record<number, CoverAdjustment> = {
+  0: { posX: 50, posY: 15, scale: 1.0 }, // Part 1
+  1: { posX: 50, posY: 12, scale: 1.0 }, // Part 2
+  2: { posX: 50, posY: 15, scale: 1.0 }, // Part 3
+  3: { posX: 50, posY: 18, scale: 1.0 }, // Part 4
+  4: { posX: 50, posY: 15, scale: 1.0 }, // Part 5
+  5: { posX: 50, posY: 15, scale: 1.0 }, // Part 6
+  6: { posX: 50, posY: 15, scale: 1.0 }, // Part 7
+  7: { posX: 50, posY: 20, scale: 1.0 }, // Part 8 (JoJolion)
+  8: { posX: 50, posY: 45, scale: 1.0 }, // Part 9 (The JOJOLands)
+}
+
+const STORAGE_KEY = 'araki_cover_adjustments_v1'
+
+const loadSavedAdjustments = (): Record<number, CoverAdjustment> => {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY)
+    if (raw) {
+      const parsed = JSON.parse(raw)
+      return { ...defaultAdjustments, ...parsed }
+    }
+  } catch {
+    // ignore
+  }
+  return { ...defaultAdjustments }
+}
+
+const adjustments = ref<Record<number, CoverAdjustment>>(loadSavedAdjustments())
+const showAdjuster = ref(false)
+const copySuccess = ref(false)
+const copyAllSuccess = ref(false)
 
 const capsules = ref<Capsule[]>([
   {
@@ -318,56 +607,140 @@ const capsules = ref<Capsule[]>([
     title: 'Part 9: The JOJOLands',
     category: 'Contemporary Pacific Island Luxury',
     tags: ['Jodio Joestar', 'Oahu Hawaii', 'Streetwear Luxury'],
-    summary: '...',
+    summary:
+      'Set in subtropical Oahu, Hawaii. Jodio Joestar navigates high-stakes heists and stand battles clad in contemporary island luxury and avant-garde streetwear.',
     image: '/images/cover-part-9.jpg',
     link: 'https://jojo-portal.com',
-    objectPosition: '50% 50%',
   },
 ])
 
 const capsulesRoot = ref<HTMLElement | null>(null)
 const headingRef = ref<HTMLElement | null>(null)
-const incomingImgRef = ref<HTMLImageElement | null>(null)
-
 const activeIdx = ref(0)
-const outgoingImage = ref(capsules.value[0].image)
 const currentCapsule = computed(() => capsules.value[activeIdx.value])
 
-let ctx: gsap.Context | null = null
-
-const goToSlide = (idx: number) => {
-  if (activeIdx.value === idx) return
-  outgoingImage.value = capsules.value[activeIdx.value].image
-  activeIdx.value = idx
-
-  nextTick(() => {
-    if (incomingImgRef.value) {
-      gsap.killTweensOf(incomingImgRef.value)
-      gsap.fromTo(
-        incomingImgRef.value,
-        { opacity: 0 },
-        {
-          opacity: 1,
-          duration: 0.45,
-          ease: 'power2.out',
-          onComplete: () => {
-            outgoingImage.value = currentCapsule.value.image
-          },
-        }
-      )
+const currentAdjustment = computed(() => {
+  if (!adjustments.value[activeIdx.value]) {
+    adjustments.value[activeIdx.value] = {
+      ...(defaultAdjustments[activeIdx.value] || { posX: 50, posY: 15, scale: 1.0 }),
     }
+  }
+  return adjustments.value[activeIdx.value]
+})
+
+const persistAdjustments = () => {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(adjustments.value))
+  } catch {
+    // ignore
+  }
+}
+
+watch(
+  adjustments,
+  () => {
+    persistAdjustments()
+  },
+  { deep: true }
+)
+
+const getCoverStyle = (idx: number) => {
+  const adj = adjustments.value[idx] || defaultAdjustments[idx] || { posX: 50, posY: 15, scale: 1.0 }
+  return {
+    objectPosition: `${adj.posX}% ${adj.posY}%`,
+    transform: `scale(${adj.scale})`,
+  }
+}
+
+const resetActivePart = () => {
+  const def = defaultAdjustments[activeIdx.value] || { posX: 50, posY: 15, scale: 1.0 }
+  adjustments.value[activeIdx.value] = { ...def }
+  persistAdjustments()
+}
+
+const resetAllParts = () => {
+  adjustments.value = JSON.parse(JSON.stringify(defaultAdjustments))
+  persistAdjustments()
+}
+
+const copyCurrentPartCSS = () => {
+  const adj = currentAdjustment.value
+  const capsule = capsules.value[activeIdx.value]
+  const text = `/* ${capsule?.title || 'Part ' + (activeIdx.value + 1)} */\nobjectPosition: '${adj.posX}% ${adj.posY}%',\nscale: ${adj.scale.toFixed(2)},`
+  navigator.clipboard.writeText(text).then(() => {
+    copySuccess.value = true
+    setTimeout(() => {
+      copySuccess.value = false
+    }, 2000)
   })
 }
 
+const copyAllConfig = () => {
+  const text = capsules.value
+    .map((c, i) => {
+      const adj = adjustments.value[i] || defaultAdjustments[i]
+      return `  // ${c.title}\n  {\n    id: '${c.id}',\n    objectPosition: '${adj.posX}% ${adj.posY}%',\n    scale: ${adj.scale.toFixed(2)},\n  },`
+    })
+    .join('\n')
+  navigator.clipboard.writeText(`[\n${text}\n]`).then(() => {
+    copyAllSuccess.value = true
+    setTimeout(() => {
+      copyAllSuccess.value = false
+    }, 2000)
+  })
+}
+
+// Touch & Mouse gestures for swipe sliding
+let touchStartX = 0
+let mouseStartX = 0
+let isMouseDown = false
+
+const handleTouchStart = (e: TouchEvent) => {
+  touchStartX = e.touches[0].clientX
+}
+
+const handleTouchEnd = (e: TouchEvent) => {
+  const touchEndX = e.changedTouches[0].clientX
+  const diff = touchEndX - touchStartX
+  if (Math.abs(diff) > 45) {
+    if (diff < 0) nextSlide()
+    else prevSlide()
+  }
+}
+
+const handleMouseDown = (e: MouseEvent) => {
+  if ((e.target as HTMLElement).closest('button, a, input')) return
+  isMouseDown = true
+  mouseStartX = e.clientX
+}
+
+const handleMouseUp = (e: MouseEvent) => {
+  if (!isMouseDown) return
+  isMouseDown = false
+  const diff = e.clientX - mouseStartX
+  if (Math.abs(diff) > 50) {
+    if (diff < 0) nextSlide()
+    else prevSlide()
+  }
+}
+
+const handleMouseLeave = () => {
+  isMouseDown = false
+}
+
+const goToSlide = (idx: number) => {
+  activeIdx.value = idx
+}
+
 const prevSlide = () => {
-  const newIdx = (activeIdx.value - 1 + capsules.value.length) % capsules.value.length
-  goToSlide(newIdx)
+  activeIdx.value = (activeIdx.value - 1 + capsules.value.length) % capsules.value.length
 }
 
 const nextSlide = () => {
-  const newIdx = (activeIdx.value + 1) % capsules.value.length
-  goToSlide(newIdx)
+  activeIdx.value = (activeIdx.value + 1) % capsules.value.length
 }
+
+let ctx: gsap.Context | null = null
 
 onMounted(() => {
   ctx = gsap.context(() => {
