@@ -269,10 +269,10 @@
               >
                 <div class="relative bg-brand-bg text-brand-primary border-2 border-brand-primary shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] p-3 sm:p-4 max-w-[240px] sm:max-w-[290px]">
                   <div class="flex items-center justify-between gap-2 border-b border-brand-primary/30 pb-0.5 mb-1.5">
-                    <span class="font-mono text-[0.58rem] font-black tracking-widest uppercase text-cyan-600">FUNNY VALENTINE</span>
-                    <span class="text-[0.58rem] font-mono opacity-50">#0{{ currentQuoteIdx + 1 }}</span>
+                    <span class="font-mono text-[0.58rem] font-black tracking-widest uppercase text-brand-stand">FUNNY VALENTINE</span>
+                    <span class="text-[0.58rem] font-mono opacity-60">#0{{ currentQuoteIdx + 1 }}</span>
                   </div>
-                  <p class="font-serif font-bold text-xs sm:text-sm leading-snug tracking-tight text-neutral-900">
+                  <p class="font-serif font-bold text-xs sm:text-sm leading-snug tracking-tight text-brand-primary">
                     "{{ currentQuote }}"
                   </p>
                   <div class="absolute -bottom-3 left-6 w-0 h-0 border-l-[7px] border-l-transparent border-r-[7px] border-r-transparent border-t-[11px] border-t-brand-primary"></div>
