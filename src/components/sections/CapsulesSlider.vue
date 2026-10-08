@@ -364,7 +364,7 @@ const {
   cycleQuote,
 } = useValentineStage()
 
-const handleValentineClick = (e?: MouseEvent) => {
+const handleValentineClick = () => {
   if (isStandActive.value) {
     cycleQuote()
     return
@@ -377,26 +377,11 @@ const handleValentineClick = (e?: MouseEvent) => {
     // ignore
   }
 
-  // 2. Target the clicked character element
-  let originX = config.value.cameraOriginX
-  let originY = config.value.cameraOriginY
-
-  const stageEl = (e?.currentTarget as HTMLElement) || (document.querySelector('.group\\/muse') as HTMLElement | null)
-  if (stageEl) {
-    const rect = stageEl.getBoundingClientRect()
-    // Compute exact focal point (head/chest area: center X, ~35% from top of stage)
-    const focalX = rect.left + rect.width * 0.5
-    const focalY = rect.top + rect.height * 0.35
-
-    // Convert to viewport percentage (0 - 100%)
-    if (window.innerWidth > 0 && window.innerHeight > 0) {
-      originX = Number(((focalX / window.innerWidth) * 100).toFixed(2))
-      originY = Number(((focalY / window.innerHeight) * 100).toFixed(2))
-    }
-  }
-
-  // 3. Trigger zoom with dynamically calculated origin
-  handleSelectValentine({ originX, originY })
+  // 2. Use calibrated camera origin from config (supports live tuning via Shift + C)
+  handleSelectValentine({
+    originX: config.value.cameraOriginX,
+    originY: config.value.cameraOriginY,
+  })
 }
 
 const handleValentineMobileTrigger = () => {
