@@ -6,8 +6,6 @@
       @complete="onIntroComplete"
     />
 
-    <!-- 12-Column Blueprint Grid Overlay -->
-    <GridOverlay />
 
     <!-- Top Fixed Header & Marquee -->
     <HeaderNav
@@ -78,7 +76,6 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import PreloaderIntro from '@/components/common/PreloaderIntro.vue'
-import GridOverlay from '@/components/common/GridOverlay.vue'
 import HeaderNav from '@/components/layout/HeaderNav.vue'
 import HeroSection from '@/components/sections/HeroSection.vue'
 import StatementSection from '@/components/sections/StatementSection.vue'
