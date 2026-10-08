@@ -38,7 +38,10 @@
         >
           <!-- Left 6 Columns: Interactive Capsule Card & Vertical Thumbnails (snug, zero space kosong) -->
           <div
-            class="relative z-20 col-span-4 md:col-span-10 lg:col-span-6 lg:border-r border-grid flex flex-col justify-between min-h-0 overflow-hidden bg-brand-bg"
+            class="relative z-20 col-span-4 md:col-span-10 lg:col-span-6 lg:border-r border-grid flex flex-col justify-between min-h-0 overflow-hidden bg-brand-bg transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+            :class="isStandActive ? 'filter blur-[5px] opacity-35 cursor-pointer select-none' : 'filter blur-0 opacity-100'"
+            @click="isStandActive ? closeStandMode() : null"
+            :title="isStandActive ? 'Klik untuk kembali ke slider komik (ESC)' : ''"
           >
             <!-- Top Container: Vertical Thumbnails Strip + Active Project Showcase (Stretched to PREV/NEXT) -->
             <div class="flex flex-1 border-b border-grid min-h-0 overflow-hidden">
@@ -182,23 +185,24 @@
             </div>
           </div>
 
-          <!-- Right 4 Columns: High-Fashion Freestanding Muse (Funny Valentine - Idle Mode) -->
+          <!-- Right 4 Columns: High-Fashion Freestanding Muse (Funny Valentine - Idle Anchor) -->
           <div
+            ref="valentineAnchorRef"
             class="group/side relative z-30 hidden lg:col-span-4 lg:flex flex-col justify-end overflow-visible px-4 pb-2 bg-brand-primary/[0.015] border-b border-grid min-h-0 select-none"
           >
             <!-- Valentine Calibrator Trigger Button -->
             <button
               type="button"
-              @click.stop="showAdjuster = !showAdjuster"
+              @click.stop="showValentineAdjuster = !showValentineAdjuster"
               class="absolute top-3 left-3 z-40 bg-black/85 hover:bg-neutral-900 text-white/80 hover:text-white border border-white/20 px-2 py-1 text-[0.58rem] font-mono tracking-wider uppercase transition-all shadow-md backdrop-blur-xs flex items-center gap-1.5 cursor-pointer select-none"
-              :class="showAdjuster ? 'ring-1 ring-cyan-400 text-cyan-300' : ''"
+              :class="showValentineAdjuster ? 'ring-1 ring-cyan-400 text-cyan-300' : ''"
               title="Buka Live Calibrator Valentine & D4C"
             >
-              <span class="w-1.5 h-1.5 rounded-full" :class="showAdjuster ? 'bg-cyan-400 animate-pulse' : 'bg-neutral-500'"></span>
+              <span class="w-1.5 h-1.5 rounded-full" :class="showValentineAdjuster ? 'bg-cyan-400 animate-pulse' : 'bg-neutral-500'"></span>
               <span>⚙ ATUR VALENTINE</span>
             </button>
 
-            <!-- Watermark Background -->
+            <!-- Watermark Background ("D4C") -->
             <div
               class="absolute font-mono font-bold leading-none select-none pointer-events-none opacity-5 text-current"
               :style="{ top: '-24px', right: '8px', fontSize: '8rem' }"
@@ -206,11 +210,11 @@
               D4C
             </div>
 
-            <!-- Freestanding Muse Stage (Click to Launch Fullscreen Cinema Mode) -->
+            <!-- Freestanding Muse Stage (Click to Launch Virtual Camera Zoom Focus) -->
             <div
               class="relative w-full flex-1 min-h-0 flex items-end justify-center overflow-visible pointer-events-auto cursor-pointer group/muse"
-              @click="openCinematicMode"
-              title="Click to summon D4C in Fullscreen Cinema Cutscene!"
+              @click="handleValentineClick"
+              title="Click to summon D4C // Camera Zoom Focus"
             >
               <!-- Contact Floor Shadow (Soft Optical Depth) -->
               <div
@@ -233,9 +237,11 @@
               <div
                 class="absolute bottom-2 z-30 transition-all duration-300 opacity-85 group-hover/muse:opacity-100 group-hover/muse:scale-105"
               >
-                <div class="flex items-center gap-1.5 bg-black/85 text-white border border-white/20 px-2.5 py-1 font-mono text-[0.58rem] tracking-wider uppercase backdrop-blur-xs shadow-lg">
+                <div
+                  class="flex items-center gap-1.5 bg-black/85 text-white border border-white/20 px-2.5 py-1 font-mono text-[0.58rem] tracking-wider uppercase backdrop-blur-xs shadow-lg"
+                >
                   <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
-                  <span>🎬 CLICK TO SUMMON D4C // FULLSCREEN CINEMA</span>
+                  <span>✦ CLICK TO SUMMON D4C // CAMERA FOCUS</span>
                 </div>
               </div>
             </div>
@@ -253,201 +259,6 @@
         </div>
       </div>
     </div>
-
-    <!-- FULLSCREEN CINEMATIC CUTSCENE / DIORAMA MODE (Teleported to Body) -->
-    <teleport to="body">
-      <transition
-        enter-active-class="transition-opacity duration-500 ease-out"
-        enter-from-class="opacity-0"
-        enter-to-class="opacity-100"
-        leave-active-class="transition-opacity duration-400 ease-in"
-        leave-from-class="opacity-100"
-        leave-to-class="opacity-0"
-      >
-        <div
-          v-if="isCinemaActive"
-          class="fixed inset-0 z-[9990] flex items-center justify-center overflow-hidden select-none bg-neutral-950/92 backdrop-blur-md"
-          @click="closeCinematicMode"
-        >
-          <!-- Radial Ambient Cinema Spotlight -->
-          <div
-            class="absolute inset-0 pointer-events-none z-10"
-            style="background: radial-gradient(circle at 50% 52%, rgba(6, 182, 212, 0.12) 0%, rgba(13, 10, 16, 0.45) 45%, rgba(0, 0, 0, 0.95) 85%);"
-          ></div>
-
-          <!-- Top Letterbox Cinema Bar (Slides down) -->
-          <div
-            class="fixed top-0 left-0 w-full h-14 sm:h-16 md:h-20 bg-black z-50 border-b border-white/10 flex items-center justify-between px-4 sm:px-8 md:px-12 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
-            @click.stop
-          >
-            <!-- Left: Production HUD -->
-            <div class="flex items-center gap-3 font-mono text-[0.62rem] sm:text-xs">
-              <span class="flex items-center gap-1.5 text-red-500 font-bold">
-                <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-                <span>REC 24FPS</span>
-              </span>
-              <span class="text-white/20">/</span>
-              <span class="text-white/60 tracking-widest hidden sm:inline">
-                STEEL BALL RUN · 1890
-              </span>
-              <span class="text-white/20 hidden sm:inline">/</span>
-              <span class="text-cyan-400 font-bold tracking-wider">
-                CH. 62: BREAK OF DAWN
-              </span>
-            </div>
-
-            <!-- Center: Character Title (Desktop) -->
-            <div class="hidden md:flex flex-col items-center">
-              <span class="font-mono text-[0.55rem] tracking-[0.3em] uppercase text-white/50">
-                23RD US PRESIDENT
-              </span>
-              <span class="font-serif italic font-bold text-sm tracking-widest text-white">
-                Funny Valentine & D4C
-              </span>
-            </div>
-
-            <!-- Right: Exit Cinema Button -->
-            <button
-              type="button"
-              @click="closeCinematicMode"
-              class="flex items-center gap-2 bg-neutral-900 hover:bg-red-950/80 text-white/90 hover:text-white border border-white/20 hover:border-red-500/70 px-3 py-1.5 font-mono text-xs tracking-widest uppercase transition-all shadow-lg cursor-pointer"
-              title="Keluar dari mode sinematik (ESC)"
-            >
-              <span class="text-red-400 font-bold">✕</span>
-              <span>EXIT</span>
-              <span class="text-white/40 text-[0.65rem]">(ESC)</span>
-            </button>
-          </div>
-
-          <!-- Bottom Letterbox Cinema Bar (Slides up) -->
-          <div
-            class="fixed bottom-0 left-0 w-full h-14 sm:h-16 md:h-20 bg-black z-50 border-t border-white/10 flex items-center justify-between px-4 sm:px-8 md:px-12 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
-            @click.stop
-          >
-            <!-- Left: Stand Name Tag -->
-            <div class="flex items-center gap-2 font-mono text-[0.62rem] sm:text-xs text-white/60">
-              <span class="text-cyan-400 font-bold">STAND:</span>
-              <span class="tracking-wider">DIRTY DEEDS DONE DIRT CHEAP</span>
-            </div>
-
-            <!-- Center: Cinematic Subtitle Quote -->
-            <div class="flex-1 max-w-xl mx-4 text-center">
-              <p class="font-serif italic text-xs sm:text-sm md:text-base text-white/90 line-clamp-1">
-                "{{ currentValentineQuote }}"
-              </p>
-            </div>
-
-            <!-- Right: Dismiss Hint -->
-            <div class="font-mono text-[0.58rem] sm:text-[0.65rem] tracking-wider text-white/40 uppercase hidden sm:block">
-              CLICK ANYWHERE TO CLOSE
-            </div>
-          </div>
-
-          <!-- Fullscreen Anime Speedlines SVG -->
-          <div
-            class="absolute inset-0 pointer-events-none z-20 overflow-hidden transition-opacity duration-700"
-            :class="showSpeedlineBurst ? 'opacity-95' : 'opacity-40'"
-          >
-            <svg class="w-full h-full" viewBox="0 0 1000 600" fill="none" preserveAspectRatio="none">
-              <g :class="showSpeedlineBurst ? 'animate-pulse' : ''">
-                <!-- Speedlines radiating towards screen center (500, 300) -->
-                <line x1="0" y1="0" x2="500" y2="300" stroke="currentColor" stroke-width="2.5" class="text-cyan-400/50" />
-                <line x1="150" y1="0" x2="500" y2="300" stroke="currentColor" stroke-width="1.5" class="text-white/40" />
-                <line x1="300" y1="0" x2="500" y2="300" stroke="currentColor" stroke-width="2" class="text-cyan-400/40" />
-                <line x1="500" y1="0" x2="500" y2="300" stroke="currentColor" stroke-width="2.5" class="text-white/50" />
-                <line x1="700" y1="0" x2="500" y2="300" stroke="currentColor" stroke-width="1.5" class="text-cyan-400/40" />
-                <line x1="850" y1="0" x2="500" y2="300" stroke="currentColor" stroke-width="2" class="text-white/40" />
-                <line x1="1000" y1="0" x2="500" y2="300" stroke="currentColor" stroke-width="3" class="text-cyan-400/60" />
-
-                <line x1="1000" y1="150" x2="500" y2="300" stroke="currentColor" stroke-width="1.5" class="text-white/40" />
-                <line x1="1000" y1="300" x2="500" y2="300" stroke="currentColor" stroke-width="2.5" class="text-cyan-400/50" />
-                <line x1="1000" y1="450" x2="500" y2="300" stroke="currentColor" stroke-width="1.5" class="text-white/40" />
-                <line x1="1000" y1="600" x2="500" y2="300" stroke="currentColor" stroke-width="3" class="text-cyan-400/60" />
-
-                <line x1="850" y1="600" x2="500" y2="300" stroke="currentColor" stroke-width="1.5" class="text-white/40" />
-                <line x1="700" y1="600" x2="500" y2="300" stroke="currentColor" stroke-width="2" class="text-cyan-400/40" />
-                <line x1="500" y1="600" x2="500" y2="300" stroke="currentColor" stroke-width="2.5" class="text-white/50" />
-                <line x1="300" y1="600" x2="500" y2="300" stroke="currentColor" stroke-width="2" class="text-cyan-400/40" />
-                <line x1="150" y1="600" x2="500" y2="300" stroke="currentColor" stroke-width="1.5" class="text-white/40" />
-                <line x1="0" y1="600" x2="500" y2="300" stroke="currentColor" stroke-width="3" class="text-cyan-400/60" />
-
-                <line x1="0" y1="450" x2="500" y2="300" stroke="currentColor" stroke-width="1.5" class="text-white/40" />
-                <line x1="0" y1="300" x2="500" y2="300" stroke="currentColor" stroke-width="2.5" class="text-cyan-400/50" />
-                <line x1="0" y1="150" x2="500" y2="300" stroke="currentColor" stroke-width="1.5" class="text-white/40" />
-              </g>
-            </svg>
-          </div>
-
-          <!-- Giant Stand Kanji / Typography Watermark Behind Valentine -->
-          <div class="absolute inset-0 pointer-events-none z-15 flex items-center justify-center overflow-hidden">
-            <span
-              class="font-serif font-black text-[22vw] leading-none select-none text-cyan-400 transition-opacity duration-700 tracking-tighter"
-              :style="{ opacity: valAdj.watermarkOpacity / 100 }"
-            >
-              D4C
-            </span>
-          </div>
-
-          <!-- Central 3D Diorama Stage Container -->
-          <div
-            class="relative z-30 max-h-[82vh] h-[82vh] w-full max-w-5xl flex items-end justify-center pointer-events-auto will-change-transform pb-8 sm:pb-12"
-            :style="getCinemaStageStyle()"
-            @click.stop
-          >
-            <!-- JoJo Menacing FX (ゴゴゴ...) -->
-            <div
-              class="absolute z-25 pointer-events-none select-none animate-menacing-float"
-              :style="getMenacingWrapperStyle()"
-            >
-              <img
-                src="/images/jojo-menacing.png"
-                alt="JoJo Menacing Effect"
-                class="w-36 sm:w-44 md:w-56 h-auto pointer-events-none select-none drop-shadow-[0_4px_24px_rgba(0,0,0,0.8)]"
-                :style="getMenacingImageStyle()"
-              />
-            </div>
-
-            <!-- Manga Speech Bubble (Clickable to Cycle Quote) -->
-            <div
-              @click.stop="cycleValentineQuote"
-              class="absolute z-40 cursor-pointer pointer-events-auto select-none"
-              :style="getBubbleStyle()"
-              title="Click to cycle quote / Klik untuk ganti quote"
-            >
-              <div class="relative bg-brand-bg text-brand-primary border-2 border-brand-primary shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] p-3 sm:p-4 max-w-[260px] sm:max-w-[320px]">
-                <div class="flex items-center justify-between gap-2 border-b border-brand-primary/30 pb-1 mb-2">
-                  <span class="font-mono text-[0.6rem] font-black tracking-widest uppercase text-cyan-600">FUNNY VALENTINE</span>
-                  <span class="text-[0.6rem] font-mono opacity-50">#0{{ currentQuoteIdx + 1 }}</span>
-                </div>
-                <p class="font-serif font-bold text-xs sm:text-sm md:text-base leading-snug tracking-tight text-neutral-900">
-                  "{{ currentValentineQuote }}"
-                </p>
-                <div class="absolute -bottom-3 left-8 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[12px] border-t-brand-primary"></div>
-                <div class="absolute -bottom-2.5 left-[33px] w-0 h-0 border-l-[7px] border-l-transparent border-r-[7px] border-r-transparent border-t-[10px] border-t-brand-bg"></div>
-              </div>
-            </div>
-
-            <!-- Contact Ground Shadow -->
-            <div
-              class="absolute bottom-6 sm:bottom-10 w-72 sm:w-96 h-8 rounded-full bg-black/80 blur-xl pointer-events-none"
-            ></div>
-
-            <!-- Hero Valentine With D4C Stand Sprite -->
-            <div
-              class="relative h-full flex items-end justify-center pointer-events-auto cursor-pointer group"
-              @click.stop="cycleValentineQuote"
-              title="Click quote / Click anywhere outside to close"
-            >
-              <img
-                src="/images/funny-valentine-stand.png"
-                alt="Funny Valentine with D4C Stand"
-                class="h-full w-auto max-h-[64vh] sm:max-h-[70vh] object-contain object-bottom filter contrast-110 brightness-105 drop-shadow-[0_20px_60px_rgba(6,182,212,0.45)] transition-transform duration-300 group-hover:scale-[1.01]"
-              />
-            </div>
-          </div>
-        </div>
-      </transition>
-    </teleport>
 
     <!-- Running Marquee: "VIEW FULL RUNWAY ARCHIVE / ..." -->
     <a
@@ -480,318 +291,14 @@
         </span>
       </div>
     </a>
-
-    <!-- Live Cover Image Adjuster Widget (Floating Tool Panel) -->
-    <div
-      v-if="showAdjuster"
-      class="fixed bottom-4 right-4 z-50 w-[330px] sm:w-[370px] bg-neutral-950/95 text-neutral-100 border border-neutral-700 shadow-2xl backdrop-blur-md p-4 font-mono text-xs select-none max-h-[88vh] overflow-y-auto no-scrollbar"
-    >
-      <!-- Panel Header -->
-      <div class="flex items-center justify-between pb-2.5 border-b border-neutral-800">
-        <div class="flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
-          <span class="font-bold tracking-wider uppercase text-[0.72rem] text-cyan-300 font-mono">
-            Valentine & D4C Calibrator
-          </span>
-        </div>
-        <button
-          type="button"
-          @click="showAdjuster = false"
-          class="text-neutral-400 hover:text-white p-1 text-sm font-bold leading-none cursor-pointer"
-          title="Close editor"
-        >
-          ✕
-        </button>
-      </div>
-
-      <!-- Tab Selector -->
-      <div class="flex items-center bg-neutral-900 border border-neutral-800 p-0.5 mt-3">
-        <button
-          type="button"
-          @click="editorTab = 'idle'"
-          class="flex-1 py-1 text-[0.62rem] font-mono uppercase font-bold transition-colors cursor-pointer"
-          :class="editorTab === 'idle' ? 'bg-amber-400 text-neutral-950' : 'text-neutral-400 hover:text-white'"
-        >
-          1. Idle Overlap
-        </button>
-        <button
-          type="button"
-          @click="editorTab = 'cinema'"
-          class="flex-1 py-1 text-[0.62rem] font-mono uppercase font-bold transition-colors cursor-pointer"
-          :class="editorTab === 'cinema' ? 'bg-cyan-400 text-neutral-950' : 'text-neutral-400 hover:text-white'"
-        >
-          2. Cinema Diorama
-        </button>
-      </div>
-
-      <!-- TAB 1: IDLE OVERLAP (Capsules Section) -->
-      <div v-if="editorTab === 'idle'" class="mt-3 space-y-3">
-        <div class="space-y-2 border-b border-neutral-800/80 pb-2.5">
-          <div class="flex justify-between items-center">
-            <span class="text-[0.65rem] text-amber-400 uppercase tracking-widest font-bold">
-              Valentine (Idle State)
-            </span>
-            <span class="text-amber-400/80 font-mono text-[0.58rem]">Overlap Banner Atas</span>
-          </div>
-
-          <!-- Position X & Y -->
-          <div class="grid grid-cols-2 gap-2">
-            <div class="bg-neutral-900/90 p-2 border border-neutral-800">
-              <div class="flex justify-between items-center mb-1">
-                <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">Pos X</span>
-                <span class="text-amber-300 font-bold font-mono text-[0.62rem]">{{ valAdj.aloneX }}px</span>
-              </div>
-              <input type="range" min="-150" max="150" step="1" v-model.number="valAdj.aloneX" class="w-full accent-amber-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
-            </div>
-            <div class="bg-neutral-900/90 p-2 border border-neutral-800">
-              <div class="flex justify-between items-center mb-1">
-                <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">Pos Y (Overlap)</span>
-                <span class="text-amber-300 font-bold font-mono text-[0.62rem]">{{ valAdj.aloneY }}px</span>
-              </div>
-              <input type="range" min="-400" max="150" step="1" v-model.number="valAdj.aloneY" class="w-full accent-amber-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
-            </div>
-          </div>
-
-          <!-- Quick Overlap Presets for Alone -->
-          <div class="flex gap-1">
-            <button
-              type="button"
-              @click="valAdj.aloneY = -151"
-              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.55rem] text-amber-300/90 cursor-pointer"
-            >
-              Overlap (-151)
-            </button>
-            <button
-              type="button"
-              @click="valAdj.aloneY = -220"
-              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.55rem] text-amber-300/90 cursor-pointer"
-            >
-              Tinggi (-220)
-            </button>
-            <button
-              type="button"
-              @click="valAdj.aloneY = -20"
-              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.55rem] text-neutral-400 cursor-pointer"
-            >
-              Rata (-20)
-            </button>
-          </div>
-
-          <!-- Scale -->
-          <div class="bg-neutral-900/90 p-2 border border-neutral-800">
-            <div class="flex justify-between items-center mb-1">
-              <span class="text-neutral-300 text-[0.62rem] font-bold uppercase">Scale</span>
-              <span class="text-amber-300 font-bold font-mono text-[0.65rem]">{{ valAdj.aloneScale.toFixed(2) }}x</span>
-            </div>
-            <input type="range" min="0.6" max="2.6" step="0.02" v-model.number="valAdj.aloneScale" class="w-full accent-amber-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
-          </div>
-
-          <!-- Launch Cinema Mode Button -->
-          <button
-            type="button"
-            @click="openCinematicMode"
-            class="w-full py-2 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-400/50 font-bold text-[0.65rem] tracking-wider uppercase transition-colors cursor-pointer flex items-center justify-center gap-2 shadow-md mt-2"
-          >
-            <span>🎬 BUKA FULLSCREEN CINEMA</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- TAB 2: CINEMA DIORAMA (Fullscreen Cutscene) -->
-      <div v-else class="mt-3 space-y-3">
-        <!-- Toggle Cinema Cutscene Button -->
-        <button
-          type="button"
-          @click="isCinemaActive ? closeCinematicMode() : openCinematicMode()"
-          class="w-full py-2 font-bold text-[0.65rem] tracking-wider uppercase transition-colors cursor-pointer flex items-center justify-center gap-2 shadow-md border"
-          :class="isCinemaActive ? 'bg-red-950/80 hover:bg-red-900 text-red-200 border-red-500/60' : 'bg-cyan-500 hover:bg-cyan-400 text-neutral-950 border-cyan-300'"
-        >
-          <span>{{ isCinemaActive ? '✕ TUTUP CINEMA CUTSCENE' : '▶ BUKA CINEMA CUTSCENE' }}</span>
-        </button>
-
-        <!-- DIORAMA CAMERA 3D ZOOM & POSITION -->
-        <div class="space-y-2 border-b border-neutral-800/80 pb-2.5">
-          <div class="flex justify-between items-center">
-            <span class="text-[0.65rem] text-cyan-400 uppercase tracking-widest font-bold">
-              📷 3D Diorama Stage Camera
-            </span>
-            <span class="text-neutral-500 font-mono text-[0.58rem]">Layar Bioskop</span>
-          </div>
-
-          <!-- Camera Zoom Scale -->
-          <div class="bg-neutral-900/90 p-2 border border-neutral-800">
-            <div class="flex justify-between items-center mb-1">
-              <span class="text-neutral-300 text-[0.62rem] font-bold uppercase">Diorama Zoom</span>
-              <span class="text-cyan-300 font-bold font-mono text-[0.65rem]">{{ valAdj.cinemaZoom.toFixed(2) }}x</span>
-            </div>
-            <input type="range" min="0.7" max="2.0" step="0.02" v-model.number="valAdj.cinemaZoom" class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
-          </div>
-
-          <!-- Diorama Offset X & Y -->
-          <div class="grid grid-cols-2 gap-2">
-            <div class="bg-neutral-900/90 p-2 border border-neutral-800">
-              <div class="flex justify-between items-center mb-1">
-                <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">Offset X</span>
-                <span class="text-cyan-300 font-bold font-mono text-[0.62rem]">{{ valAdj.cinemaX }}px</span>
-              </div>
-              <input type="range" min="-150" max="150" step="1" v-model.number="valAdj.cinemaX" class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
-            </div>
-            <div class="bg-neutral-900/90 p-2 border border-neutral-800">
-              <div class="flex justify-between items-center mb-1">
-                <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">Offset Y</span>
-                <span class="text-cyan-300 font-bold font-mono text-[0.62rem]">{{ valAdj.cinemaY }}px</span>
-              </div>
-              <input type="range" min="-150" max="150" step="1" v-model.number="valAdj.cinemaY" class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
-            </div>
-          </div>
-        </div>
-
-        <!-- JOJO MENACING FX CONTROLS -->
-        <div class="space-y-2 border-b border-neutral-800/80 pb-2.5">
-          <div class="flex justify-between items-center">
-            <span class="text-[0.65rem] text-purple-400 uppercase tracking-widest font-bold">
-              ⚡ JoJo Menacing FX (ゴゴゴ)
-            </span>
-            <span class="text-neutral-500 font-mono text-[0.58rem]">Aura Stand</span>
-          </div>
-
-          <!-- FLIP HORISONTAL TOGGLE BUTTON -->
-          <button
-            type="button"
-            @click="valAdj.menacingFlip = !valAdj.menacingFlip"
-            class="w-full py-1.5 font-mono text-[0.65rem] tracking-wider uppercase font-bold border transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-sm"
-            :class="valAdj.menacingFlip ? 'bg-purple-700 hover:bg-purple-600 text-white border-purple-400' : 'bg-neutral-900 hover:bg-neutral-800 text-purple-300 border-neutral-700'"
-          >
-            <span>ARAH KANJI (FLIP):</span>
-            <span class="px-2 py-0.5 rounded text-[0.62rem] font-bold" :class="valAdj.menacingFlip ? 'bg-yellow-400 text-neutral-950' : 'bg-neutral-800 text-purple-300 border border-purple-500/30'">
-              {{ valAdj.menacingFlip ? 'FLIPPED (MIRROR) ⇌' : 'NORMAL ⇋' }}
-            </span>
-          </button>
-
-          <!-- Menacing Position X & Y -->
-          <div class="grid grid-cols-2 gap-2">
-            <div class="bg-neutral-900/90 p-2 border border-neutral-800">
-              <div class="flex justify-between items-center mb-1">
-                <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">Pos X</span>
-                <span class="text-purple-300 font-bold font-mono text-[0.62rem]">{{ valAdj.menacingX }}%</span>
-              </div>
-              <input type="range" min="-10" max="90" step="1" v-model.number="valAdj.menacingX" class="w-full accent-purple-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
-            </div>
-            <div class="bg-neutral-900/90 p-2 border border-neutral-800">
-              <div class="flex justify-between items-center mb-1">
-                <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">Pos Y</span>
-                <span class="text-purple-300 font-bold font-mono text-[0.62rem]">{{ valAdj.menacingY }}%</span>
-              </div>
-              <input type="range" min="0" max="90" step="1" v-model.number="valAdj.menacingY" class="w-full accent-purple-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
-            </div>
-          </div>
-
-          <!-- Menacing Scale & Opacity -->
-          <div class="grid grid-cols-2 gap-2">
-            <div class="bg-neutral-900/90 p-2 border border-neutral-800">
-              <div class="flex justify-between items-center mb-1">
-                <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">Scale</span>
-                <span class="text-purple-300 font-bold font-mono text-[0.62rem]">{{ valAdj.menacingScale.toFixed(2) }}x</span>
-              </div>
-              <input type="range" min="0.4" max="2.5" step="0.05" v-model.number="valAdj.menacingScale" class="w-full accent-purple-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
-            </div>
-            <div class="bg-neutral-900/90 p-2 border border-neutral-800">
-              <div class="flex justify-between items-center mb-1">
-                <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">Opacity</span>
-                <span class="text-purple-300 font-bold font-mono text-[0.62rem]">{{ valAdj.menacingOpacity }}%</span>
-              </div>
-              <input type="range" min="10" max="100" step="5" v-model.number="valAdj.menacingOpacity" class="w-full accent-purple-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
-            </div>
-          </div>
-        </div>
-
-        <!-- Speech Bubble Controls -->
-        <div class="space-y-2 border-b border-neutral-800/80 pb-2.5">
-          <div class="text-[0.65rem] text-cyan-400 uppercase tracking-widest font-bold">
-            💬 Manga Speech Bubble
-          </div>
-
-          <!-- Bubble X & Y -->
-          <div class="grid grid-cols-2 gap-2">
-            <div class="bg-neutral-900/90 p-2 border border-neutral-800">
-              <div class="flex justify-between items-center mb-1">
-                <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">Bubble X</span>
-                <span class="text-cyan-300 font-bold font-mono text-[0.62rem]">{{ valAdj.bubbleX }}%</span>
-              </div>
-              <input type="range" min="0" max="85" step="1" v-model.number="valAdj.bubbleX" class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
-            </div>
-            <div class="bg-neutral-900/90 p-2 border border-neutral-800">
-              <div class="flex justify-between items-center mb-1">
-                <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">Bubble Y</span>
-                <span class="text-cyan-300 font-bold font-mono text-[0.62rem]">{{ valAdj.bubbleY }}%</span>
-              </div>
-              <input type="range" min="0" max="80" step="1" v-model.number="valAdj.bubbleY" class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
-            </div>
-          </div>
-
-          <!-- Bubble Scale & Rotate -->
-          <div class="grid grid-cols-2 gap-2">
-            <div class="bg-neutral-900/90 p-2 border border-neutral-800">
-              <div class="flex justify-between items-center mb-1">
-                <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">Scale</span>
-                <span class="text-cyan-300 font-bold font-mono text-[0.62rem]">{{ valAdj.bubbleScale.toFixed(2) }}x</span>
-              </div>
-              <input type="range" min="0.6" max="1.5" step="0.02" v-model.number="valAdj.bubbleScale" class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
-            </div>
-            <div class="bg-neutral-900/90 p-2 border border-neutral-800">
-              <div class="flex justify-between items-center mb-1">
-                <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">Rotate</span>
-                <span class="text-cyan-300 font-bold font-mono text-[0.62rem]">{{ valAdj.bubbleRotate }}°</span>
-              </div>
-              <input type="range" min="-25" max="25" step="1" v-model.number="valAdj.bubbleRotate" class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
-            </div>
-          </div>
-
-          <!-- Cycle Quote in Editor -->
-          <button
-            type="button"
-            @click="cycleValentineQuote"
-            class="w-full py-1.5 bg-neutral-900 hover:bg-neutral-800 border border-cyan-800/60 text-cyan-300 text-[0.62rem] uppercase font-bold tracking-wider cursor-pointer"
-          >
-            Ganti Quote (Saat ini: "{{ currentValentineQuote.substring(0, 24) }}...")
-          </button>
-        </div>
-
-        <!-- Watermark Opacity -->
-        <div class="bg-neutral-900/90 p-2 border border-neutral-800">
-          <div class="flex justify-between items-center mb-1">
-            <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">D4C Watermark Opacity</span>
-            <span class="text-cyan-300 font-bold font-mono text-[0.62rem]">{{ valAdj.watermarkOpacity }}%</span>
-          </div>
-          <input type="range" min="0" max="35" step="1" v-model.number="valAdj.watermarkOpacity" class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
-        </div>
-      </div>
-
-      <!-- Reset & Copy Buttons for Valentine -->
-      <div class="mt-3 flex gap-2 pt-2 border-t border-neutral-800">
-        <button
-          type="button"
-          @click="resetValentineConfig"
-          class="flex-1 py-1.5 bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-[0.62rem] text-neutral-300 uppercase tracking-wider cursor-pointer"
-        >
-          Reset Valentine
-        </button>
-        <button
-          type="button"
-          @click="copyValentineConfig"
-          class="flex-1 py-1.5 bg-cyan-400 hover:bg-cyan-300 text-neutral-950 font-bold text-[0.65rem] tracking-wider uppercase transition-colors cursor-pointer"
-        >
-          {{ valCopySuccess ? '✓ COPIED!' : '📋 COPY CONFIG (TS)' }}
-        </button>
-      </div>
-    </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import RollingText from '@/components/common/RollingText.vue'
-import { lenis, gsap } from '@/lenis'
+import { gsap } from '@/lenis'
+import { useValentineStage } from '@/composables/useValentineStage'
 
 interface Capsule {
   id: string
@@ -812,185 +319,28 @@ interface CoverAdjustment {
   fitMode: 'contain' | 'cover'
 }
 
-interface ValentineAdjustment {
-  // Idle Mode (in #capsules section)
-  aloneX: number
-  aloneY: number
-  aloneScale: number
+const {
+  config,
+  isStandActive,
+  showValentineAdjuster,
+  setTargetRect,
+  openStandMode,
+  closeStandMode,
+} = useValentineStage()
 
-  // Fullscreen Cinema Diorama Mode
-  cinemaZoom: number
-  cinemaX: number
-  cinemaY: number
+const valentineAnchorRef = ref<HTMLElement | null>(null)
 
-  // JoJo Menacing FX (ゴゴゴ)
-  menacingX: number
-  menacingY: number
-  menacingScale: number
-  menacingOpacity: number
-  menacingFlip: boolean
-
-  // Manga Speech Bubble
-  bubbleX: number
-  bubbleY: number
-  bubbleRotate: number
-  bubbleScale: number
-
-  // Stand Watermark D4C
-  watermarkOpacity: number
-}
-
-const defaultValentineAdj: ValentineAdjustment = {
-  aloneX: 0,
-  aloneY: -151,
-  aloneScale: 2.02,
-
-  cinemaZoom: 1.05,
-  cinemaX: 0,
-  cinemaY: 0,
-
-  menacingX: 18,
-  menacingY: 18,
-  menacingScale: 1.1,
-  menacingOpacity: 90,
-  menacingFlip: false,
-
-  bubbleX: 10,
-  bubbleY: 26,
-  bubbleRotate: -2,
-  bubbleScale: 1.0,
-
-  watermarkOpacity: 8,
-}
-
-const VALENTINE_STORAGE_KEY = 'araki_valentine_cinema_v1'
-
-const loadValentineAdjustments = (): ValentineAdjustment => {
-  try {
-    const raw = localStorage.getItem(VALENTINE_STORAGE_KEY)
-    if (raw) {
-      return { ...defaultValentineAdj, ...JSON.parse(raw) }
-    }
-  } catch {
-    // ignore
+const handleValentineClick = () => {
+  if (valentineAnchorRef.value) {
+    const rect = valentineAnchorRef.value.getBoundingClientRect()
+    setTargetRect(rect)
   }
-  return { ...defaultValentineAdj }
-}
-
-const valAdj = ref<ValentineAdjustment>(loadValentineAdjustments())
-const editorTab = ref<'idle' | 'cinema'>('idle')
-const isCinemaActive = ref(false)
-const showSpeedlineBurst = ref(false)
-const valCopySuccess = ref(false)
-
-const openCinematicMode = () => {
-  isCinemaActive.value = true
-  showSpeedlineBurst.value = true
-  try {
-    lenis.stop()
-  } catch {
-    // ignore
-  }
-  setTimeout(() => {
-    showSpeedlineBurst.value = false
-  }, 450)
-}
-
-const closeCinematicMode = () => {
-  isCinemaActive.value = false
-  try {
-    lenis.start()
-  } catch {
-    // ignore
-  }
-}
-
-const valentineQuotes = [
-  "Dojyaaa~~n!",
-  "Suppose that you were sitting down at this table... Which napkin would you take?",
-  "My heart and actions are utterly unclouded... They are all those of 'Justice'.",
-  "The one who took the first napkin determines the rules.",
-  "D4C! Dirty Deeds Done Dirt Cheap!",
-]
-const currentQuoteIdx = ref(0)
-const currentValentineQuote = computed(() => valentineQuotes[currentQuoteIdx.value])
-
-const cycleValentineQuote = () => {
-  currentQuoteIdx.value = (currentQuoteIdx.value + 1) % valentineQuotes.length
-}
-
-watch(
-  valAdj,
-  () => {
-    try {
-      localStorage.setItem(VALENTINE_STORAGE_KEY, JSON.stringify(valAdj.value))
-    } catch {
-      // ignore
-    }
-  },
-  { deep: true }
-)
-
-const getCinemaStageStyle = () => {
-  return {
-    transform: `translate(${valAdj.value.cinemaX}px, ${valAdj.value.cinemaY}px) scale(${valAdj.value.cinemaZoom})`,
-    transition: 'transform 700ms cubic-bezier(0.16, 1, 0.3, 1)',
-  }
-}
-
-const getMenacingWrapperStyle = () => {
-  return {
-    left: `${valAdj.value.menacingX}%`,
-    top: `${valAdj.value.menacingY}%`,
-  }
-}
-
-const getMenacingImageStyle = () => {
-  const flipFactor = valAdj.value.menacingFlip ? -1 : 1
-  return {
-    transform: `scale(${valAdj.value.menacingScale}) scaleX(${flipFactor})`,
-    opacity: valAdj.value.menacingOpacity / 100,
-    transformOrigin: 'center center',
-  }
+  openStandMode()
 }
 
 const getValentineAloneStyle = () => {
   return {
-    transform: `translate(${valAdj.value.aloneX}px, ${valAdj.value.aloneY}px) scale(${valAdj.value.aloneScale})`,
-  }
-}
-
-const getBubbleStyle = () => {
-  return {
-    left: `${valAdj.value.bubbleX}%`,
-    top: `${valAdj.value.bubbleY}%`,
-    transform: `rotate(${valAdj.value.bubbleRotate}deg) scale(${valAdj.value.bubbleScale})`,
-    transformOrigin: 'bottom left',
-  }
-}
-
-const resetValentineConfig = () => {
-  valAdj.value = { ...defaultValentineAdj }
-  localStorage.removeItem(VALENTINE_STORAGE_KEY)
-}
-
-const copyValentineConfig = () => {
-  const text = `// Funny Valentine & D4C Positioning\nconst valentineConfig = ${JSON.stringify(valAdj.value, null, 2)};`
-  navigator.clipboard.writeText(text).then(() => {
-    valCopySuccess.value = true
-    setTimeout(() => {
-      valCopySuccess.value = false
-    }, 2000)
-  })
-}
-
-const handleKeyDown = (e: KeyboardEvent) => {
-  if (e.key === 'Escape') {
-    if (isCinemaActive.value) {
-      closeCinematicMode()
-    } else if (showAdjuster.value) {
-      showAdjuster.value = false
-    }
+    transform: `translate(${config.value.aloneX}px, ${config.value.aloneY}px) scale(${config.value.aloneScale})`,
   }
 }
 
@@ -1025,7 +375,6 @@ function parsed(str: string) {
 }
 
 const adjustments = ref<Record<number, CoverAdjustment>>(loadSavedAdjustments())
-const showAdjuster = ref(false)
 
 const capsules = ref<Capsule[]>([
   {
@@ -1195,7 +544,6 @@ const nextSlide = () => {
 let ctx: gsap.Context | null = null
 
 onMounted(() => {
-  window.addEventListener('keydown', handleKeyDown)
   ctx = gsap.context(() => {
     if (!capsulesRoot.value) return
 
@@ -1219,7 +567,6 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
-  window.removeEventListener('keydown', handleKeyDown)
   ctx?.revert()
 })
 </script>

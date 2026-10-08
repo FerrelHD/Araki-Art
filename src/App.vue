@@ -12,8 +12,11 @@
     <!-- Top Fixed Header & Marquee -->
     <HeaderNav />
 
-    <!-- Main Content Area -->
-    <main class="relative z-10 pt-14 md:pt-16">
+    <!-- Main Content Area: smoothly blurs with Depth of Field when Valentine Stand is focused -->
+    <main
+      class="relative z-10 pt-14 md:pt-16 transition-[filter,opacity] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+      :class="isStandActive ? 'filter blur-[7px] brightness-[0.7] select-none pointer-events-none' : 'filter blur-0 brightness-100'"
+    >
       <!-- 01 Hero Section -->
       <HeroSection ref="heroSectionRef" />
 
@@ -26,6 +29,9 @@
       <!-- 04 Anatomy (Mijobello Expanding Accordion) -->
       <AnatomyAccordion />
     </main>
+
+    <!-- Universal Virtual Camera Stage for Funny Valentine & D4C -->
+    <UniversalValentineStage />
 
     <!-- 05 Footer & Monumental Watermark -->
     <FooterSection />
@@ -42,9 +48,12 @@ import StatementSection from '@/components/sections/StatementSection.vue'
 import CapsulesSlider from '@/components/sections/CapsulesSlider.vue'
 import AnatomyAccordion from '@/components/sections/AnatomyAccordion.vue'
 import FooterSection from '@/components/sections/FooterSection.vue'
+import UniversalValentineStage from '@/components/common/UniversalValentineStage.vue'
+import { useValentineStage } from '@/composables/useValentineStage'
 import { ScrollTrigger, lenis } from '@/lenis'
 
 const heroSectionRef = ref<any>(null)
+const { isStandActive } = useValentineStage()
 
 function onIntroStartTransition() {
   if (heroSectionRef.value?.playHandoverEntrance) {
