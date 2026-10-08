@@ -221,27 +221,37 @@
 
               <!-- Mode 1: Alone - Funny Valentine Idle -->
               <div
-                class="relative h-full w-full flex items-end justify-center origin-bottom transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
-                :class="isStandActive ? 'opacity-0 scale-95 pointer-events-none' : 'opacity-100 scale-100 pointer-events-none group-hover/muse:brightness-105'"
+                class="relative h-full w-full flex items-end justify-center origin-bottom transition-all duration-250 ease-out will-change-[transform,opacity]"
+                :class="isStandActive ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-none group-hover/muse:brightness-105'"
                 :style="getValentineAloneStyle()"
               >
                 <img
                   src="/images/funny-valentine-alone.png"
                   alt="Funny Valentine (President)"
+                  loading="eager"
+                  decoding="async"
                   class="h-[85%] max-h-[62vh] xl:max-h-[72vh] w-auto object-contain object-bottom filter contrast-105 pointer-events-none select-none transition-transform duration-300 group-hover/muse:scale-[1.02]"
                 />
               </div>
 
               <!-- Mode 2: Stand - Funny Valentine with D4C Manifestation -->
               <div
-                class="absolute inset-0 h-full w-full flex items-end justify-center origin-bottom transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
-                :class="isStandActive ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'"
+                class="absolute inset-0 h-full w-full flex items-end justify-center origin-bottom transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-[transform,opacity]"
+                :class="isStandActive ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'"
                 :style="getValentineStandStyle()"
               >
+                <!-- D4C High-Performance Stand Cyan Aura Glow (GPU Quad Layer, Zero Drop-Frame) -->
+                <div
+                  class="absolute inset-x-6 top-1/4 bottom-12 bg-cyan-400/25 blur-2xl rounded-full pointer-events-none transition-opacity duration-300 will-change-[transform,opacity]"
+                  :class="isStandActive ? 'opacity-100 scale-100' : 'opacity-0 scale-95'"
+                ></div>
+
                 <img
                   src="/images/funny-valentine-stand.png"
                   alt="Funny Valentine & D4C Stand"
-                  class="h-[85%] max-h-[65vh] xl:max-h-[75vh] w-auto object-contain object-bottom filter contrast-110 brightness-105 drop-shadow-[0_16px_48px_rgba(6,182,212,0.5)] pointer-events-none select-none transition-transform duration-300 hover:scale-[1.02]"
+                  loading="eager"
+                  decoding="async"
+                  class="relative z-10 h-[85%] max-h-[65vh] xl:max-h-[75vh] w-auto object-contain object-bottom filter contrast-105 brightness-105 drop-shadow-[0_8px_20px_rgba(0,0,0,0.35)] pointer-events-none select-none transition-transform duration-300 hover:scale-[1.02]"
                 />
               </div>
 
@@ -413,13 +423,15 @@ const handleValentineMobileTrigger = () => {
 
 const getValentineAloneStyle = () => {
   return {
-    transform: `translate(${config.value.aloneX}px, ${config.value.aloneY}px) scale(${config.value.aloneScale})`,
+    transform: `translate3d(${config.value.aloneX}px, ${config.value.aloneY}px, 0) scale(${config.value.aloneScale})`,
+    transformOrigin: 'bottom center',
   }
 }
 
 const getValentineStandStyle = () => {
   return {
-    transform: `translate(${config.value.standX}px, ${config.value.standY}px) scale(${config.value.standScale})`,
+    transform: `translate3d(${config.value.standX}px, ${config.value.standY}px, 0) scale(${config.value.standScale})`,
+    transformOrigin: 'bottom center',
   }
 }
 
