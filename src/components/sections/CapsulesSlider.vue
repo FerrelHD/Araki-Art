@@ -2,7 +2,9 @@
   <section
     id="capsules"
     ref="capsulesRoot"
-    class="border-b border-grid text-brand-primary overflow-visible relative z-30 h-screen max-h-screen flex flex-col justify-between"
+    class="border-b border-grid text-brand-primary relative z-30 h-screen max-h-screen flex flex-col justify-between will-change-transform"
+    :class="isStandActive ? 'overflow-hidden' : 'overflow-visible'"
+    :style="cameraStageStyle"
   >
     <div class="grid grid-cols-4 md:grid-cols-12 flex-1 min-h-0 overflow-visible">
       <!-- 10 Columns Centered Container -->
@@ -186,20 +188,9 @@
 
           <!-- Right 4 Columns: High-Fashion Freestanding Muse (Funny Valentine & D4C) -->
           <div
-            ref="valentineAnchorRef"
             class="group/side relative z-35 hidden lg:col-span-4 lg:flex flex-col justify-end overflow-visible px-4 pb-2 bg-brand-primary/[0.015] border-b border-grid min-h-0 select-none"
           >
-            <!-- Valentine Calibrator Trigger Button -->
-            <button
-              type="button"
-              @click.stop="showValentineAdjuster = !showValentineAdjuster"
-              class="absolute top-3 left-3 z-40 bg-black/85 hover:bg-neutral-900 text-white/80 hover:text-white border border-white/20 px-2 py-1 text-[0.58rem] font-mono tracking-wider uppercase transition-all shadow-md backdrop-blur-xs flex items-center gap-1.5 cursor-pointer select-none"
-              :class="showValentineAdjuster ? 'ring-1 ring-cyan-400 text-cyan-300' : ''"
-              title="Buka Live Calibrator Valentine & D4C (Shift+C)"
-            >
-              <span class="w-1.5 h-1.5 rounded-full" :class="showValentineAdjuster ? 'bg-cyan-400 animate-pulse' : 'bg-neutral-500'"></span>
-              <span>⚙ ATUR VALENTINE</span>
-            </button>
+
 
             <!-- Watermark Background ("D4C") -->
             <div
@@ -387,15 +378,24 @@ interface CoverAdjustment {
 const {
   config,
   isStandActive,
-  showValentineAdjuster,
   currentQuoteIdx,
   currentQuote,
+  lastFocusOrigin,
   handleSelectValentine,
   handleResetCamera,
   cycleQuote,
 } = useValentineStage()
 
-const valentineAnchorRef = ref<HTMLElement | null>(null)
+const cameraStageStyle = computed(() => ({
+  transform: isStandActive.value
+    ? `scale(${config.value.cameraZoom}) translate3d(0, 0, 0)`
+    : 'scale(1) translate3d(0, 0, 0)',
+  transformOrigin: `${lastFocusOrigin.value.originX}% ${lastFocusOrigin.value.originY}%`,
+  transition: 'transform 600ms cubic-bezier(0.16, 1, 0.3, 1)',
+  backfaceVisibility: 'hidden' as const,
+  WebkitBackfaceVisibility: 'hidden' as const,
+  willChange: 'transform' as const,
+}))
 
 const handleValentineClick = () => {
   if (isStandActive.value) {
@@ -403,15 +403,10 @@ const handleValentineClick = () => {
     return
   }
 
-  if (valentineAnchorRef.value) {
-    const rect = valentineAnchorRef.value.getBoundingClientRect()
-    const originX = Math.round(((rect.left + rect.width * 0.5) / window.innerWidth) * 100)
-    const originY = Math.round(((rect.top + rect.height * 0.36) / window.innerHeight) * 100)
-    handleSelectValentine({ originX, originY })
-    return
-  }
-
-  handleSelectValentine()
+  handleSelectValentine({
+    originX: config.value.cameraOriginX,
+    originY: config.value.cameraOriginY,
+  })
 }
 
 const getValentineAloneStyle = () => {
