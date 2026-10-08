@@ -36,31 +36,22 @@
 
                <!-- Bottom Left Runway Meta -->
         <div class="absolute bottom-4 left-4 z-10 text-white font-mono text-[0.65rem] tracking-widest uppercase">
-          <span class="opacity-75">CREDITS: VETTIS</span>
+          <span class="opacity-75">CREDITS: ©Shueisha Inc. All rights reserved</span>
         </div>
       </div>
 
       <!-- 4 Cols: Editorial Portrait (Rohan / Araki in High-Fashion) -->
-      <div
-        ref="portraitContainerRef"
-        class="relative col-span-4 md:col-span-4 aspect-[3/4] md:aspect-auto md:h-full overflow-hidden bg-brand-bg group"
-      >
-        <img
-          ref="portraitImgRef"
-          src="/images/jojo-fashion.jpg"
-          alt="Araki Haute-Couture Muse"
-          class="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-1000 ease-out group-hover:scale-105 filter grayscale contrast-125 group-hover:grayscale-0"
-        />
-              
-        <div class="absolute bottom-4 left-4 right-4 z-10 text-white flex justify-between items-end">
-          <p class="font-serif italic text-lg leading-tight drop-shadow-md">
-            "The body is a living sculpture."
-          </p>
-          <span class="text-[0.6rem] font-mono tracking-widest uppercase opacity-75 drop-shadow">
-            [SPUR 2011]
-          </span>
-        </div>
-      </div>
+<div
+  ref="portraitContainerRef"
+  class="relative col-span-4 md:col-span-4 aspect-[3/4] md:aspect-auto md:h-full overflow-hidden bg-brand-bg group"
+>
+  <img
+    ref="portraitImgRef"
+    src="/images/jojo-fashion.jpg"
+    alt="Araki Haute-Couture Muse"
+    class="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-1000 ease-out group-hover:scale-105"
+  />
+</div>
     </div>
 
     <!-- Bottom Row: Monumental Wordmark & Discipline Badges -->

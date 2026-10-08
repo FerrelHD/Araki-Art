@@ -13,7 +13,7 @@
           <p class="mb-2 text-[0.68rem] font-bold tracking-[0.2em] uppercase font-mono opacity-70">
             the
           </p>
-          <div class="overflow-hidden">
+          <div class="overflow-hidden pb-3">
             <h2
               ref="headingRef"
               class="text-5xl md:text-7xl lg:text-8xl font-bold tracking-[-0.06em] leading-[0.85] will-change-transform"
@@ -67,12 +67,9 @@
               :src="item.image"
               :alt="item.title"
               class="h-full w-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 transition-all duration-700"
+              :style="{ objectPosition: item.objectPosition }"
             />
           </div>
-          <!-- Corner pill tag -->
-          <span class="absolute bottom-2 right-2 px-2 py-0.5 bg-black/70 text-white text-[0.6rem] font-mono uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
-            EXPLORE SPEC
-          </span>
         </div>
       </div>
     </div>
@@ -88,6 +85,7 @@ interface Pillar {
   title: string
   tags: string[]
   image: string
+  objectPosition: string
 }
 
 const pillars: Pillar[] = [
@@ -96,24 +94,28 @@ const pillars: Pillar[] = [
     title: 'the pose',
     tags: ['contrapposto', 'greek statuary', 'michelangelo', 'body tension', 'runway lines'],
     image: '/images/jotaro.jpg',
+    objectPosition: '50% 16%',
   },
   {
     num: '02',
     title: 'the palette',
     tags: ['chromatic shift', 'non-canonical', 'emotional hues', 'contrast theory', 'psychedelia'],
     image: '/images/jojo-sbr-ultra-jump.jpg',
+    objectPosition: '50% 27%',
   },
   {
     num: '03',
     title: 'the sound',
     tags: ['queen', 'david bowie', 'prince', 'pink floyd', 'glam rock runway'],
     image: '/images/kira-yoshikage.jpg',
+    objectPosition: '50% 32%',
   },
   {
     num: '04',
     title: 'the garment',
     tags: ['heart cutouts', 'golden studding', 'italian suiting', 'tailored drape', 'androgyny'],
     image: '/images/giorno.jpg',
+    objectPosition: '50% 22%',
   },
 ]
 

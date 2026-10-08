@@ -16,11 +16,8 @@
     <!-- Top Metadata Bar -->
     <div class="relative z-10 flex items-center justify-between p-4 md:p-8 font-mono text-[0.65rem] md:text-xs tracking-[0.2em] uppercase opacity-75">
       <div class="flex items-center gap-3">
-        <span class="inline-block w-2 h-2 rounded-full bg-brand-accent animate-pulse"></span>
-        <span>ARCHIVE PRELOADER</span>
-      </div>
+       </div>
       <div>
-        <span>SENDAI / FLORENCE / PARIS</span>
       </div>
     </div>
 
@@ -42,11 +39,7 @@
           araki.
         </h1>
       </div>
-
-      <p ref="subEl" class="font-mono text-xs md:text-sm tracking-[0.25em] uppercase opacity-60">
-        haute-couture lookbook // vol. 2026
-      </p>
-    </div>
+   </div>
 
     <!-- Bottom Counter & Progress Bar -->
     <div class="relative z-10 p-4 md:p-8 flex flex-col gap-3 font-mono">

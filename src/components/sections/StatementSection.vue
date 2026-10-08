@@ -86,21 +86,18 @@
           </div>
         </div>
 
-        <!-- Full-Width Panoramic Visual Banner -->
+        <!-- Full-Width Panoramic Visual Banner (Authentic Full Color) -->
         <div
           ref="bannerContainerRef"
           class="aspect-[16/9] md:aspect-[21/9] overflow-hidden relative group"
         >
           <img
             ref="bannerImgRef"
-            src="/images/jojo-horizontal.jpg"
+            src="/images/manga-stand-battle-on-a-roadside.png"
             alt="JoJo Magazine Haute Couture Panoramic Spread"
-            class="w-full h-full object-cover object-center filter grayscale contrast-125 transition-all duration-700 group-hover:grayscale-0 will-change-transform"
+            class="w-full h-full object-cover filter contrast-105 transition-all duration-700 will-change-transform"
+            style="object-position: 50% 12%;"
           />
-          <div class="absolute inset-0 bg-brand-primary/10 mix-blend-multiply pointer-events-none"></div>
-          <div class="absolute bottom-4 left-4 z-10 bg-brand-bg/90 border border-grid px-3 py-1 text-[0.65rem] font-mono tracking-widest uppercase">
-            ARCHIVE IMAGE // JOJO MAGAZINE EDITORIAL PANORAMA
-          </div>
         </div>
       </div>
     </div>
@@ -118,6 +115,7 @@ const leftColRef = ref<HTMLElement | null>(null)
 const rightColRef = ref<HTMLElement | null>(null)
 const bannerContainerRef = ref<HTMLElement | null>(null)
 const bannerImgRef = ref<HTMLImageElement | null>(null)
+
 
 let ctx: gsap.Context | null = null
 
@@ -152,7 +150,7 @@ onMounted(() => {
           y: 0,
           duration: 0.8,
           stagger: 0.12,
-          ease: 'power3.out',
+          ease: 'power3.out', 
           scrollTrigger: {
             trigger: leftColRef.value,
             start: 'top 80%',

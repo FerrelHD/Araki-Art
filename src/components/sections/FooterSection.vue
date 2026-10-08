@@ -5,14 +5,15 @@
     class="border-t border-grid bg-brand-primary text-brand-bg select-none overflow-hidden"
   >
     <!-- Atmospheric Runway / City Video Banner -->
-    <div class="relative h-36 md:h-56 overflow-hidden border-b border-brand-bg/25">
+    <div class="relative h-44 md:h-64 overflow-hidden border-b border-brand-bg/25 group">
       <img
-        src="/images/jojo-horizontal.jpg"
-        alt="JoJo High Fashion Atmosphere"
-        class="h-full w-full object-cover filter contrast-125 brightness-75"
+        src="/images/jolyne-horizontal.jpg"
+        alt="Jolyne High Fashion Atmosphere"
+        class="h-full w-full object-cover filter contrast-125 brightness-75 transition-all duration-300"
+        style="object-position: 50% 18%;"
       />
       <!-- JoJo Iconic Sound Effect Overlay -->
-      <div class="absolute inset-0 flex items-center justify-between px-8 md:px-16 pointer-events-none">
+      <div class="absolute inset-0 flex items-center justify-between px-8 md:px-16 pointer-events-none z-10">
         <span class="font-serif italic text-3xl md:text-5xl text-brand-bg/30">
           "ゴゴゴ... MENACING"
         </span>
