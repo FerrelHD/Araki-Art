@@ -7,7 +7,7 @@
     <GridOverlay />
 
     <!-- Top Fixed Header & Marquee -->
-    <HeaderNav ref="headerNavRef" />
+    <HeaderNav />
 
     <!-- Main Content Area -->
     <main class="relative z-10 pt-14 md:pt-16">
@@ -42,13 +42,9 @@ import FooterSection from '@/components/sections/FooterSection.vue'
 import { ScrollTrigger } from '@/lenis'
 
 const heroSectionRef = ref<any>(null)
-const headerNavRef = ref<any>(null)
 
 function onIntroComplete() {
   ScrollTrigger.refresh()
-  if (headerNavRef.value?.revealHeader) {
-    headerNavRef.value.revealHeader()
-  }
   if (heroSectionRef.value?.playIntroAnimation) {
     heroSectionRef.value.playIntroAnimation()
   }

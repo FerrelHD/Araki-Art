@@ -50,7 +50,7 @@
                   <img
                     :src="capsule.image"
                     :alt="capsule.title"
-                    class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    class="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-110"
                   />
                   <!-- Small number index on thumbnail -->
                   <span class="absolute bottom-1 right-1 bg-black/60 text-white text-[0.6rem] font-mono px-1">
@@ -60,12 +60,9 @@
               </div>
 
               <!-- Right: Active Slide Content Card -->
-              <div class="min-w-0 flex-1 flex flex-col justify-between bg-brand-bg overflow-hidden">
-                <!-- Capsule Information Block (Dark contrast pill header) -->
-                <div
-                  ref="infoCardRef"
-                  class="bg-brand-primary text-brand-bg p-4 md:p-6 flex flex-col gap-4 will-change-transform"
-                >
+              <div class="min-w-0 flex-1 flex flex-col justify-between bg-brand-bg">
+                <!-- Capsule Information Block -->
+                <div class="bg-brand-primary text-brand-bg p-4 md:p-6 flex flex-col gap-4">
                   <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
                     <div>
                       <div class="flex items-center gap-2 mb-1">
@@ -82,8 +79,8 @@
                       </h3>
                     </div>
 
-                    <!-- Category tag -->
-                    <span class="inline-block px-2 py-0.5 self-start text-[0.65rem] font-mono uppercase tracking-widest border border-brand-bg/30 bg-brand-bg/10">
+                    <!-- Category tag (plain text, no capsule border) -->
+                    <span class="text-[0.68rem] font-mono uppercase tracking-[0.2em] opacity-60 self-start">
                       {{ currentCapsule.category }}
                     </span>
                   </div>
@@ -117,31 +114,15 @@
                   </div>
                 </div>
 
-                <!-- Large Visual Container with Bello Editorial Curtain Wipe -->
-                <div class="relative block w-full flex-1 overflow-hidden min-h-[260px] md:min-h-[320px] bg-black/10 group select-none">
-                  <!-- Base Outgoing Image Layer -->
+                <!-- Large Visual Container (Restored, fully visible with object-top) -->
+                <div class="relative block w-full flex-1 overflow-hidden min-h-[280px] md:min-h-[380px] bg-black/10 group select-none">
                   <img
-                    ref="outgoingImgRef"
-                    :src="outgoingImage"
+                    :key="currentCapsule.image"
+                    :src="currentCapsule.image"
                     :alt="currentCapsule.title"
-                    class="absolute inset-0 h-full w-full object-cover will-change-transform"
+                    class="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
                   />
-
-                  <!-- Top Incoming Curtain Wipe Layer -->
-                  <div
-                    ref="curtainMaskRef"
-                    class="absolute inset-0 overflow-hidden will-change-transform z-10"
-                    style="clip-path: inset(0% 0% 0% 0%);"
-                  >
-                    <img
-                      ref="incomingImgRef"
-                      :src="currentCapsule.image"
-                      :alt="currentCapsule.title"
-                      class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 will-change-transform"
-                    />
-                  </div>
-
-                  <div class="absolute inset-0 bg-brand-primary/5 pointer-events-none z-20"></div>
+                  <div class="absolute inset-0 bg-brand-primary/5 pointer-events-none"></div>
                 </div>
               </div>
             </div>
@@ -241,7 +222,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import RollingText from '@/components/common/RollingText.vue'
 import { gsap } from '@/lenis'
 
@@ -305,81 +286,23 @@ const capsules = ref<Capsule[]>([
 
 const capsulesRoot = ref<HTMLElement | null>(null)
 const headingRef = ref<HTMLElement | null>(null)
-const curtainMaskRef = ref<HTMLElement | null>(null)
-const incomingImgRef = ref<HTMLImageElement | null>(null)
-const outgoingImgRef = ref<HTMLImageElement | null>(null)
-const infoCardRef = ref<HTMLElement | null>(null)
 const silhouetteImgRef = ref<HTMLImageElement | null>(null)
 
 const activeIdx = ref(0)
-const outgoingImage = ref(capsules.value[0].image)
 const currentCapsule = computed(() => capsules.value[activeIdx.value])
 
 let ctx: gsap.Context | null = null
 
-function triggerCurtainTransition() {
-  nextTick(() => {
-    if (!curtainMaskRef.value || !incomingImgRef.value) return
-
-    // Cancel in-flight animations to support instant, rapid mouse hovers
-    gsap.killTweensOf([curtainMaskRef.value, incomingImgRef.value, outgoingImgRef.value])
-
-    // Mijobello signature: Clip-path Curtain Wipe from bottom to top
-    gsap.fromTo(
-      curtainMaskRef.value,
-      { clipPath: 'inset(100% 0% 0% 0%)' },
-      {
-        clipPath: 'inset(0% 0% 0% 0%)',
-        duration: 0.75,
-        ease: 'expo.out',
-        onComplete: () => {
-          outgoingImage.value = currentCapsule.value.image
-        },
-      }
-    )
-
-    // Counter scale on the incoming image (scaling down from 1.2 to 1.0)
-    gsap.fromTo(
-      incomingImgRef.value,
-      { scale: 1.22, yPercent: 4 },
-      { scale: 1, yPercent: 0, duration: 0.85, ease: 'expo.out' }
-    )
-
-    // Outgoing image subtle counter movement underneath
-    if (outgoingImgRef.value) {
-      gsap.fromTo(
-        outgoingImgRef.value,
-        { scale: 1, yPercent: 0, opacity: 1 },
-        { scale: 0.96, yPercent: -4, opacity: 0.35, duration: 0.75, ease: 'expo.out' }
-      )
-    }
-
-    // Refresh info card text with kinetic subtle slide
-    if (infoCardRef.value) {
-      gsap.fromTo(
-        infoCardRef.value,
-        { y: 8, opacity: 0.75 },
-        { y: 0, opacity: 1, duration: 0.45, ease: 'power2.out' }
-      )
-    }
-  })
-}
-
 const goToSlide = (idx: number) => {
-  if (activeIdx.value === idx) return
-  outgoingImage.value = capsules.value[activeIdx.value].image
   activeIdx.value = idx
-  triggerCurtainTransition()
 }
 
 const prevSlide = () => {
-  const newIdx = (activeIdx.value - 1 + capsules.value.length) % capsules.value.length
-  goToSlide(newIdx)
+  activeIdx.value = (activeIdx.value - 1 + capsules.value.length) % capsules.value.length
 }
 
 const nextSlide = () => {
-  const newIdx = (activeIdx.value + 1) % capsules.value.length
-  goToSlide(newIdx)
+  activeIdx.value = (activeIdx.value + 1) % capsules.value.length
 }
 
 onMounted(() => {

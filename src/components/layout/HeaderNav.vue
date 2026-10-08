@@ -1,8 +1,6 @@
 <template>
   <header
-    ref="headerEl"
-    style="transform: translateY(-100%); opacity: 0;"
-    class="fixed inset-x-0 top-0 z-40 h-14 md:h-16 border-b border-grid bg-brand-bg grid grid-cols-4 md:grid-cols-12 transition-colors duration-500 will-change-transform"
+    class="fixed inset-x-0 top-0 z-40 h-14 md:h-16 border-b border-grid bg-brand-bg grid grid-cols-4 md:grid-cols-12 transition-colors duration-500"
   >
     <!-- Col 1-3: Wordmark Logo -->
     <a
@@ -102,12 +100,10 @@
 
   <!-- Fixed Square Menu Button in the Top-Right Grid Cell (Mijobello Signature) -->
   <button
-    ref="menuButtonRef"
     type="button"
-    style="transform: translateY(-100%); opacity: 0;"
     @click="isMenuOpen = !isMenuOpen"
     :aria-label="isMenuOpen ? 'Close menu' : 'Open menu'"
-    class="group fixed top-0 right-0 z-50 flex h-14 md:h-16 w-14 md:w-16 cursor-pointer items-center justify-center border-b border-l border-grid bg-brand-bg transition-colors hover:bg-brand-primary hover:text-brand-bg outline-none will-change-transform"
+    class="group fixed top-0 right-0 z-50 flex h-14 md:h-16 w-14 md:w-16 cursor-pointer items-center justify-center border-b border-l border-grid bg-brand-bg transition-colors hover:bg-brand-primary hover:text-brand-bg outline-none"
   >
     <div class="relative flex flex-col justify-center gap-1.5 w-5 h-4">
       <span
@@ -237,25 +233,6 @@ onMounted(() => {
 
 onUnmounted(() => {
   if (timer) clearInterval(timer)
-})
-
-import { gsap } from '@/lenis'
-
-const headerEl = ref<HTMLElement | null>(null)
-const menuButtonRef = ref<HTMLElement | null>(null)
-
-function revealHeader() {
-  if (headerEl.value && menuButtonRef.value) {
-    gsap.fromTo(
-      [headerEl.value, menuButtonRef.value],
-      { yPercent: -100, opacity: 0 },
-      { yPercent: 0, opacity: 1, duration: 0.85, ease: 'power3.out' }
-    )
-  }
-}
-
-defineExpose({
-  revealHeader,
 })
 </script>
 
