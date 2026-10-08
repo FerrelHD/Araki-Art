@@ -240,19 +240,12 @@
                 :class="isStandActive ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'"
                 :style="{ ...getValentineStandStyle(), transitionDelay: isStandActive ? '80ms' : '0ms' }"
               >
-                <!-- D4C High-Performance Stand Cyan Aura Glow (GPU Quad Layer, Zero Drop-Frame) -->
-                <div
-                  class="absolute inset-x-6 top-1/4 bottom-12 bg-cyan-400/25 blur-2xl rounded-full pointer-events-none transition-opacity duration-400 will-change-[transform,opacity]"
-                  :class="isStandActive ? 'opacity-100' : 'opacity-0'"
-                  :style="{ transitionDelay: isStandActive ? '120ms' : '0ms' }"
-                ></div>
-
                 <img
                   src="/images/funny-valentine-stand.png"
                   alt="Funny Valentine & D4C Stand"
                   loading="eager"
                   decoding="async"
-                  class="relative z-10 h-[85%] max-h-[65vh] xl:max-h-[75vh] w-auto object-contain object-bottom filter contrast-105 brightness-105 drop-shadow-[0_8px_20px_rgba(0,0,0,0.35)] pointer-events-none select-none"
+                  class="relative z-10 h-[85%] max-h-[65vh] xl:max-h-[75vh] w-auto object-contain object-bottom filter contrast-105 pointer-events-none select-none"
                 />
               </div>
 
