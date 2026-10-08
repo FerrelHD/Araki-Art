@@ -394,12 +394,12 @@
           <div class="bg-neutral-900/90 p-2 border border-neutral-800">
             <div class="flex justify-between items-center mb-1">
               <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">Flash X</span>
-              <span class="text-cyan-300 font-bold font-mono text-[0.62rem]">{{ config.flashX ?? 0 }}px</span>
+              <span class="text-cyan-300 font-bold font-mono text-[0.62rem]">{{ config.flashX ?? -84 }}px</span>
             </div>
             <input
               type="range"
-              min="-120"
-              max="120"
+              min="-150"
+              max="150"
               step="1"
               v-model.number="config.flashX"
               class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none"
@@ -408,12 +408,12 @@
           <div class="bg-neutral-900/90 p-2 border border-neutral-800">
             <div class="flex justify-between items-center mb-1">
               <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">Flash Y</span>
-              <span class="text-cyan-300 font-bold font-mono text-[0.62rem]">{{ config.flashY ?? -25 }}px</span>
+              <span class="text-cyan-300 font-bold font-mono text-[0.62rem]">{{ config.flashY ?? -200 }}px</span>
             </div>
             <input
               type="range"
-              min="-200"
-              max="100"
+              min="-350"
+              max="50"
               step="1"
               v-model.number="config.flashY"
               class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none"
@@ -424,12 +424,12 @@
         <div class="bg-neutral-900/90 p-2 border border-neutral-800">
           <div class="flex justify-between items-center mb-1">
             <span class="text-neutral-300 text-[0.62rem] font-bold uppercase">Flash Scale / Size</span>
-            <span class="text-cyan-300 font-bold font-mono text-[0.65rem]">{{ (config.flashScale ?? 0.75).toFixed(2) }}x</span>
+            <span class="text-cyan-300 font-bold font-mono text-[0.65rem]">{{ (config.flashScale ?? 1.25).toFixed(2) }}x</span>
           </div>
           <input
             type="range"
             min="0.3"
-            max="1.6"
+            max="2.0"
             step="0.05"
             v-model.number="config.flashScale"
             class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none"

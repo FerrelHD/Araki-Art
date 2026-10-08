@@ -256,18 +256,16 @@
                 />
               </div>
 
-              <!-- ── D4C DIMENSIONAL MANIFESTATION FLASH (ANIME STAND BURST FX) ── -->
+              <!-- ── D4C ETHEREAL MANIFESTATION BLOOM (SILKY SMOOTH ANIME FX) ── -->
               <div
                 v-if="isManifesting"
-                class="stand-flash-burst absolute inset-0 z-25 pointer-events-none flex items-center justify-center overflow-visible select-none"
+                class="stand-bloom-wrapper absolute inset-0 z-25 pointer-events-none flex items-center justify-center overflow-visible select-none"
                 :style="flashContainerStyle"
               >
-                <!-- Core Radial Energy Flare (Focused & Sleek) -->
-                <div class="stand-flash-core w-[65%] h-[65%] rounded-full"></div>
-                <!-- Expanding Dimensional Shockwave Ring -->
-                <div class="stand-flash-ring absolute w-[55%] h-[55%] rounded-full border border-cyan-300/80"></div>
-                <!-- Vertical Dimensional Slash Ray -->
-                <div class="stand-flash-beam absolute w-2 sm:w-2.5 h-[110%] rounded-full"></div>
+                <!-- Outer Cyan Stand Mist (Soft Diffused Aura) -->
+                <div class="stand-bloom-outer absolute w-[80%] h-[80%] rounded-full"></div>
+                <!-- Inner Pure White Silk Core (Luminous Radiant Heart) -->
+                <div class="stand-bloom-core absolute w-[55%] h-[55%] rounded-full"></div>
               </div>
 
               <!-- ── GIANT JOJO MENACING KANJI FX (ゴゴゴ) ── -->
@@ -394,7 +392,7 @@ const {
 
 const flashContainerStyle = computed(() => {
   return {
-    transform: `translate3d(${config.value.flashX ?? 0}px, ${config.value.flashY ?? -25}px, 0) scale(${config.value.flashScale ?? 0.75})`,
+    transform: `translate3d(${config.value.flashX ?? -84}px, ${config.value.flashY ?? -200}px, 0) scale(${config.value.flashScale ?? 1.25})`,
     transformOrigin: 'center center',
   }
 })
@@ -816,93 +814,50 @@ onUnmounted(() => {
   }
 }
 
-@keyframes standFlash {
+@keyframes standBloomAnim {
   0% {
     opacity: 0;
-    transform: scale(0.65);
+    transform: scale(0.72);
   }
-  16% {
+  14% {
     opacity: 1;
-    transform: scale(1.02);
-  }
-  48% {
-    opacity: 1;
-    transform: scale(1.08);
-  }
-  75% {
-    opacity: 0.7;
-    transform: scale(1.15);
+    transform: scale(1.0);
   }
   100% {
     opacity: 0;
-    transform: scale(1.22);
+    transform: scale(1.18);
   }
 }
 
-@keyframes standRing {
-  0% {
-    opacity: 0;
-    transform: scale(0.4);
-  }
-  20% {
-    opacity: 0.95;
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1.28);
-  }
+.stand-bloom-wrapper {
+  filter: drop-shadow(0 0 28px rgba(56, 189, 248, 0.85));
 }
 
-@keyframes standBeam {
-  0% {
-    opacity: 0;
-    transform: scaleY(0.2) scaleX(2);
-  }
-  25% {
-    opacity: 1;
-    transform: scaleY(1.05) scaleX(1);
-  }
-  100% {
-    opacity: 0;
-    transform: scaleY(1.3) scaleX(0.2);
-  }
+.stand-bloom-outer {
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(56, 189, 248, 0.9) 0%,
+    rgba(6, 182, 212, 0.55) 40%,
+    rgba(8, 145, 178, 0.22) 65%,
+    transparent 80%
+  );
+  filter: blur(24px);
+  will-change: transform, opacity;
+  animation: standBloomAnim 580ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.stand-flash-burst {
-  filter: drop-shadow(0 0 20px rgba(6, 182, 212, 0.7));
-}
-
-.stand-flash-core {
+.stand-bloom-core {
   background: radial-gradient(
     circle at 50% 50%,
     rgba(255, 255, 255, 1) 0%,
-    rgba(255, 255, 255, 0.96) 28%,
-    rgba(56, 189, 248, 0.82) 48%,
-    rgba(6, 182, 212, 0.35) 64%,
-    transparent 78%
+    rgba(255, 255, 255, 0.95) 28%,
+    rgba(224, 242, 254, 0.65) 55%,
+    transparent 75%
   );
-  animation: standFlash 580ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  filter: blur(12px);
+  mix-blend-mode: screen;
   will-change: transform, opacity;
-}
-
-.stand-flash-ring {
-  box-shadow: 0 0 16px rgba(56, 189, 248, 0.75), inset 0 0 10px rgba(56, 189, 248, 0.4);
-  animation: standRing 550ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  will-change: transform, opacity;
-}
-
-.stand-flash-beam {
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(255, 255, 255, 0.95) 25%,
-    rgba(56, 189, 248, 0.9) 50%,
-    rgba(255, 255, 255, 0.95) 75%,
-    transparent 100%
-  );
-  box-shadow: 0 0 14px rgba(56, 189, 248, 0.8), 0 0 24px rgba(6, 182, 212, 0.5);
-  animation: standBeam 500ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  will-change: transform, opacity;
+  animation: standBloomAnim 520ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .animate-menacing-float {

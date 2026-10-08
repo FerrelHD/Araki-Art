@@ -65,12 +65,12 @@ export const defaultValentineConfig: ValentineConfig = {
 
   watermarkOpacity: 6,
 
-  flashX: 0,
-  flashY: -25,
-  flashScale: 0.75,
+  flashX: -84,
+  flashY: -200,
+  flashScale: 1.25,
 }
 
-const STORAGE_KEY = 'araki_valentine_universal_v8'
+const STORAGE_KEY = 'araki_valentine_universal_v9'
 
 const loadSavedConfig = (): ValentineConfig => {
   try {
