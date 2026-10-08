@@ -13,27 +13,27 @@
 }
 
 :root {
-  /* Default: Menacing SBR Midnight Denim Mode */
-  --color-bg: #0b1220;
-  --color-primary: #fbf8f3;
+  /* Default: Concrete Editorial Gray (Maison Margiela / Brutalist Gallery Ash) */
+  --color-bg: #e2e4e8;
+  --color-primary: #111418;
   --color-accent: #e11d48;
-  --color-stand: #38bdf8;
-  --color-border: rgba(251, 248, 243, 0.28);
-  --color-border-subtle: rgba(251, 248, 243, 0.12);
-  --color-card-bg: #162035;
-  --color-card-text: #fbf8f3;
+  --color-stand: #2563eb;
+  --color-border: rgba(17, 20, 24, 0.28);
+  --color-border-subtle: rgba(17, 20, 24, 0.12);
+  --color-card-bg: #111418;
+  --color-card-text: #e2e4e8;
 }
 
 [data-theme='shift'] {
-  /* Shift Mode: Johnny Joestar Runway Mode (Editorial Cerulean & Tusk Rose) */
-  --color-bg: #f4f7fb;
-  --color-primary: #0f172a;
-  --color-accent: #fb7185;
-  --color-stand: #0284c7;
-  --color-border: rgba(15, 23, 42, 0.28);
-  --color-border-subtle: rgba(15, 23, 42, 0.12);
-  --color-card-bg: #0f172a;
-  --color-card-text: #f4f7fb;
+  /* Shift Mode: Titanium Graphite (Dark Mineral Haute Couture) */
+  --color-bg: #181a1f;
+  --color-primary: #e2e4e8;
+  --color-accent: #f43f5e;
+  --color-stand: #38bdf8;
+  --color-border: rgba(226, 228, 232, 0.25);
+  --color-border-subtle: rgba(226, 228, 232, 0.12);
+  --color-card-bg: #22252c;
+  --color-card-text: #e2e4e8;
 }
 
 html {

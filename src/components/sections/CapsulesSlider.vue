@@ -117,36 +117,36 @@
 
                     <!-- SISI KANAN: Capsule Information Panel (Gaya A: Dark Editorial, Clean, Breathing Room) -->
                     <div
-                      class="flex-1 bg-brand-card-bg text-brand-card-text p-4 sm:p-5 lg:p-5 xl:p-7 2xl:p-8 flex flex-col justify-between min-h-0 overflow-y-auto no-scrollbar border-l border-grid transition-colors duration-500"
+                      class="capsule-info-panel flex-1 bg-brand-card-bg text-brand-card-text p-4 sm:p-5 lg:p-5 xl:p-7 2xl:p-8 flex flex-col justify-between min-h-0 overflow-y-auto no-scrollbar border-l border-grid transition-colors duration-500"
                     >
                       <!-- Bagian Atas: Metadata, Judul, Kategori & Sinopsis dengan Spasi Bernapas -->
                       <div class="flex flex-col gap-2 sm:gap-2.5 lg:gap-2.5 xl:gap-3.5">
                         <!-- Label Arsip Monospace -->
-                        <div class="flex items-center gap-2 opacity-50 font-mono text-[0.55rem] sm:text-[0.62rem] tracking-[0.2em] uppercase">
+                        <div class="capsule-meta flex items-center gap-2 opacity-50 font-mono text-[0.55rem] sm:text-[0.62rem] tracking-[0.2em] uppercase">
                           <span>ARCHIVE COLLECTION</span>
                           <span>·</span>
                           <span>VOL. 0{{ idx + 1 }}</span>
                         </div>
 
                         <!-- Judul Part (Clean Display Typography) -->
-                        <h3 class="text-lg sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-bold tracking-tight leading-[1.15] text-brand-card-text">
+                        <h3 class="capsule-title text-lg sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-bold tracking-tight leading-[1.15] text-brand-card-text">
                           {{ capsule.title }}
                         </h3>
 
                         <!-- Era & Kategori (Clean Monospace, Tanpa Badge/Card) -->
-                        <p class="font-mono text-[0.6rem] sm:text-[0.68rem] tracking-[0.16em] uppercase opacity-75">
+                        <p class="capsule-category font-mono text-[0.6rem] sm:text-[0.68rem] tracking-[0.16em] uppercase opacity-75">
                           {{ capsule.category }} · {{ capsule.year }}
                         </p>
 
                         <!-- Sinopsis Editorial dengan Breathing Room Lega -->
-                        <p class="text-xs sm:text-[0.82rem] md:text-sm lg:text-[0.82rem] xl:text-sm leading-relaxed opacity-85 font-sans font-light max-w-[42ch]">
+                        <p class="capsule-summary text-xs sm:text-[0.82rem] md:text-sm lg:text-[0.82rem] xl:text-sm leading-relaxed opacity-85 font-sans font-light max-w-[42ch]">
                           {{ capsule.summary }}
                         </p>
 
                         <!-- Tags Karakter & Motif (Clean Slash-Separated, Tanpa Badge/Pill) -->
                         <div
                           v-if="capsule.tags && capsule.tags.length"
-                          class="pt-1 sm:pt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-[0.58rem] sm:text-[0.65rem] tracking-wider opacity-60"
+                          class="capsule-tags pt-1 sm:pt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-[0.58rem] sm:text-[0.65rem] tracking-wider opacity-60"
                         >
                           <span v-for="(tag, tIdx) in capsule.tags" :key="tag">
                             {{ tag }}<span v-if="tIdx < capsule.tags.length - 1" class="ml-2 opacity-35">/</span>
@@ -155,7 +155,7 @@
                       </div>
 
                       <!-- Bagian Bawah: Tombol View Archive di Paling Bawah Rata Kanan -->
-                      <div class="pt-3 sm:pt-3.5 xl:pt-4 border-t border-brand-card-text/15 flex items-center justify-between shrink-0 mt-2.5 sm:mt-3 xl:mt-4">
+                      <div class="capsule-footer pt-3 sm:pt-3.5 xl:pt-4 border-t border-brand-card-text/15 flex items-center justify-between shrink-0 mt-2.5 sm:mt-3 xl:mt-4">
                         <span class="font-mono text-[0.55rem] sm:text-[0.58rem] tracking-widest uppercase opacity-40 hidden sm:inline">
                           OFFICIAL ARCHIVE
                         </span>

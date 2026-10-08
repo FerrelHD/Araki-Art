@@ -42,14 +42,12 @@
 
       <!-- 4 Cols: Editorial Portrait (Rohan / Araki in High-Fashion) -->
       <div
-        ref="portraitContainerRef"
-        class="relative col-span-4 md:col-span-4 aspect-[16/10] sm:aspect-[3/4] md:aspect-auto md:h-full overflow-hidden bg-brand-bg group"
+        class="relative col-span-4 md:col-span-4 aspect-[16/10] sm:aspect-[3/4] md:aspect-auto md:h-full overflow-hidden bg-brand-bg"
       >
         <img
-          ref="portraitImgRef"
           src="/images/jojo-fashion.jpg"
           alt="Araki Haute-Couture Muse"
-          class="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-1000 ease-out group-hover:scale-105"
+          class="absolute inset-0 h-full w-full object-cover object-top"
         />
       </div>
     </div>
@@ -123,8 +121,6 @@ import { gsap } from '@/lenis'
 const heroRoot = ref<HTMLElement | null>(null)
 const videoContainerRef = ref<HTMLElement | null>(null)
 const videoElRef = ref<HTMLVideoElement | null>(null)
-const portraitContainerRef = ref<HTMLElement | null>(null)
-const portraitImgRef = ref<HTMLImageElement | null>(null)
 const titleRef = ref<HTMLElement | null>(null)
 const starIconRef = ref<SVGElement | null>(null)
 
@@ -152,26 +148,6 @@ function playHandoverEntrance() {
       { scale: 1.15, opacity: 0.7 },
       { scale: 1, opacity: 1, duration: 1.5, ease: 'power3.out' },
       0
-    )
-  }
-
-  // Portrait container curtain mask reveal (staggered slightly)
-  if (portraitContainerRef.value && portraitImgRef.value) {
-    tl.fromTo(
-      portraitContainerRef.value,
-      { clipPath: 'inset(100% 0% 0% 0%)' },
-      {
-        clipPath: 'inset(0% 0% 0% 0%)',
-        duration: 1.35,
-        ease: 'power4.inOut',
-        clearProps: 'clipPath',
-      },
-      0.18
-    ).fromTo(
-      portraitImgRef.value,
-      { scale: 1.15, opacity: 0.7 },
-      { scale: 1, opacity: 1, duration: 1.5, ease: 'power3.out' },
-      0.18
     )
   }
 
@@ -207,19 +183,6 @@ onMounted(() => {
       if (videoElRef.value) {
         gsap.to(videoElRef.value, {
           yPercent: 10,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: heroRoot.value,
-            start: 'top top',
-            end: 'bottom top',
-            scrub: true,
-          },
-        })
-      }
-
-      if (portraitImgRef.value) {
-        gsap.to(portraitImgRef.value, {
-          yPercent: -10,
           ease: 'none',
           scrollTrigger: {
             trigger: heroRoot.value,
