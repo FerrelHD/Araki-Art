@@ -198,7 +198,7 @@
 
           <!-- Right 4 Columns: High-Fashion Freestanding Muse (Funny Valentine & D4C) -->
           <div
-            class="group/side relative z-40 overflow-visible px-4 pb-2 select-none"
+            class="group/side relative z-[55] overflow-visible px-4 pb-2 select-none"
             :class="isStandActive ? 'fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-xs lg:relative lg:inset-auto lg:z-40 lg:col-span-4 lg:flex lg:flex-col lg:justify-end lg:p-0 lg:px-4 lg:pb-2 lg:bg-brand-primary/[0.015] lg:border-b lg:border-grid min-h-0' : 'hidden lg:col-span-4 lg:flex lg:flex-col lg:justify-end bg-brand-primary/[0.015] border-b border-grid min-h-0'"
           >
 
@@ -236,7 +236,7 @@
 
               <!-- Mode 2: Stand - Funny Valentine with D4C Manifestation -->
               <div
-                class="absolute inset-0 h-full w-full flex items-end justify-center origin-bottom transition-all duration-350 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-[transform,opacity]"
+                class="absolute inset-0 h-full w-full flex items-end justify-center origin-bottom transition-opacity duration-350 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-opacity"
                 :class="isStandActive ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'"
                 :style="{ ...getValentineStandStyle(), transitionDelay: isStandActive ? '80ms' : '0ms' }"
               >
