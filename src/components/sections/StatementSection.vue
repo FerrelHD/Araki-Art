@@ -93,10 +93,10 @@
         >
           <img
             ref="bannerImgRef"
-            src="/images/manga-clash-cyan-beam.png"
-            alt="JoJolion Soft & Wet: Go Beyond vs Wonder of U Panoramic Spread"
+            src="/images/Valentine_Diego_sharpened.png"
+            alt="Funny Valentine & Diego Brando SBR Panoramic Spread"
             class="w-full h-full object-cover filter contrast-105 transition-all duration-700 will-change-transform"
-            style="object-position: 50% 50%;"
+            style="object-position: 50% 30%;"
           />
         </div>
       </div>
