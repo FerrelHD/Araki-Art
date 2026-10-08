@@ -163,10 +163,10 @@
                           :href="capsule.link"
                           target="_blank"
                           rel="noopener noreferrer"
-                          class="group/roll inline-flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm xl:text-base font-mono font-medium tracking-wider uppercase text-brand-bg hover:opacity-75 transition-opacity cursor-pointer ml-auto"
+                          class="group/roll inline-flex items-center gap-1.5 sm:gap-2 text-[0.68rem] sm:text-xs xl:text-[0.78rem] font-mono font-medium tracking-[0.16em] uppercase text-brand-bg hover:opacity-75 transition-opacity cursor-pointer ml-auto"
                         >
                           <RollingText text="view archive" />
-                          <span class="text-sm sm:text-base transition-transform duration-300 group-hover/roll:translate-x-1.5">></span>
+                          <span class="text-xs xl:text-[0.78rem] transition-transform duration-300 group-hover/roll:translate-x-1">></span>
                         </a>
                       </div>
                     </div>
