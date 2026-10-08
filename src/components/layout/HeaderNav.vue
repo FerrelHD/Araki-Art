@@ -5,10 +5,10 @@
     <!-- Col 1-3: Wordmark Logo -->
     <a
       href="#"
-      class="col-span-2 md:col-span-3 flex items-center justify-between border-r border-grid px-4 md:px-6 text-xl md:text-2xl font-bold tracking-[-0.05em] transition-colors hover:opacity-80"
+      class="col-span-2 md:col-span-3 flex items-center justify-between border-r border-grid px-4 md:px-6 font-bold tracking-[-0.06em] transition-colors hover:opacity-80"
     >
       <div class="flex items-center gap-2">
-        <span class="text-xl md:text-2xl">araki.</span>
+        <span class="text-2xl md:text-3xl leading-none">araki.</span>
       </div>
       <!-- Joestar Star Birthmark subtle icon -->
       <span class="text-[0.65rem] font-mono tracking-widest uppercase opacity-50 hidden sm:inline-block">
