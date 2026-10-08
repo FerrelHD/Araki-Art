@@ -198,33 +198,126 @@
             </div>
           </div>
 
-          <!-- Right 4 Columns: High-Fashion Freestanding Muse (Funny Valentine - Overlapping Banner Above) -->
+          <!-- Right 4 Columns: High-Fashion Freestanding Muse (Funny Valentine & D4C Stand Reveal) -->
           <div
             class="group/side relative z-30 hidden lg:col-span-4 lg:flex flex-col justify-end overflow-hidden px-4 pb-2 bg-brand-primary/[0.015] border-b border-grid min-h-0 select-none"
           >
-            <!-- Watermark Background -->
-            <div class="absolute -top-6 right-2 font-mono text-[7rem] xl:text-[9rem] font-bold leading-none opacity-5 select-none pointer-events-none">
+            <!-- Watermark Background (Reactivates & Glows when Stand is Manifested) -->
+            <div
+              class="absolute font-mono font-bold leading-none select-none pointer-events-none transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+              :style="getWatermarkStyle()"
+            >
               D4C
             </div>
 
-            <!-- Pop-out Cutout Container: Funny Valentine with D4C (Clean Fit, NO drop-shadow) -->
-            <div class="relative w-full flex-1 min-h-0 flex items-end justify-center overflow-visible pointer-events-none">
+            <!-- Comic / Manga Speech Bubble (Animated on Click) -->
+            <transition
+              enter-active-class="transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
+              enter-from-class="opacity-0 scale-75 -translate-y-4"
+              enter-to-class="opacity-100 scale-100 translate-y-0"
+              leave-active-class="transition-all duration-200 ease-in"
+              leave-from-class="opacity-100 scale-100 translate-y-0"
+              leave-to-class="opacity-0 scale-75 -translate-y-2"
+            >
               <div
-                class="relative h-full w-full flex items-end justify-center origin-bottom z-30 pointer-events-none"
-                style="transform: translate(0px, -20px) scale(1.15);"
+                v-if="isStandActive"
+                @click="cycleValentineQuote"
+                class="absolute z-40 cursor-pointer pointer-events-auto select-none"
+                :style="getBubbleStyle()"
+                title="Click to cycle quote / Klik untuk ganti quote"
+              >
+                <!-- Japanese Manga Dialogue Balloon -->
+                <div class="relative bg-brand-bg text-brand-primary border-2 border-brand-primary shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] p-3 max-w-[240px] xl:max-w-[270px]">
+                  <!-- Header Speaker Tag -->
+                  <div class="flex items-center justify-between gap-2 border-b border-brand-primary/30 pb-1 mb-1.5">
+                    <span class="font-mono text-[0.55rem] font-black tracking-widest uppercase">FUNNY VALENTINE</span>
+                    <span class="text-[0.55rem] font-mono opacity-50">#0{{ currentQuoteIdx + 1 }}</span>
+                  </div>
+                  <!-- Dialogue Text -->
+                  <p class="font-serif font-bold text-xs xl:text-sm leading-snug tracking-tight text-neutral-900">
+                    "{{ currentValentineQuote }}"
+                  </p>
+                  <!-- Manga Speech Tail pointing to Valentine -->
+                  <div class="absolute -bottom-2.5 left-8 w-0 h-0 border-l-[7px] border-l-transparent border-r-[7px] border-r-transparent border-t-[10px] border-t-brand-primary"></div>
+                  <div class="absolute -bottom-2 left-[33px] w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-brand-bg"></div>
+                </div>
+              </div>
+            </transition>
+
+            <!-- Speedline Flash Effect Burst (400ms on click) -->
+            <div
+              v-if="showSpeedlineBurst"
+              class="absolute inset-0 pointer-events-none z-35 flex items-center justify-center opacity-60 transition-opacity duration-400"
+            >
+              <svg class="w-full h-full" viewBox="0 0 400 400" fill="none">
+                <line x1="200" y1="200" x2="0" y2="0" stroke="currentColor" stroke-width="1.5" class="text-brand-primary/40" />
+                <line x1="200" y1="200" x2="400" y2="0" stroke="currentColor" stroke-width="1.5" class="text-brand-primary/40" />
+                <line x1="200" y1="200" x2="0" y2="400" stroke="currentColor" stroke-width="1.5" class="text-brand-primary/40" />
+                <line x1="200" y1="200" x2="400" y2="400" stroke="currentColor" stroke-width="1.5" class="text-brand-primary/40" />
+                <line x1="200" y1="200" x2="200" y2="0" stroke="currentColor" stroke-width="1.5" class="text-brand-primary/30" />
+                <line x1="200" y1="200" x2="0" y2="200" stroke="currentColor" stroke-width="1.5" class="text-brand-primary/30" />
+                <line x1="200" y1="200" x2="400" y2="200" stroke="currentColor" stroke-width="1.5" class="text-brand-primary/30" />
+              </svg>
+            </div>
+
+            <!-- Interactive Cutout Stage Container -->
+            <div
+              class="relative w-full flex-1 min-h-0 flex items-end justify-center overflow-visible pointer-events-auto cursor-pointer group/muse"
+              @click="toggleValentineStand"
+              :title="isStandActive ? 'Click to dismiss Stand (ESC)' : 'Click to summon D4C!'"
+            >
+              <!-- Contact Floor Shadow (Soft Optical Depth) -->
+              <div
+                class="absolute bottom-0 w-44 h-5 rounded-full bg-black/40 blur-md pointer-events-none transition-all duration-500"
+                :class="isStandActive ? 'scale-125 opacity-70' : 'scale-100 opacity-40 group-hover/muse:opacity-60'"
+              ></div>
+
+              <!-- Mode A: Funny Valentine Alone (Idle) -->
+              <div
+                class="relative h-full w-full flex items-end justify-center origin-bottom pointer-events-none transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                :style="getValentineAloneStyle()"
+                :class="isStandActive ? 'opacity-0 scale-90 pointer-events-none' : 'opacity-100 group-hover/muse:brightness-105'"
               >
                 <img
-                  src="/images/flamboyant-duo.png"
-                  alt="Funny Valentine & D4C Runway Cutout"
-                  class="h-full w-auto max-h-[440px] xl:max-h-[500px] object-contain object-bottom filter contrast-110 pointer-events-none select-none"
+                  src="/images/funny-valentine-alone.png"
+                  alt="Funny Valentine (President)"
+                  class="h-full w-auto max-h-[440px] xl:max-h-[500px] object-contain object-bottom filter contrast-105 pointer-events-none select-none transition-transform duration-300 group-hover/muse:scale-[1.02]"
                 />
+              </div>
+
+              <!-- Mode B: Funny Valentine With Stand D4C (Active) -->
+              <div
+                class="absolute inset-0 h-full w-full flex items-end justify-center origin-bottom pointer-events-none transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                :style="getValentineStandStyle()"
+                :class="isStandActive ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'"
+              >
+                <img
+                  src="/images/funny-valentine-stand.png"
+                  alt="Funny Valentine with D4C Stand"
+                  class="h-full w-auto max-h-[460px] xl:max-h-[520px] object-contain object-bottom filter contrast-110 pointer-events-none select-none drop-shadow-[0_10px_25px_rgba(0,0,0,0.35)]"
+                />
+              </div>
+
+              <!-- Interactive Summon Hint Badge (Pill) -->
+              <div
+                class="absolute bottom-2 z-30 transition-all duration-300"
+                :class="isStandActive ? 'opacity-0 translate-y-2 pointer-events-none' : 'opacity-85 group-hover/muse:opacity-100 group-hover/muse:scale-105'"
+              >
+                <div class="flex items-center gap-1.5 bg-black/80 text-white border border-white/20 px-2 py-0.5 font-mono text-[0.55rem] tracking-wider uppercase backdrop-blur-xs shadow-md">
+                  <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+                  <span>CLICK TO SUMMON D4C</span>
+                </div>
               </div>
             </div>
 
             <!-- Bottom Runway Metadata -->
-            <div class="relative z-10 pt-1 border-t border-grid/40 flex justify-between items-center text-[0.55rem] font-mono opacity-65 shrink-0 pointer-events-none">
-              <span class="tracking-wider uppercase">FIGURE: FUNNY VALENTINE [D4C]</span>
-              <span class="tracking-widest">STEEL BALL RUN ARCHIVE</span>
+            <div class="relative z-10 pt-1 border-t border-grid/40 flex justify-between items-center text-[0.55rem] font-mono opacity-65 shrink-0 select-none">
+              <span class="tracking-wider uppercase">
+                {{ isStandActive ? 'STAND: DIRTY DEEDS DONE DIRT CHEAP' : 'FIGURE: FUNNY VALENTINE' }}
+              </span>
+              <span class="tracking-widest">
+                {{ isStandActive ? 'DOJYAA~~N' : 'STEEL BALL RUN ARCHIVE' }}
+              </span>
             </div>
           </div>
         </div>
@@ -269,11 +362,11 @@
       class="fixed bottom-4 right-4 z-50 w-[330px] sm:w-[370px] bg-neutral-950/95 text-neutral-100 border border-neutral-700 shadow-2xl backdrop-blur-md p-4 font-mono text-xs select-none max-h-[88vh] overflow-y-auto no-scrollbar"
     >
       <!-- Panel Header -->
-      <div class="flex items-center justify-between pb-3 border-b border-neutral-800">
+      <div class="flex items-center justify-between pb-2.5 border-b border-neutral-800">
         <div class="flex items-center gap-2">
           <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
           <span class="font-bold tracking-wider uppercase text-[0.72rem] text-amber-300">
-            Cover Position Editor
+            Lookbook Live Calibrator
           </span>
         </div>
         <button
@@ -286,226 +379,411 @@
         </button>
       </div>
 
-      <!-- Quick Part Navigation / Selector (Buttons 01 - 09) -->
-      <div class="mt-3">
-        <div class="text-[0.65rem] text-neutral-400 uppercase tracking-widest mb-1.5 flex justify-between items-baseline">
-          <span>Active Part</span>
-          <span class="text-amber-400 font-bold truncate max-w-[200px]">{{ currentCapsule?.title }}</span>
+      <!-- Tab Switcher: Covers vs Valentine -->
+      <div class="flex border-b border-neutral-800 mt-2.5">
+        <button
+          type="button"
+          @click="activeEditorTab = 'covers'"
+          class="flex-1 py-1.5 text-[0.65rem] font-bold uppercase tracking-wider text-center border-b-2 transition-colors cursor-pointer"
+          :class="activeEditorTab === 'covers' ? 'border-amber-400 text-amber-300 bg-neutral-900/80' : 'border-transparent text-neutral-400 hover:text-white'"
+        >
+          01. Covers Archive
+        </button>
+        <button
+          type="button"
+          @click="activeEditorTab = 'valentine'"
+          class="flex-1 py-1.5 text-[0.65rem] font-bold uppercase tracking-wider text-center border-b-2 transition-colors cursor-pointer"
+          :class="activeEditorTab === 'valentine' ? 'border-amber-400 text-amber-300 bg-neutral-900/80' : 'border-transparent text-neutral-400 hover:text-white'"
+        >
+          02. Valentine & D4C
+        </button>
+      </div>
+
+      <!-- TAB 1: COVERS ARCHIVE SLIDERS -->
+      <div v-if="activeEditorTab === 'covers'">
+        <!-- Quick Part Navigation / Selector (Buttons 01 - 09) -->
+        <div class="mt-3">
+          <div class="text-[0.65rem] text-neutral-400 uppercase tracking-widest mb-1.5 flex justify-between items-baseline">
+            <span>Active Part</span>
+            <span class="text-amber-400 font-bold truncate max-w-[200px]">{{ currentCapsule?.title }}</span>
+          </div>
+          <div class="grid grid-cols-9 gap-1">
+            <button
+              v-for="(_, idx) in capsules"
+              :key="'adj-p-' + idx"
+              type="button"
+              @click="goToSlide(idx)"
+              class="py-1 text-[0.65rem] font-bold text-center border transition-all cursor-pointer"
+              :class="activeIdx === idx ? 'bg-amber-400 text-neutral-950 border-amber-400 shadow' : 'bg-neutral-900 border-neutral-700 text-neutral-400 hover:text-white hover:border-neutral-500'"
+            >
+              0{{ idx + 1 }}
+            </button>
+          </div>
         </div>
-        <div class="grid grid-cols-9 gap-1">
+
+        <!-- Sliders Section -->
+        <div class="mt-3.5 space-y-3">
+          <!-- Display Mode (Contain vs Cover) -->
+          <div class="flex items-center justify-between bg-neutral-900/90 p-2 border border-neutral-800">
+            <span class="text-neutral-300 uppercase tracking-wider text-[0.62rem] font-bold">Display Mode</span>
+            <div class="flex gap-1">
+              <button
+                type="button"
+                @click="currentAdjustment.fitMode = 'contain'"
+                class="px-2 py-0.5 text-[0.6rem] font-bold border transition-colors cursor-pointer"
+                :class="currentAdjustment.fitMode !== 'cover' ? 'bg-amber-400 text-neutral-950 border-amber-400' : 'bg-neutral-800 text-neutral-400 border-neutral-700'"
+              >
+                Contain (Utuh)
+              </button>
+              <button
+                type="button"
+                @click="currentAdjustment.fitMode = 'cover'"
+                class="px-2 py-0.5 text-[0.6rem] font-bold border transition-colors cursor-pointer"
+                :class="currentAdjustment.fitMode === 'cover' ? 'bg-amber-400 text-neutral-950 border-amber-400' : 'bg-neutral-800 text-neutral-400 border-neutral-700'"
+              >
+                Cover (Full)
+              </button>
+            </div>
+          </div>
+
+          <!-- Scale (Zoom / Perkecil) Slider -->
+          <div class="bg-neutral-900/90 p-2.5 border border-neutral-800">
+            <div class="flex justify-between items-center mb-1.5">
+              <span class="text-neutral-300 uppercase tracking-wider text-[0.65rem] font-bold">Scale (Ukuran)</span>
+              <span class="px-1.5 py-0.5 bg-neutral-800 border border-neutral-700 text-amber-300 font-mono text-[0.68rem] font-bold">
+                {{ currentAdjustment.scale.toFixed(2) }}x
+              </span>
+            </div>
+            <input
+              type="range"
+              min="0.5"
+              max="2.0"
+              step="0.02"
+              v-model.number="currentAdjustment.scale"
+              class="w-full accent-amber-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none"
+            />
+            <div class="flex justify-between gap-1 mt-1.5">
+              <button
+                type="button"
+                @click="currentAdjustment.scale = 0.8"
+                class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
+              >
+                0.8x Kecil
+              </button>
+              <button
+                type="button"
+                @click="currentAdjustment.scale = 1.0"
+                class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
+              >
+                1.0x Normal
+              </button>
+              <button
+                type="button"
+                @click="currentAdjustment.scale = 1.15"
+                class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
+              >
+                1.15x
+              </button>
+              <button
+                type="button"
+                @click="currentAdjustment.scale = 1.3"
+                class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
+              >
+                1.3x Besar
+              </button>
+            </div>
+          </div>
+
+          <!-- Horizontal X Slider -->
+          <div class="bg-neutral-900/90 p-2.5 border border-neutral-800">
+            <div class="flex justify-between items-center mb-1.5">
+              <span class="text-neutral-300 uppercase tracking-wider text-[0.65rem] font-bold">Position X (Horizontal)</span>
+              <span class="px-1.5 py-0.5 bg-neutral-800 border border-neutral-700 text-amber-300 font-mono text-[0.68rem] font-bold">
+                {{ currentAdjustment.posX }}%
+              </span>
+            </div>
+            <input
+              type="range"
+              min="0"
+              max="100"
+              step="1"
+              v-model.number="currentAdjustment.posX"
+              class="w-full accent-amber-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none"
+            />
+            <div class="flex justify-between gap-1 mt-1.5">
+              <button
+                type="button"
+                @click="currentAdjustment.posX = 0"
+                class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
+              >
+                0% Left
+              </button>
+              <button
+                type="button"
+                @click="currentAdjustment.posX = 50"
+                class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
+              >
+                50% Mid
+              </button>
+              <button
+                type="button"
+                @click="currentAdjustment.posX = 100"
+                class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
+              >
+                100% Right
+              </button>
+            </div>
+          </div>
+
+          <!-- Vertical Y Slider -->
+          <div class="bg-neutral-900/90 p-2.5 border border-neutral-800">
+            <div class="flex justify-between items-center mb-1.5">
+              <span class="text-neutral-300 uppercase tracking-wider text-[0.65rem] font-bold">Position Y (Vertical)</span>
+              <span class="px-1.5 py-0.5 bg-neutral-800 border border-neutral-700 text-amber-300 font-mono text-[0.68rem] font-bold">
+                {{ currentAdjustment.posY }}%
+              </span>
+            </div>
+            <input
+              type="range"
+              min="0"
+              max="100"
+              step="1"
+              v-model.number="currentAdjustment.posY"
+              class="w-full accent-amber-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none"
+            />
+            <div class="flex justify-between gap-1 mt-1.5">
+              <button
+                type="button"
+                @click="currentAdjustment.posY = 0"
+                class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
+              >
+                0% Top
+              </button>
+              <button
+                type="button"
+                @click="currentAdjustment.posY = 15"
+                class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
+              >
+                15% Face
+              </button>
+              <button
+                type="button"
+                @click="currentAdjustment.posY = 50"
+                class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
+              >
+                50% Mid
+              </button>
+              <button
+                type="button"
+                @click="currentAdjustment.posY = 100"
+                class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
+              >
+                100% Bot
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Presets & Reset -->
+        <div class="mt-3 flex gap-2">
           <button
-            v-for="(_, idx) in capsules"
-            :key="'adj-p-' + idx"
             type="button"
-            @click="goToSlide(idx)"
-            class="py-1 text-[0.65rem] font-bold text-center border transition-all cursor-pointer"
-            :class="activeIdx === idx ? 'bg-amber-400 text-neutral-950 border-amber-400 shadow' : 'bg-neutral-900 border-neutral-700 text-neutral-400 hover:text-white hover:border-neutral-500'"
+            @click="resetActivePart"
+            class="flex-1 py-1.5 bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-[0.62rem] text-neutral-300 hover:text-white uppercase tracking-wider cursor-pointer"
           >
-            0{{ idx + 1 }}
+            Reset Part 0{{ activeIdx + 1 }}
           </button>
+          <button
+            type="button"
+            @click="resetAllParts"
+            class="flex-1 py-1.5 bg-neutral-900 hover:bg-neutral-800 border border-red-900/60 text-[0.62rem] text-red-400 hover:text-red-300 uppercase tracking-wider cursor-pointer"
+          >
+            Reset All
+          </button>
+        </div>
+
+        <!-- Live CSS Output & Copy Action -->
+        <div class="mt-3 pt-3 border-t border-neutral-800">
+          <div class="p-2 bg-black border border-neutral-800 text-[0.62rem] text-neutral-300 break-all select-all font-mono">
+            objectPosition: '{{ currentAdjustment.posX }}% {{ currentAdjustment.posY }}%', scale: {{ currentAdjustment.scale.toFixed(2) }}
+          </div>
+          <div class="mt-2 flex gap-2">
+            <button
+              type="button"
+              @click="copyCurrentPartCSS"
+              class="flex-1 py-1.5 bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold text-[0.65rem] tracking-wider uppercase transition-colors cursor-pointer"
+            >
+              {{ copySuccess ? '✓ COPIED!' : '📋 COPY PART CSS' }}
+            </button>
+            <button
+              type="button"
+              @click="copyAllConfig"
+              class="flex-1 py-1.5 bg-neutral-800 hover:bg-neutral-700 text-neutral-200 font-bold text-[0.65rem] tracking-wider uppercase transition-colors cursor-pointer"
+            >
+              {{ copyAllSuccess ? '✓ ALL COPIED!' : '📋 COPY ALL (TS)' }}
+            </button>
+          </div>
         </div>
       </div>
 
-      <!-- Sliders Section -->
-      <div class="mt-3.5 space-y-3">
-        <!-- Display Mode (Contain vs Cover) -->
+      <!-- TAB 2: VALENTINE & D4C SLIDERS -->
+      <div v-else class="mt-3 space-y-3">
+        <!-- State Selector -->
         <div class="flex items-center justify-between bg-neutral-900/90 p-2 border border-neutral-800">
-          <span class="text-neutral-300 uppercase tracking-wider text-[0.62rem] font-bold">Display Mode</span>
+          <span class="text-neutral-300 uppercase tracking-wider text-[0.62rem] font-bold">Preview State</span>
           <div class="flex gap-1">
             <button
               type="button"
-              @click="currentAdjustment.fitMode = 'contain'"
+              @click="isStandActive = false"
               class="px-2 py-0.5 text-[0.6rem] font-bold border transition-colors cursor-pointer"
-              :class="currentAdjustment.fitMode !== 'cover' ? 'bg-amber-400 text-neutral-950 border-amber-400' : 'bg-neutral-800 text-neutral-400 border-neutral-700'"
+              :class="!isStandActive ? 'bg-amber-400 text-neutral-950 border-amber-400' : 'bg-neutral-800 text-neutral-400 border-neutral-700'"
             >
-              Contain (Utuh)
+              Alone
             </button>
             <button
               type="button"
-              @click="currentAdjustment.fitMode = 'cover'"
+              @click="isStandActive = true"
               class="px-2 py-0.5 text-[0.6rem] font-bold border transition-colors cursor-pointer"
-              :class="currentAdjustment.fitMode === 'cover' ? 'bg-amber-400 text-neutral-950 border-amber-400' : 'bg-neutral-800 text-neutral-400 border-neutral-700'"
+              :class="isStandActive ? 'bg-cyan-400 text-neutral-950 border-cyan-400' : 'bg-neutral-800 text-neutral-400 border-neutral-700'"
             >
-              Cover (Full)
+              With D4C Stand
             </button>
           </div>
         </div>
 
-        <!-- Scale (Zoom / Perkecil) Slider -->
-        <div class="bg-neutral-900/90 p-2.5 border border-neutral-800">
-          <div class="flex justify-between items-center mb-1.5">
-            <span class="text-neutral-300 uppercase tracking-wider text-[0.65rem] font-bold">Scale (Ukuran)</span>
-            <span class="px-1.5 py-0.5 bg-neutral-800 border border-neutral-700 text-amber-300 font-mono text-[0.68rem] font-bold">
-              {{ currentAdjustment.scale.toFixed(2) }}x
-            </span>
+        <!-- Valentine Alone Sliders (Visible when isStandActive is false) -->
+        <div v-if="!isStandActive" class="space-y-2.5">
+          <div class="text-[0.65rem] text-amber-400 uppercase tracking-widest font-bold">
+            Valentine (Alone Mode)
           </div>
-          <input
-            type="range"
-            min="0.5"
-            max="2.0"
-            step="0.02"
-            v-model.number="currentAdjustment.scale"
-            class="w-full accent-amber-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none"
-          />
-          <div class="flex justify-between gap-1 mt-1.5">
-            <button
-              type="button"
-              @click="currentAdjustment.scale = 0.8"
-              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
-            >
-              0.8x Kecil
-            </button>
-            <button
-              type="button"
-              @click="currentAdjustment.scale = 1.0"
-              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
-            >
-              1.0x Normal
-            </button>
-            <button
-              type="button"
-              @click="currentAdjustment.scale = 1.15"
-              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
-            >
-              1.15x
-            </button>
-            <button
-              type="button"
-              @click="currentAdjustment.scale = 1.3"
-              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
-            >
-              1.3x Besar
-            </button>
+          
+          <!-- Position X -->
+          <div class="bg-neutral-900/90 p-2 border border-neutral-800">
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-neutral-300 text-[0.62rem] font-bold uppercase">Position X (px)</span>
+              <span class="text-amber-300 font-bold text-[0.65rem]">{{ valAdj.aloneX }}px</span>
+            </div>
+            <input type="range" min="-120" max="120" step="1" v-model.number="valAdj.aloneX" class="w-full accent-amber-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
+          </div>
+
+          <!-- Position Y -->
+          <div class="bg-neutral-900/90 p-2 border border-neutral-800">
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-neutral-300 text-[0.62rem] font-bold uppercase">Position Y (px)</span>
+              <span class="text-amber-300 font-bold text-[0.65rem]">{{ valAdj.aloneY }}px</span>
+            </div>
+            <input type="range" min="-150" max="100" step="1" v-model.number="valAdj.aloneY" class="w-full accent-amber-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
+          </div>
+
+          <!-- Scale -->
+          <div class="bg-neutral-900/90 p-2 border border-neutral-800">
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-neutral-300 text-[0.62rem] font-bold uppercase">Scale (Zoom)</span>
+              <span class="text-amber-300 font-bold text-[0.65rem]">{{ valAdj.aloneScale.toFixed(2) }}x</span>
+            </div>
+            <input type="range" min="0.6" max="2.0" step="0.02" v-model.number="valAdj.aloneScale" class="w-full accent-amber-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
           </div>
         </div>
 
-        <!-- Horizontal X Slider -->
-        <div class="bg-neutral-900/90 p-2.5 border border-neutral-800">
-          <div class="flex justify-between items-center mb-1.5">
-            <span class="text-neutral-300 uppercase tracking-wider text-[0.65rem] font-bold">Position X (Horizontal)</span>
-            <span class="px-1.5 py-0.5 bg-neutral-800 border border-neutral-700 text-amber-300 font-mono text-[0.68rem] font-bold">
-              {{ currentAdjustment.posX }}%
-            </span>
+        <!-- Valentine With Stand Sliders (Visible when isStandActive is true) -->
+        <div v-else class="space-y-2.5">
+          <div class="text-[0.65rem] text-cyan-400 uppercase tracking-widest font-bold">
+            Valentine + D4C Stand Mode
           </div>
-          <input
-            type="range"
-            min="0"
-            max="100"
-            step="1"
-            v-model.number="currentAdjustment.posX"
-            class="w-full accent-amber-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none"
-          />
-          <div class="flex justify-between gap-1 mt-1.5">
-            <button
-              type="button"
-              @click="currentAdjustment.posX = 0"
-              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
-            >
-              0% Left
-            </button>
-            <button
-              type="button"
-              @click="currentAdjustment.posX = 50"
-              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
-            >
-              50% Mid
-            </button>
-            <button
-              type="button"
-              @click="currentAdjustment.posX = 100"
-              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
-            >
-              100% Right
-            </button>
-          </div>
-        </div>
 
-        <!-- Vertical Y Slider -->
-        <div class="bg-neutral-900/90 p-2.5 border border-neutral-800">
-          <div class="flex justify-between items-center mb-1.5">
-            <span class="text-neutral-300 uppercase tracking-wider text-[0.65rem] font-bold">Position Y (Vertical)</span>
-            <span class="px-1.5 py-0.5 bg-neutral-800 border border-neutral-700 text-amber-300 font-mono text-[0.68rem] font-bold">
-              {{ currentAdjustment.posY }}%
-            </span>
+          <!-- Stand Position X -->
+          <div class="bg-neutral-900/90 p-2 border border-neutral-800">
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-neutral-300 text-[0.62rem] font-bold uppercase">D4C Position X</span>
+              <span class="text-cyan-300 font-bold text-[0.65rem]">{{ valAdj.standX }}px</span>
+            </div>
+            <input type="range" min="-120" max="120" step="1" v-model.number="valAdj.standX" class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
           </div>
-          <input
-            type="range"
-            min="0"
-            max="100"
-            step="1"
-            v-model.number="currentAdjustment.posY"
-            class="w-full accent-amber-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none"
-          />
-          <div class="flex justify-between gap-1 mt-1.5">
-            <button
-              type="button"
-              @click="currentAdjustment.posY = 0"
-              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
-            >
-              0% Top
-            </button>
-            <button
-              type="button"
-              @click="currentAdjustment.posY = 15"
-              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
-            >
-              15% Face
-            </button>
-            <button
-              type="button"
-              @click="currentAdjustment.posY = 50"
-              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
-            >
-              50% Mid
-            </button>
-            <button
-              type="button"
-              @click="currentAdjustment.posY = 100"
-              class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
-            >
-              100% Bot
-            </button>
+
+          <!-- Stand Position Y -->
+          <div class="bg-neutral-900/90 p-2 border border-neutral-800">
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-neutral-300 text-[0.62rem] font-bold uppercase">D4C Position Y</span>
+              <span class="text-cyan-300 font-bold text-[0.65rem]">{{ valAdj.standY }}px</span>
+            </div>
+            <input type="range" min="-150" max="100" step="1" v-model.number="valAdj.standY" class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
           </div>
-        </div>
-      </div>
 
-      <!-- Presets & Reset -->
-      <div class="mt-3 flex gap-2">
-        <button
-          type="button"
-          @click="resetActivePart"
-          class="flex-1 py-1.5 bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-[0.62rem] text-neutral-300 hover:text-white uppercase tracking-wider cursor-pointer"
-        >
-          Reset Part 0{{ activeIdx + 1 }}
-        </button>
-        <button
-          type="button"
-          @click="resetAllParts"
-          class="flex-1 py-1.5 bg-neutral-900 hover:bg-neutral-800 border border-red-900/60 text-[0.62rem] text-red-400 hover:text-red-300 uppercase tracking-wider cursor-pointer"
-        >
-          Reset All
-        </button>
-      </div>
+          <!-- Stand Scale -->
+          <div class="bg-neutral-900/90 p-2 border border-neutral-800">
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-neutral-300 text-[0.62rem] font-bold uppercase">D4C Scale</span>
+              <span class="text-cyan-300 font-bold text-[0.65rem]">{{ valAdj.standScale.toFixed(2) }}x</span>
+            </div>
+            <input type="range" min="0.6" max="2.0" step="0.02" v-model.number="valAdj.standScale" class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
+          </div>
 
-      <!-- Live CSS Output & Copy Action -->
-      <div class="mt-3 pt-3 border-t border-neutral-800">
-        <div class="p-2 bg-black border border-neutral-800 text-[0.62rem] text-neutral-300 break-all select-all font-mono">
-          objectPosition: '{{ currentAdjustment.posX }}% {{ currentAdjustment.posY }}%', scale: {{ currentAdjustment.scale.toFixed(2) }}
-        </div>
-        <div class="mt-2 flex gap-2">
+          <!-- Speech Bubble Controls -->
+          <div class="text-[0.65rem] text-cyan-400 uppercase tracking-widest font-bold pt-1">
+            Manga Speech Bubble
+          </div>
+
+          <!-- Bubble X & Y -->
+          <div class="grid grid-cols-2 gap-2">
+            <div class="bg-neutral-900/90 p-2 border border-neutral-800">
+              <div class="flex justify-between items-center mb-1">
+                <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">Bubble X</span>
+                <span class="text-cyan-300 font-bold text-[0.62rem]">{{ valAdj.bubbleX }}%</span>
+              </div>
+              <input type="range" min="0" max="85" step="1" v-model.number="valAdj.bubbleX" class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
+            </div>
+            <div class="bg-neutral-900/90 p-2 border border-neutral-800">
+              <div class="flex justify-between items-center mb-1">
+                <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">Bubble Y</span>
+                <span class="text-cyan-300 font-bold text-[0.62rem]">{{ valAdj.bubbleY }}%</span>
+              </div>
+              <input type="range" min="0" max="80" step="1" v-model.number="valAdj.bubbleY" class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
+            </div>
+          </div>
+
+          <!-- Bubble Scale & Rotate -->
+          <div class="grid grid-cols-2 gap-2">
+            <div class="bg-neutral-900/90 p-2 border border-neutral-800">
+              <div class="flex justify-between items-center mb-1">
+                <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">Bubble Scale</span>
+                <span class="text-cyan-300 font-bold text-[0.62rem]">{{ valAdj.bubbleScale.toFixed(2) }}x</span>
+              </div>
+              <input type="range" min="0.6" max="1.5" step="0.02" v-model.number="valAdj.bubbleScale" class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
+            </div>
+            <div class="bg-neutral-900/90 p-2 border border-neutral-800">
+              <div class="flex justify-between items-center mb-1">
+                <span class="text-neutral-300 text-[0.6rem] font-bold uppercase">Bubble Rotate</span>
+                <span class="text-cyan-300 font-bold text-[0.62rem]">{{ valAdj.bubbleRotate }}°</span>
+              </div>
+              <input type="range" min="-25" max="25" step="1" v-model.number="valAdj.bubbleRotate" class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none" />
+            </div>
+          </div>
+
+          <!-- Cycle Quote in Editor -->
           <button
             type="button"
-            @click="copyCurrentPartCSS"
-            class="flex-1 py-1.5 bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold text-[0.65rem] tracking-wider uppercase transition-colors cursor-pointer"
+            @click="cycleValentineQuote"
+            class="w-full py-1.5 bg-neutral-900 hover:bg-neutral-800 border border-cyan-800/60 text-cyan-300 text-[0.62rem] uppercase font-bold tracking-wider cursor-pointer"
           >
-            {{ copySuccess ? '✓ COPIED!' : '📋 COPY PART CSS' }}
+            Ganti Quote (Saat ini: "{{ currentValentineQuote.substring(0, 24) }}...")
+          </button>
+        </div>
+
+        <!-- Reset & Copy Buttons for Valentine -->
+        <div class="mt-3 flex gap-2 pt-2 border-t border-neutral-800">
+          <button
+            type="button"
+            @click="resetValentineConfig"
+            class="flex-1 py-1.5 bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-[0.62rem] text-neutral-300 uppercase tracking-wider cursor-pointer"
+          >
+            Reset Valentine
           </button>
           <button
             type="button"
-            @click="copyAllConfig"
-            class="flex-1 py-1.5 bg-neutral-800 hover:bg-neutral-700 text-neutral-200 font-bold text-[0.65rem] tracking-wider uppercase transition-colors cursor-pointer"
+            @click="copyValentineConfig"
+            class="flex-1 py-1.5 bg-cyan-400 hover:bg-cyan-300 text-neutral-950 font-bold text-[0.65rem] tracking-wider uppercase transition-colors cursor-pointer"
           >
-            {{ copyAllSuccess ? '✓ ALL COPIED!' : '📋 COPY ALL (TS)' }}
+            {{ valCopySuccess ? '✓ COPIED!' : '📋 COPY CONFIG (TS)' }}
           </button>
         </div>
       </div>
@@ -537,6 +815,151 @@ interface CoverAdjustment {
   fitMode: 'contain' | 'cover'
 }
 
+interface ValentineAdjustment {
+  aloneX: number
+  aloneY: number
+  aloneScale: number
+  standX: number
+  standY: number
+  standScale: number
+  bubbleX: number
+  bubbleY: number
+  bubbleRotate: number
+  bubbleScale: number
+  watermarkX: number
+  watermarkY: number
+  watermarkScale: number
+  watermarkOpacity: number
+}
+
+const defaultValentineAdj: ValentineAdjustment = {
+  aloneX: 0,
+  aloneY: -20,
+  aloneScale: 1.15,
+  standX: 0,
+  standY: -20,
+  standScale: 1.15,
+  bubbleX: 6,
+  bubbleY: 20,
+  bubbleRotate: -2,
+  bubbleScale: 1.0,
+  watermarkX: 8,
+  watermarkY: -24,
+  watermarkScale: 1.0,
+  watermarkOpacity: 5,
+}
+
+const VALENTINE_STORAGE_KEY = 'araki_valentine_adjustments_v1'
+
+const loadValentineAdjustments = (): ValentineAdjustment => {
+  try {
+    const raw = localStorage.getItem(VALENTINE_STORAGE_KEY)
+    if (raw) {
+      return { ...defaultValentineAdj, ...JSON.parse(raw) }
+    }
+  } catch {
+    // ignore
+  }
+  return { ...defaultValentineAdj }
+}
+
+const valAdj = ref<ValentineAdjustment>(loadValentineAdjustments())
+const isStandActive = ref(false)
+const showSpeedlineBurst = ref(false)
+const activeEditorTab = ref<'covers' | 'valentine'>('covers')
+const valCopySuccess = ref(false)
+
+const valentineQuotes = [
+  "Dojyaaa~~n!",
+  "Suppose that you were sitting down at this table... Which napkin would you take?",
+  "My heart and actions are utterly unclouded... They are all those of 'Justice'.",
+  "The one who took the first napkin determines the rules.",
+  "D4C! Dirty Deeds Done Dirt Cheap!",
+]
+const currentQuoteIdx = ref(0)
+const currentValentineQuote = computed(() => valentineQuotes[currentQuoteIdx.value])
+
+const cycleValentineQuote = () => {
+  currentQuoteIdx.value = (currentQuoteIdx.value + 1) % valentineQuotes.length
+}
+
+const toggleValentineStand = () => {
+  isStandActive.value = !isStandActive.value
+  if (isStandActive.value) {
+    showSpeedlineBurst.value = true
+    setTimeout(() => {
+      showSpeedlineBurst.value = false
+    }, 450)
+  }
+}
+
+watch(
+  valAdj,
+  () => {
+    try {
+      localStorage.setItem(VALENTINE_STORAGE_KEY, JSON.stringify(valAdj.value))
+    } catch {
+      // ignore
+    }
+  },
+  { deep: true }
+)
+
+const getValentineAloneStyle = () => {
+  return {
+    transform: `translate(${valAdj.value.aloneX}px, ${valAdj.value.aloneY}px) scale(${valAdj.value.aloneScale})`,
+  }
+}
+
+const getValentineStandStyle = () => {
+  return {
+    transform: `translate(${valAdj.value.standX}px, ${valAdj.value.standY}px) scale(${valAdj.value.standScale})`,
+  }
+}
+
+const getBubbleStyle = () => {
+  return {
+    left: `${valAdj.value.bubbleX}%`,
+    top: `${valAdj.value.bubbleY}%`,
+    transform: `rotate(${valAdj.value.bubbleRotate}deg) scale(${valAdj.value.bubbleScale})`,
+    transformOrigin: 'bottom left',
+  }
+}
+
+const getWatermarkStyle = () => {
+  const scale = isStandActive.value ? valAdj.value.watermarkScale * 1.25 : valAdj.value.watermarkScale
+  const opacity = isStandActive.value ? Math.min(valAdj.value.watermarkOpacity * 2.5, 25) / 100 : valAdj.value.watermarkOpacity / 100
+  return {
+    top: `${valAdj.value.watermarkY}px`,
+    right: `${valAdj.value.watermarkX}px`,
+    fontSize: '8rem',
+    transform: `scale(${scale})`,
+    opacity: opacity,
+    color: isStandActive.value ? 'rgb(6 182 212)' : 'currentColor',
+  }
+}
+
+const resetValentineConfig = () => {
+  valAdj.value = { ...defaultValentineAdj }
+  localStorage.removeItem(VALENTINE_STORAGE_KEY)
+}
+
+const copyValentineConfig = () => {
+  const text = `// Funny Valentine & D4C Positioning\nconst valentineConfig = ${JSON.stringify(valAdj.value, null, 2)};`
+  navigator.clipboard.writeText(text).then(() => {
+    valCopySuccess.value = true
+    setTimeout(() => {
+      valCopySuccess.value = false
+    }, 2000)
+  })
+}
+
+const handleKeyDown = (e: KeyboardEvent) => {
+  if (e.key === 'Escape' && isStandActive.value) {
+    isStandActive.value = false
+  }
+}
+
 const defaultAdjustments: Record<number, CoverAdjustment> = {
   0: { posX: 50, posY: 15, scale: 1.0, fitMode: 'cover' }, // Part 1
   1: { posX: 50, posY: 12, scale: 1.0, fitMode: 'cover' }, // Part 2
@@ -555,13 +978,16 @@ const loadSavedAdjustments = (): Record<number, CoverAdjustment> => {
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
     if (raw) {
-      const parsed = JSON.parse(raw)
-      return { ...defaultAdjustments, ...parsed }
+      return { ...defaultAdjustments, ...parsed(raw) }
     }
   } catch {
     // ignore
   }
   return { ...defaultAdjustments }
+}
+
+function parsed(str: string) {
+  try { return JSON.parse(str) } catch { return {} }
 }
 
 const adjustments = ref<Record<number, CoverAdjustment>>(loadSavedAdjustments())
@@ -801,6 +1227,7 @@ const nextSlide = () => {
 let ctx: gsap.Context | null = null
 
 onMounted(() => {
+  window.addEventListener('keydown', handleKeyDown)
   ctx = gsap.context(() => {
     if (!capsulesRoot.value) return
 
@@ -824,6 +1251,7 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeyDown)
   ctx?.revert()
 })
 </script>
