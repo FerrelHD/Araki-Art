@@ -205,7 +205,7 @@
 
             <!-- Watermark Background ("D4C") -->
             <div
-              class="absolute font-mono font-bold leading-none select-none pointer-events-none transition-opacity duration-500"
+              class="valentine-watermark absolute font-mono font-bold leading-none select-none pointer-events-none transition-opacity duration-500"
               :class="isStandActive ? 'opacity-15 text-cyan-400' : 'opacity-5 text-current'"
               :style="{ top: '-24px', right: '8px', fontSize: '8rem' }"
             >
@@ -230,7 +230,7 @@
                   alt="Funny Valentine (President)"
                   loading="eager"
                   decoding="async"
-                  class="h-[85%] max-h-[65vh] xl:max-h-[75vh] w-auto object-contain object-bottom filter contrast-105 pointer-events-none select-none"
+                  class="valentine-idle-img h-[85%] max-h-[65vh] xl:max-h-[75vh] w-auto object-contain object-bottom filter contrast-105 pointer-events-none select-none"
                 />
               </div>
 
@@ -308,7 +308,7 @@
             </div>
 
             <!-- Bottom Runway Metadata -->
-            <div class="relative z-10 pt-1 border-t border-grid/40 flex justify-between items-center text-[0.55rem] font-mono opacity-65 shrink-0 select-none">
+            <div class="valentine-meta-bar relative z-10 pt-1 border-t border-grid/40 flex justify-between items-center text-[0.55rem] font-mono opacity-65 shrink-0 select-none">
               <span class="tracking-wider uppercase">
                 FIGURE: FUNNY VALENTINE
               </span>
@@ -770,6 +770,75 @@ onMounted(() => {
           scrollTrigger: {
             trigger: capsulesRoot.value,
             start: 'top 75%',
+          },
+        }
+      )
+    }
+
+    // The Presidential Rise: Valentine Runway Float-Up Entrance (Option A)
+    const valentineImg = capsulesRoot.value.querySelector('.valentine-idle-img')
+    if (valentineImg) {
+      gsap.fromTo(
+        valentineImg,
+        {
+          y: 55,
+          opacity: 0,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1.3,
+          delay: 0.2,
+          ease: 'power3.out',
+          clearProps: 'transform,opacity',
+          scrollTrigger: {
+            trigger: capsulesRoot.value,
+            start: 'top 75%',
+            once: true,
+          },
+        }
+      )
+    }
+
+    // Watermark D4C subtle fade entrance
+    const d4cWatermark = capsulesRoot.value.querySelector('.valentine-watermark')
+    if (d4cWatermark) {
+      gsap.fromTo(
+        d4cWatermark,
+        { opacity: 0, y: -12 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.5,
+          delay: 0.35,
+          ease: 'power2.out',
+          clearProps: 'transform,opacity',
+          scrollTrigger: {
+            trigger: capsulesRoot.value,
+            start: 'top 75%',
+            once: true,
+          },
+        }
+      )
+    }
+
+    // Bottom Runway Metadata subtle slide-up
+    const runwayMeta = capsulesRoot.value.querySelector('.valentine-meta-bar')
+    if (runwayMeta) {
+      gsap.fromTo(
+        runwayMeta,
+        { opacity: 0, y: 12 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.0,
+          delay: 0.45,
+          ease: 'power3.out',
+          clearProps: 'transform,opacity',
+          scrollTrigger: {
+            trigger: capsulesRoot.value,
+            start: 'top 75%',
+            once: true,
           },
         }
       )
