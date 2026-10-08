@@ -4,7 +4,7 @@
     ref="capsulesRoot"
     class="border-b border-grid text-brand-primary overflow-visible relative z-30 h-screen max-h-screen flex flex-col justify-between"
   >
-    <div class="grid grid-cols-4 md:grid-cols-12 flex-1 min-h-0 overflow-visible">
+    <div class="grid grid-cols-4 md:grid-cols-12 flex-1 min-h-0 overflow-visible relative z-20">
       <!-- 10 Columns Centered Container -->
       <div
         class="col-span-4 md:col-span-10 md:col-start-2 border-x border-grid flex flex-col justify-between min-h-0 pt-12 md:pt-14 xl:pt-16 overflow-visible relative"
@@ -199,7 +199,7 @@
           <!-- Right 4 Columns: High-Fashion Freestanding Muse (Funny Valentine & D4C) -->
           <div
             class="group/side relative z-[55] overflow-visible px-4 pb-2 select-none"
-            :class="isStandActive ? 'fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-xs lg:relative lg:inset-auto lg:z-40 lg:col-span-4 lg:flex lg:flex-col lg:justify-end lg:p-0 lg:px-4 lg:pb-2 lg:bg-brand-primary/[0.015] lg:border-b lg:border-grid min-h-0' : 'hidden lg:col-span-4 lg:flex lg:flex-col lg:justify-end bg-brand-primary/[0.015] border-b border-grid min-h-0'"
+            :class="isStandActive ? 'fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-xs lg:relative lg:inset-auto lg:z-[55] lg:col-span-4 lg:flex lg:flex-col lg:justify-end lg:p-0 lg:px-4 lg:pb-2 lg:bg-brand-primary/[0.015] lg:border-b lg:border-grid min-h-0' : 'hidden lg:col-span-4 lg:flex lg:flex-col lg:justify-end bg-brand-primary/[0.015] border-b border-grid min-h-0'"
           >
 
 
@@ -214,7 +214,7 @@
 
             <!-- Freestanding Muse Stage -->
             <div
-              class="relative w-full flex-1 min-h-0 flex items-end justify-center overflow-visible pointer-events-auto cursor-pointer group/muse"
+              class="relative z-20 w-full flex-1 min-h-0 flex items-end justify-center overflow-visible pointer-events-auto cursor-pointer group/muse"
               @click="handleValentineClick"
               :title="isStandActive ? 'Click to cycle quote / Klik untuk ganti quote' : 'Click to summon D4C // Anime Snap Zoom'"
             >
