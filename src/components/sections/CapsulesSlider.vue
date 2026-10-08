@@ -97,11 +97,6 @@
                         />
                       </div>
                       <div class="absolute inset-0 bg-brand-primary/[0.03] pointer-events-none z-10"></div>
-
-                      <!-- Subtitle Watermark on Cover -->
-                      <span class="absolute top-2 left-2 bg-black/75 text-white font-mono text-[0.55rem] font-bold px-1.5 py-0.5 tracking-wider uppercase select-none">
-                        PART 0{{ idx + 1 }}
-                      </span>
                     </div>
 
                     <!-- SISI KANAN: Capsule Information Panel (Gaya A: Dark Editorial, Clean, Breathing Room) -->
@@ -161,19 +156,6 @@
                     </div>
                   </div>
                 </div>
-
-                <!-- Floating Live Adjuster Trigger Button (Editorial Pill) -->
-                <button
-                  type="button"
-                  @click="showAdjuster = !showAdjuster"
-                  class="absolute top-2.5 right-2.5 z-40 bg-neutral-950/90 hover:bg-neutral-900 text-white px-2.5 py-1 text-[0.65rem] font-mono tracking-wider uppercase border border-neutral-700/80 shadow-lg backdrop-blur-sm transition-all flex items-center gap-1.5 cursor-pointer select-none"
-                  :class="showAdjuster ? 'ring-1 ring-amber-400 text-amber-300' : ''"
-                  title="Buka Live Cover Editor"
-                >
-                  <span class="w-1.5 h-1.5 rounded-full" :class="showAdjuster ? 'bg-amber-400 animate-pulse' : 'bg-neutral-400'"></span>
-                  <span>{{ showAdjuster ? 'TUTUP EDITOR' : '⚙ ATUR COVER' }}</span>
-                  <span class="opacity-60 text-[0.58rem] bg-neutral-800 px-1 py-0.5">P0{{ activeIdx + 1 }}</span>
-                </button>
               </div>
             </div>
 
@@ -202,6 +184,18 @@
           <div
             class="group/side relative z-30 hidden lg:col-span-4 lg:flex flex-col justify-end overflow-hidden px-4 pb-2 bg-brand-primary/[0.015] border-b border-grid min-h-0 select-none"
           >
+            <!-- Valentine Calibrator Trigger Button -->
+            <button
+              type="button"
+              @click.stop="showAdjuster = !showAdjuster"
+              class="absolute top-3 left-3 z-50 bg-black/85 hover:bg-neutral-900 text-white/80 hover:text-white border border-white/20 px-2 py-1 text-[0.58rem] font-mono tracking-wider uppercase transition-all shadow-md backdrop-blur-xs flex items-center gap-1.5 cursor-pointer select-none"
+              :class="showAdjuster ? 'ring-1 ring-cyan-400 text-cyan-300' : ''"
+              title="Buka Live Calibrator Valentine & D4C"
+            >
+              <span class="w-1.5 h-1.5 rounded-full" :class="showAdjuster ? 'bg-cyan-400 animate-pulse' : 'bg-neutral-500'"></span>
+              <span>⚙ ATUR VALENTINE</span>
+            </button>
+
             <!-- Dismiss Stand / Reset Camera Button (Pill) -->
             <transition
               enter-active-class="transition-opacity duration-300"
@@ -431,9 +425,9 @@
       <!-- Panel Header -->
       <div class="flex items-center justify-between pb-2.5 border-b border-neutral-800">
         <div class="flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-          <span class="font-bold tracking-wider uppercase text-[0.72rem] text-amber-300">
-            Lookbook Live Calibrator
+          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+          <span class="font-bold tracking-wider uppercase text-[0.72rem] text-cyan-300 font-mono">
+            Valentine & D4C Calibrator
           </span>
         </div>
         <button
@@ -446,255 +440,8 @@
         </button>
       </div>
 
-      <!-- Tab Switcher: Covers vs Valentine -->
-      <div class="flex border-b border-neutral-800 mt-2.5">
-        <button
-          type="button"
-          @click="activeEditorTab = 'covers'"
-          class="flex-1 py-1.5 text-[0.65rem] font-bold uppercase tracking-wider text-center border-b-2 transition-colors cursor-pointer"
-          :class="activeEditorTab === 'covers' ? 'border-amber-400 text-amber-300 bg-neutral-900/80' : 'border-transparent text-neutral-400 hover:text-white'"
-        >
-          01. Covers Archive
-        </button>
-        <button
-          type="button"
-          @click="activeEditorTab = 'valentine'"
-          class="flex-1 py-1.5 text-[0.65rem] font-bold uppercase tracking-wider text-center border-b-2 transition-colors cursor-pointer"
-          :class="activeEditorTab === 'valentine' ? 'border-amber-400 text-amber-300 bg-neutral-900/80' : 'border-transparent text-neutral-400 hover:text-white'"
-        >
-          02. Valentine & D4C
-        </button>
-      </div>
-
-      <!-- TAB 1: COVERS ARCHIVE SLIDERS -->
-      <div v-if="activeEditorTab === 'covers'">
-        <!-- Quick Part Navigation / Selector (Buttons 01 - 09) -->
-        <div class="mt-3">
-          <div class="text-[0.65rem] text-neutral-400 uppercase tracking-widest mb-1.5 flex justify-between items-baseline">
-            <span>Active Part</span>
-            <span class="text-amber-400 font-bold truncate max-w-[200px]">{{ currentCapsule?.title }}</span>
-          </div>
-          <div class="grid grid-cols-9 gap-1">
-            <button
-              v-for="(_, idx) in capsules"
-              :key="'adj-p-' + idx"
-              type="button"
-              @click="goToSlide(idx)"
-              class="py-1 text-[0.65rem] font-bold text-center border transition-all cursor-pointer"
-              :class="activeIdx === idx ? 'bg-amber-400 text-neutral-950 border-amber-400 shadow' : 'bg-neutral-900 border-neutral-700 text-neutral-400 hover:text-white hover:border-neutral-500'"
-            >
-              0{{ idx + 1 }}
-            </button>
-          </div>
-        </div>
-
-        <!-- Sliders Section -->
-        <div class="mt-3.5 space-y-3">
-          <!-- Display Mode (Contain vs Cover) -->
-          <div class="flex items-center justify-between bg-neutral-900/90 p-2 border border-neutral-800">
-            <span class="text-neutral-300 uppercase tracking-wider text-[0.62rem] font-bold">Display Mode</span>
-            <div class="flex gap-1">
-              <button
-                type="button"
-                @click="currentAdjustment.fitMode = 'contain'"
-                class="px-2 py-0.5 text-[0.6rem] font-bold border transition-colors cursor-pointer"
-                :class="currentAdjustment.fitMode !== 'cover' ? 'bg-amber-400 text-neutral-950 border-amber-400' : 'bg-neutral-800 text-neutral-400 border-neutral-700'"
-              >
-                Contain (Utuh)
-              </button>
-              <button
-                type="button"
-                @click="currentAdjustment.fitMode = 'cover'"
-                class="px-2 py-0.5 text-[0.6rem] font-bold border transition-colors cursor-pointer"
-                :class="currentAdjustment.fitMode === 'cover' ? 'bg-amber-400 text-neutral-950 border-amber-400' : 'bg-neutral-800 text-neutral-400 border-neutral-700'"
-              >
-                Cover (Full)
-              </button>
-            </div>
-          </div>
-
-          <!-- Scale (Zoom / Perkecil) Slider -->
-          <div class="bg-neutral-900/90 p-2.5 border border-neutral-800">
-            <div class="flex justify-between items-center mb-1.5">
-              <span class="text-neutral-300 uppercase tracking-wider text-[0.65rem] font-bold">Scale (Ukuran)</span>
-              <span class="px-1.5 py-0.5 bg-neutral-800 border border-neutral-700 text-amber-300 font-mono text-[0.68rem] font-bold">
-                {{ currentAdjustment.scale.toFixed(2) }}x
-              </span>
-            </div>
-            <input
-              type="range"
-              min="0.5"
-              max="2.0"
-              step="0.02"
-              v-model.number="currentAdjustment.scale"
-              class="w-full accent-amber-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none"
-            />
-            <div class="flex justify-between gap-1 mt-1.5">
-              <button
-                type="button"
-                @click="currentAdjustment.scale = 0.8"
-                class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
-              >
-                0.8x Kecil
-              </button>
-              <button
-                type="button"
-                @click="currentAdjustment.scale = 1.0"
-                class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
-              >
-                1.0x Normal
-              </button>
-              <button
-                type="button"
-                @click="currentAdjustment.scale = 1.15"
-                class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
-              >
-                1.15x
-              </button>
-              <button
-                type="button"
-                @click="currentAdjustment.scale = 1.3"
-                class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
-              >
-                1.3x Besar
-              </button>
-            </div>
-          </div>
-
-          <!-- Horizontal X Slider -->
-          <div class="bg-neutral-900/90 p-2.5 border border-neutral-800">
-            <div class="flex justify-between items-center mb-1.5">
-              <span class="text-neutral-300 uppercase tracking-wider text-[0.65rem] font-bold">Position X (Horizontal)</span>
-              <span class="px-1.5 py-0.5 bg-neutral-800 border border-neutral-700 text-amber-300 font-mono text-[0.68rem] font-bold">
-                {{ currentAdjustment.posX }}%
-              </span>
-            </div>
-            <input
-              type="range"
-              min="0"
-              max="100"
-              step="1"
-              v-model.number="currentAdjustment.posX"
-              class="w-full accent-amber-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none"
-            />
-            <div class="flex justify-between gap-1 mt-1.5">
-              <button
-                type="button"
-                @click="currentAdjustment.posX = 0"
-                class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
-              >
-                0% Left
-              </button>
-              <button
-                type="button"
-                @click="currentAdjustment.posX = 50"
-                class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
-              >
-                50% Mid
-              </button>
-              <button
-                type="button"
-                @click="currentAdjustment.posX = 100"
-                class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
-              >
-                100% Right
-              </button>
-            </div>
-          </div>
-
-          <!-- Vertical Y Slider -->
-          <div class="bg-neutral-900/90 p-2.5 border border-neutral-800">
-            <div class="flex justify-between items-center mb-1.5">
-              <span class="text-neutral-300 uppercase tracking-wider text-[0.65rem] font-bold">Position Y (Vertical)</span>
-              <span class="px-1.5 py-0.5 bg-neutral-800 border border-neutral-700 text-amber-300 font-mono text-[0.68rem] font-bold">
-                {{ currentAdjustment.posY }}%
-              </span>
-            </div>
-            <input
-              type="range"
-              min="0"
-              max="100"
-              step="1"
-              v-model.number="currentAdjustment.posY"
-              class="w-full accent-amber-400 cursor-pointer h-1.5 bg-neutral-700 rounded-none"
-            />
-            <div class="flex justify-between gap-1 mt-1.5">
-              <button
-                type="button"
-                @click="currentAdjustment.posY = 0"
-                class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
-              >
-                0% Top
-              </button>
-              <button
-                type="button"
-                @click="currentAdjustment.posY = 15"
-                class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
-              >
-                15% Face
-              </button>
-              <button
-                type="button"
-                @click="currentAdjustment.posY = 50"
-                class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
-              >
-                50% Mid
-              </button>
-              <button
-                type="button"
-                @click="currentAdjustment.posY = 100"
-                class="flex-1 py-0.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-[0.6rem] text-neutral-300 cursor-pointer"
-              >
-                100% Bot
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Presets & Reset -->
-        <div class="mt-3 flex gap-2">
-          <button
-            type="button"
-            @click="resetActivePart"
-            class="flex-1 py-1.5 bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-[0.62rem] text-neutral-300 hover:text-white uppercase tracking-wider cursor-pointer"
-          >
-            Reset Part 0{{ activeIdx + 1 }}
-          </button>
-          <button
-            type="button"
-            @click="resetAllParts"
-            class="flex-1 py-1.5 bg-neutral-900 hover:bg-neutral-800 border border-red-900/60 text-[0.62rem] text-red-400 hover:text-red-300 uppercase tracking-wider cursor-pointer"
-          >
-            Reset All
-          </button>
-        </div>
-
-        <!-- Live CSS Output & Copy Action -->
-        <div class="mt-3 pt-3 border-t border-neutral-800">
-          <div class="p-2 bg-black border border-neutral-800 text-[0.62rem] text-neutral-300 break-all select-all font-mono">
-            objectPosition: '{{ currentAdjustment.posX }}% {{ currentAdjustment.posY }}%', scale: {{ currentAdjustment.scale.toFixed(2) }}
-          </div>
-          <div class="mt-2 flex gap-2">
-            <button
-              type="button"
-              @click="copyCurrentPartCSS"
-              class="flex-1 py-1.5 bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold text-[0.65rem] tracking-wider uppercase transition-colors cursor-pointer"
-            >
-              {{ copySuccess ? '✓ COPIED!' : '📋 COPY PART CSS' }}
-            </button>
-            <button
-              type="button"
-              @click="copyAllConfig"
-              class="flex-1 py-1.5 bg-neutral-800 hover:bg-neutral-700 text-neutral-200 font-bold text-[0.65rem] tracking-wider uppercase transition-colors cursor-pointer"
-            >
-              {{ copyAllSuccess ? '✓ ALL COPIED!' : '📋 COPY ALL (TS)' }}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- TAB 2: VALENTINE & D4C SLIDERS -->
-      <div v-else class="mt-3 space-y-3">
+      <!-- VALENTINE & D4C SLIDERS -->
+      <div class="mt-3 space-y-3">
         <!-- State Selector -->
         <div class="flex items-center justify-between bg-neutral-900/90 p-2 border border-neutral-800">
           <span class="text-neutral-300 uppercase tracking-wider text-[0.62rem] font-bold">Preview State</span>
@@ -1083,7 +830,6 @@ const loadValentineAdjustments = (): ValentineAdjustment => {
 const valAdj = ref<ValentineAdjustment>(loadValentineAdjustments())
 const isStandActive = ref(false)
 const showSpeedlineBurst = ref(false)
-const activeEditorTab = ref<'covers' | 'valentine'>('covers')
 const valCopySuccess = ref(false)
 
 const valentineQuotes = [
@@ -1234,8 +980,6 @@ function parsed(str: string) {
 
 const adjustments = ref<Record<number, CoverAdjustment>>(loadSavedAdjustments())
 const showAdjuster = ref(false)
-const copySuccess = ref(false)
-const copyAllSuccess = ref(false)
 
 const capsules = ref<Capsule[]>([
   {
@@ -1342,32 +1086,6 @@ const capsules = ref<Capsule[]>([
 const capsulesRoot = ref<HTMLElement | null>(null)
 const headingRef = ref<HTMLElement | null>(null)
 const activeIdx = ref(0)
-const currentCapsule = computed(() => capsules.value[activeIdx.value])
-
-const currentAdjustment = computed(() => {
-  if (!adjustments.value[activeIdx.value]) {
-    adjustments.value[activeIdx.value] = {
-      ...(defaultAdjustments[activeIdx.value] || { posX: 50, posY: 50, scale: 1.0, fitMode: 'contain' }),
-    }
-  }
-  return adjustments.value[activeIdx.value]
-})
-
-const persistAdjustments = () => {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(adjustments.value))
-  } catch {
-    // ignore
-  }
-}
-
-watch(
-  adjustments,
-  () => {
-    persistAdjustments()
-  },
-  { deep: true }
-)
 
 const getCoverStyle = (idx: number) => {
   const adj = adjustments.value[idx] || defaultAdjustments[idx] || { posX: 50, posY: 50, scale: 1.0, fitMode: 'contain' }
@@ -1376,44 +1094,6 @@ const getCoverStyle = (idx: number) => {
     objectFit: (adj.fitMode || 'contain') as 'contain' | 'cover',
     transform: `scale(${adj.scale})`,
   }
-}
-
-const resetActivePart = () => {
-  const def = defaultAdjustments[activeIdx.value] || { posX: 50, posY: 50, scale: 1.0, fitMode: 'contain' }
-  adjustments.value[activeIdx.value] = { ...def }
-  persistAdjustments()
-}
-
-const resetAllParts = () => {
-  adjustments.value = JSON.parse(JSON.stringify(defaultAdjustments))
-  persistAdjustments()
-}
-
-const copyCurrentPartCSS = () => {
-  const adj = currentAdjustment.value
-  const capsule = capsules.value[activeIdx.value]
-  const text = `/* ${capsule?.title || 'Part ' + (activeIdx.value + 1)} */\nobjectPosition: '${adj.posX}% ${adj.posY}%',\nobjectFit: '${adj.fitMode || 'contain'}',\nscale: ${adj.scale.toFixed(2)},`
-  navigator.clipboard.writeText(text).then(() => {
-    copySuccess.value = true
-    setTimeout(() => {
-      copySuccess.value = false
-    }, 2000)
-  })
-}
-
-const copyAllConfig = () => {
-  const text = capsules.value
-    .map((c, i) => {
-      const adj = adjustments.value[i] || defaultAdjustments[i]
-      return `  // ${c.title}\n  {\n    id: '${c.id}',\n    objectPosition: '${adj.posX}% ${adj.posY}%',\n    objectFit: '${adj.fitMode || 'contain'}',\n    scale: ${adj.scale.toFixed(2)},\n  },`
-    })
-    .join('\n')
-  navigator.clipboard.writeText(`[\n${text}\n]`).then(() => {
-    copyAllSuccess.value = true
-    setTimeout(() => {
-      copyAllSuccess.value = false
-    }, 2000)
-  })
 }
 
 // Touch & Mouse gestures for swipe sliding
