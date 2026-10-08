@@ -13,11 +13,11 @@
         style="object-position: 50% 18%;"
       />
       <!-- JoJo Iconic Sound Effect Overlay -->
-      <div class="absolute inset-0 flex items-center justify-between px-8 md:px-16 pointer-events-none z-10">
-        <span class="font-serif italic text-3xl md:text-5xl text-brand-bg/30">
+      <div class="absolute inset-0 flex flex-col sm:flex-row items-center justify-center sm:justify-between px-4 sm:px-8 md:px-16 pointer-events-none z-10 gap-1.5 sm:gap-0 text-center sm:text-left">
+        <span class="font-serif italic text-2xl sm:text-3xl md:text-5xl text-brand-bg/30">
           "ゴゴゴ... MENACING"
         </span>
-        <span class="font-mono text-xs md:text-sm tracking-[0.3em] uppercase text-brand-bg/60">
+        <span class="font-mono text-[0.62rem] sm:text-xs md:text-sm tracking-[0.2em] sm:tracking-[0.3em] uppercase text-brand-bg/60">
           MILANO · PARIGI · TOKYO
         </span>
       </div>

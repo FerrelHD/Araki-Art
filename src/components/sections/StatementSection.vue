@@ -7,7 +7,7 @@
     <div class="grid grid-cols-4 md:grid-cols-12">
       <!-- 10 Columns Centered Container (Offset by 1 col on desktop) -->
       <div
-        class="col-span-4 md:col-span-10 md:col-start-2 border-x border-grid pt-16 md:pt-32"
+        class="col-span-4 md:col-span-10 md:col-start-2 border-x border-grid pt-12 sm:pt-16 md:pt-32"
       >
         <!-- Section Header -->
         <div class="border-b border-grid p-4 md:p-6 overflow-hidden">
@@ -17,7 +17,7 @@
           <div class="overflow-hidden">
             <h2
               ref="headingRef"
-              class="text-5xl md:text-7xl lg:text-8xl font-bold tracking-[-0.06em] leading-[0.85] will-change-transform"
+              class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-[-0.06em] leading-[0.85] will-change-transform"
             >
               aesthetic.
             </h2>
@@ -29,7 +29,7 @@
           <!-- Left 4 Columns: Philosophy Paragraph & Rolling CTA -->
           <div
             ref="leftColRef"
-            class="md:col-span-4 border-b md:border-b-0 md:border-r border-grid p-4 md:p-6 flex flex-col items-start gap-8 py-12 md:py-16 justify-between"
+            class="md:col-span-4 border-b md:border-b-0 md:border-r border-grid p-4 md:p-6 flex flex-col items-start gap-8 py-8 sm:py-12 md:py-16 justify-between"
           >
             <p class="max-w-[44ch] text-base md:text-lg leading-relaxed opacity-90">
               Hirohiko Araki’s work stands alone in comic history by treating the human frame not as a mere vessel for action, but as a runway silhouette. Drawing heavily from Michelangelo's <em>contrapposto</em>, Antonio Lopez's 1980s fashion sketches, and Roman classical sculpture, every frame is a curated editorial spread.
@@ -46,7 +46,7 @@
           <!-- Right 6 Columns: Highlights & Runway DNA Breakdown -->
           <div
             ref="rightColRef"
-            class="md:col-span-6 p-4 md:p-6 py-12 md:py-16 flex flex-col justify-between gap-8 bg-brand-primary/[0.02]"
+            class="md:col-span-6 p-4 md:p-6 py-8 sm:py-12 md:py-16 flex flex-col justify-between gap-8 bg-brand-primary/[0.02]"
           >
             <div class="flex flex-col gap-6">
               <span class="text-[0.65rem] font-mono tracking-widest uppercase opacity-60">

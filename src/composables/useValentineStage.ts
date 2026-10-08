@@ -35,9 +35,9 @@ export interface ValentineConfig {
 }
 
 export const defaultValentineConfig: ValentineConfig = {
-  cameraZoom: 1.1,
+  cameraZoom: 1.55,
   cameraOriginX: 84,
-  cameraOriginY: 46,
+  cameraOriginY: 50,
 
   aloneX: -80,
   aloneY: 14,
@@ -61,7 +61,7 @@ export const defaultValentineConfig: ValentineConfig = {
   watermarkOpacity: 6,
 }
 
-const STORAGE_KEY = 'araki_valentine_universal_v5'
+const STORAGE_KEY = 'araki_valentine_universal_v6'
 
 const loadSavedConfig = (): ValentineConfig => {
   try {

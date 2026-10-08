@@ -7,7 +7,7 @@
     <!-- Section Eyebrow & Title inside 10-column container -->
     <div class="grid grid-cols-4 md:grid-cols-12">
       <div
-        class="col-span-4 md:col-span-10 md:col-start-2 border-x border-grid pt-16 md:pt-32 pb-4 overflow-hidden"
+        class="col-span-4 md:col-span-10 md:col-start-2 border-x border-grid pt-12 sm:pt-16 md:pt-32 pb-4 overflow-hidden"
       >
         <div class="p-4 md:p-6">
           <p class="mb-2 text-[0.68rem] font-bold tracking-[0.2em] uppercase font-mono opacity-70">
@@ -16,7 +16,7 @@
           <div class="overflow-hidden pb-3">
             <h2
               ref="headingRef"
-              class="text-5xl md:text-7xl lg:text-8xl font-bold tracking-[-0.06em] leading-[0.85] will-change-transform"
+              class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-[-0.06em] leading-[0.85] will-change-transform"
             >
               anatomy.
             </h2>

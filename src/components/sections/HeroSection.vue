@@ -11,7 +11,7 @@
       <!-- 8 Cols: Runway / Visual Showreel Container -->
       <div
         ref="videoContainerRef"
-        class="relative col-span-4 md:col-span-8 aspect-[4/3] md:aspect-auto md:h-full overflow-hidden border-b md:border-b-0 md:border-r border-grid bg-black/10 group"
+        class="relative col-span-4 md:col-span-8 aspect-[16/10] sm:aspect-[4/3] md:aspect-auto md:h-full overflow-hidden border-b md:border-b-0 md:border-r border-grid bg-black/10 group"
       >
         <!-- Atmospheric Motion / Runway Canvas or Video -->
         <video
@@ -41,17 +41,17 @@
       </div>
 
       <!-- 4 Cols: Editorial Portrait (Rohan / Araki in High-Fashion) -->
-<div
-  ref="portraitContainerRef"
-  class="relative col-span-4 md:col-span-4 aspect-[3/4] md:aspect-auto md:h-full overflow-hidden bg-brand-bg group"
->
-  <img
-    ref="portraitImgRef"
-    src="/images/jojo-fashion.jpg"
-    alt="Araki Haute-Couture Muse"
-    class="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-1000 ease-out group-hover:scale-105"
-  />
-</div>
+      <div
+        ref="portraitContainerRef"
+        class="relative col-span-4 md:col-span-4 aspect-[16/10] sm:aspect-[3/4] md:aspect-auto md:h-full overflow-hidden bg-brand-bg group"
+      >
+        <img
+          ref="portraitImgRef"
+          src="/images/jojo-fashion.jpg"
+          alt="Araki Haute-Couture Muse"
+          class="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-1000 ease-out group-hover:scale-105"
+        />
+      </div>
     </div>
 
     <!-- Bottom Row: Monumental Wordmark & Discipline Badges -->
@@ -64,7 +64,7 @@
           <h1
             id="hero-title"
             ref="titleRef"
-            class="text-[clamp(3.8rem,19vw,15.5rem)] leading-[0.88] font-bold tracking-[-0.08em] select-none uppercase md:normal-case will-change-transform pb-1 pr-6"
+            class="text-[clamp(3.2rem,18vw,15.5rem)] leading-[0.88] font-bold tracking-[-0.08em] select-none uppercase md:normal-case will-change-transform pb-1 pr-6"
           >
             araki.
           </h1>

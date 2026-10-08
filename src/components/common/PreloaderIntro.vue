@@ -40,7 +40,7 @@
       <div class="overflow-hidden pb-4 md:pb-6 px-4 flex justify-center items-center">
         <h1
           ref="titleEl"
-          class="text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-[-0.08em] leading-[0.9] uppercase md:normal-case will-change-transform pb-1 text-center"
+          class="text-5xl sm:text-7xl md:text-9xl lg:text-[10rem] font-bold tracking-[-0.08em] leading-[0.9] uppercase md:normal-case will-change-transform pb-1 text-center"
         >
           araki.
         </h1>
