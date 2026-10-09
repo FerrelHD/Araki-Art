@@ -86,16 +86,16 @@
           </div>
         </div>
 
-        <!-- Full-Width Panoramic Visual Banner (Authentic Full Color) -->
+        <!-- Full-Width Panoramic Visual Banner (B&W to Color Hover, No Zoom) -->
         <div
           ref="bannerContainerRef"
-          class="aspect-[16/9] md:aspect-[21/9] overflow-hidden relative group"
+          class="aspect-[16/9] md:aspect-[21/9] overflow-hidden relative group cursor-pointer"
         >
           <img
             ref="bannerImgRef"
             src="/images/Valentine_Diego_sharpened.png"
             alt="Funny Valentine & Diego Brando SBR Panoramic Spread"
-            class="w-full h-full object-cover filter contrast-105 transition-all duration-700 will-change-transform"
+            class="w-full h-full object-cover grayscale contrast-[1.1] group-hover:grayscale-0 group-hover:contrast-100 transition-[filter] duration-700 ease-out will-change-transform"
             style="object-position: 50% 30%;"
           />
         </div>

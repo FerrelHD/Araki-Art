@@ -13,27 +13,27 @@
 }
 
 :root {
-  /* Solid Moss Olive Canvas & Deep Wine Typography (Pigmented, Not Whitish) */
-  --color-bg: #9FAF8D;
-  --color-primary: #3A0812;
-  --color-accent: #7C1827;
-  --color-stand: #3A0812;
-  --color-border: rgba(58, 8, 18, 0.28);
-  --color-border-subtle: rgba(58, 8, 18, 0.12);
-  --color-card-bg: #3A0812;
-  --color-card-text: #E8EFE5;
+  /* Vintage Dijon Ochre Canvas & Deep Espresso Plum Typography (Option 1) */
+  --color-bg: #D1B870;
+  --color-primary: #2D131E;
+  --color-accent: #8E324E;
+  --color-stand: #2D131E;
+  --color-border: rgba(45, 19, 30, 0.28);
+  --color-border-subtle: rgba(45, 19, 30, 0.12);
+  --color-card-bg: #2D131E;
+  --color-card-text: #F5ECCF;
 }
 
 [data-theme='shift'] {
-  /* Shift Mode: Smoky Celadon Teal Canvas & Oxblood Cherry Typography */
-  --color-bg: #8FAAA3;
-  --color-primary: #3B0A13;
-  --color-accent: #821E2C;
-  --color-stand: #3B0A13;
-  --color-border: rgba(59, 10, 19, 0.28);
-  --color-border-subtle: rgba(59, 10, 19, 0.12);
-  --color-card-bg: #3B0A13;
-  --color-card-text: #E2ECE9;
+  /* Shift Mode: Inverted Cassis Plum Noir Canvas & Vintage Dijon Typography */
+  --color-bg: #1F0B14;
+  --color-primary: #D1B870;
+  --color-accent: #E2A848;
+  --color-stand: #E2A848;
+  --color-border: rgba(209, 184, 112, 0.28);
+  --color-border-subtle: rgba(209, 184, 112, 0.12);
+  --color-card-bg: #15060D;
+  --color-card-text: #D1B870;
 }
 
 html {
@@ -97,15 +97,17 @@ html.lenis, html.lenis body {
   overflow: hidden;
 }
 
-/* Custom Scrollbar */
+/* Invisible Scrollbar (Option 1) */
+html,
+body {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE & Edge */
+}
+
 ::-webkit-scrollbar {
-  width: 5px;
-}
-::-webkit-scrollbar-track {
-  background: var(--color-bg);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--color-border);
+  display: none; /* Chrome, Safari, Opera */
+  width: 0;
+  height: 0;
 }
 
 /* Manga Halftone Screentone Overlay */

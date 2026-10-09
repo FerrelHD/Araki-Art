@@ -11,12 +11,12 @@
       <!-- 8 Cols: Runway / Visual Showreel Container -->
       <div
         ref="videoContainerRef"
-        class="relative col-span-4 md:col-span-8 aspect-[16/10] sm:aspect-[4/3] md:aspect-auto md:h-full overflow-hidden border-b md:border-b-0 md:border-r border-grid bg-black/10 group"
+        class="relative col-span-4 md:col-span-8 aspect-[16/10] sm:aspect-[4/3] md:aspect-auto md:h-full overflow-hidden border-b md:border-b-0 md:border-r border-grid bg-black/10 group cursor-pointer"
       >
         <!-- Atmospheric Motion / Runway Canvas or Video -->
         <video
           ref="videoElRef"
-          class="absolute inset-0 h-full w-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
+          class="absolute inset-0 h-full w-full object-cover transition-[filter] duration-700 ease-out grayscale contrast-[1.1] group-hover:grayscale-0 group-hover:contrast-100"
           muted
           loop
           playsinline
@@ -42,12 +42,12 @@
 
       <!-- 4 Cols: Editorial Portrait (Rohan / Araki in High-Fashion) -->
       <div
-        class="relative col-span-4 md:col-span-4 aspect-[16/10] sm:aspect-[3/4] md:aspect-auto md:h-full overflow-hidden bg-brand-bg"
+        class="relative col-span-4 md:col-span-4 aspect-[16/10] sm:aspect-[3/4] md:aspect-auto md:h-full overflow-hidden bg-brand-bg group cursor-pointer"
       >
         <img
           src="/images/jojo-fashion.jpg"
           alt="Araki Haute-Couture Muse"
-          class="absolute inset-0 h-full w-full object-cover object-top"
+          class="absolute inset-0 h-full w-full object-cover object-top transition-[filter] duration-700 ease-out grayscale contrast-[1.1] group-hover:grayscale-0 group-hover:contrast-100"
         />
       </div>
     </div>

@@ -67,18 +67,18 @@
       <button
         type="button"
         @click="toggleTheme"
-        :aria-label="isShiftMode ? 'Switch to Moss Olive Palette' : 'Switch to Smoky Celadon Palette'"
+        :aria-label="isShiftMode ? 'Switch to Vintage Dijon Ochre Palette' : 'Switch to Cassis Plum Noir Palette'"
         class="group/roll flex h-full cursor-pointer items-center gap-2 px-3 md:px-5 transition-colors hover:bg-brand-primary hover:text-brand-bg mr-14 md:mr-16 outline-none"
       >
         <span class="relative inline-grid grid-cols-1 grid-rows-1 overflow-hidden leading-[1.3] text-[0.65rem] tracking-[0.16em] uppercase font-mono font-medium">
           <span class="col-start-1 row-start-1 block whitespace-nowrap transition-transform duration-[450ms] ease-[cubic-bezier(0.65,0,0.35,1)] group-hover/roll:translate-y-full">
-            {{ isShiftMode ? 'SMOKY CELADON' : 'MOSS OLIVE' }}
+            {{ isShiftMode ? 'PLUM NOIR' : 'VINTAGE DIJON' }}
           </span>
           <span
             aria-hidden="true"
             class="col-start-1 row-start-1 block whitespace-nowrap -translate-y-full transition-transform duration-[450ms] ease-[cubic-bezier(0.65,0,0.35,1)] group-hover/roll:translate-y-0"
           >
-            {{ isShiftMode ? 'MOSS OLIVE' : 'SMOKY CELADON' }}
+            {{ isShiftMode ? 'VINTAGE DIJON' : 'PLUM NOIR' }}
           </span>
         </span>
         <!-- Indicator square dot -->
