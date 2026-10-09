@@ -107,3 +107,11 @@ html.lenis, html.lenis body {
 ::-webkit-scrollbar-thumb {
   background: var(--color-border);
 }
+
+/* Manga Halftone Screentone Overlay */
+.manga-screentone {
+  background-image: radial-gradient(var(--color-primary) 1.2px, transparent 1.2px);
+  background-size: 7px 7px;
+  background-position: 0 0;
+}
+

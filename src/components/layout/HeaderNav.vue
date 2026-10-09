@@ -163,15 +163,23 @@
       </div>
     </div>
   </transition>
+
+  <!-- JoJo Color Shift / Inversion Flash Overlay -->
+  <div
+    ref="flashOverlayRef"
+    class="fixed inset-0 pointer-events-none z-[100] opacity-0 mix-blend-difference bg-white"
+  />
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
+import { gsap } from '@/lenis'
 import { useValentineStage } from '@/composables/useValentineStage'
 
 const { isStandActive } = useValentineStage()
 const isShiftMode = ref(false)
 const isMenuOpen = ref(false)
+const flashOverlayRef = ref<HTMLElement | null>(null)
 
 const menuItems = [
   { label: 'the opening.', href: '#hero' },
@@ -218,11 +226,32 @@ const updateTimes = () => {
 let timer: number | null = null
 
 const toggleTheme = () => {
-  isShiftMode.value = !isShiftMode.value
-  if (isShiftMode.value) {
-    document.documentElement.dataset.theme = 'shift'
+  if (flashOverlayRef.value) {
+    const tl = gsap.timeline()
+    tl.to(flashOverlayRef.value, {
+      opacity: 1,
+      duration: 0.08,
+      ease: 'power3.in',
+      onComplete: () => {
+        isShiftMode.value = !isShiftMode.value
+        if (isShiftMode.value) {
+          document.documentElement.dataset.theme = 'shift'
+        } else {
+          delete document.documentElement.dataset.theme
+        }
+      },
+    }).to(flashOverlayRef.value, {
+      opacity: 0,
+      duration: 0.28,
+      ease: 'power2.out',
+    })
   } else {
-    delete document.documentElement.dataset.theme
+    isShiftMode.value = !isShiftMode.value
+    if (isShiftMode.value) {
+      document.documentElement.dataset.theme = 'shift'
+    } else {
+      delete document.documentElement.dataset.theme
+    }
   }
 }
 

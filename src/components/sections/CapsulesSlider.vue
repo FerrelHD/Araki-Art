@@ -207,7 +207,7 @@
             <div
               class="valentine-watermark absolute font-mono font-bold leading-none select-none pointer-events-none transition-opacity duration-500"
               :class="isStandActive ? 'opacity-15 text-cyan-400' : 'opacity-5 text-current'"
-              :style="{ top: '-24px', right: '8px', fontSize: '8rem' }"
+              :style="{ top: '8px', right: '24px', fontSize: 'clamp(3.5rem, 6vw, 5.8rem)' }"
             >
               D4C
             </div>
