@@ -13,27 +13,27 @@
 }
 
 :root {
-  /* Default: Jolyne Candy Punk / Y2K Couture (Pastel Lilac Lavender) */
-  --color-bg: #F5EEFD;
-  --color-primary: #1F1032;
-  --color-accent: #84CC16;
-  --color-stand: #F43F5E;
-  --color-border: rgba(31, 16, 50, 0.28);
-  --color-border-subtle: rgba(31, 16, 50, 0.12);
-  --color-card-bg: #1F1032;
-  --color-card-text: #F5EEFD;
+  /* Solid Moss Olive Canvas & Deep Wine Typography (Pigmented, Not Whitish) */
+  --color-bg: #9FAF8D;
+  --color-primary: #3A0812;
+  --color-accent: #7C1827;
+  --color-stand: #3A0812;
+  --color-border: rgba(58, 8, 18, 0.28);
+  --color-border-subtle: rgba(58, 8, 18, 0.12);
+  --color-card-bg: #3A0812;
+  --color-card-text: #E8EFE5;
 }
 
 [data-theme='shift'] {
-  /* Shift Mode: Cyber Blackberry Punk (Inverted Dark Y2K) */
-  --color-bg: #1F1032;
-  --color-primary: #F5EEFD;
-  --color-accent: #84CC16;
-  --color-stand: #38BDF8;
-  --color-border: rgba(245, 238, 253, 0.28);
-  --color-border-subtle: rgba(245, 238, 253, 0.12);
-  --color-card-bg: #2C1845;
-  --color-card-text: #F5EEFD;
+  /* Shift Mode: Smoky Celadon Teal Canvas & Oxblood Cherry Typography */
+  --color-bg: #8FAAA3;
+  --color-primary: #3B0A13;
+  --color-accent: #821E2C;
+  --color-stand: #3B0A13;
+  --color-border: rgba(59, 10, 19, 0.28);
+  --color-border-subtle: rgba(59, 10, 19, 0.12);
+  --color-card-bg: #3B0A13;
+  --color-card-text: #E2ECE9;
 }
 
 html {
