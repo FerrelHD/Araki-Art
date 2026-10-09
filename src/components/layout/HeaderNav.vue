@@ -66,7 +66,7 @@
     <div class="col-span-2 md:col-span-3 flex items-stretch justify-end">
       <button
         type="button"
-        @click="toggleTheme"
+        @click="toggleTheme($event)"
         :aria-label="isShiftMode ? 'Switch to Vintage Dijon Ochre Palette' : 'Switch to Cassis Plum Noir Palette'"
         class="group/roll flex h-full cursor-pointer items-center gap-2 px-3 md:px-5 transition-colors hover:bg-brand-primary hover:text-brand-bg mr-14 md:mr-16 outline-none"
       >
@@ -164,10 +164,11 @@
     </div>
   </transition>
 
-  <!-- JoJo Color Shift / Inversion Flash Overlay -->
+  <!-- JoJo Color Shift Circular Ripple Wipe Fallback Overlay -->
   <div
-    ref="flashOverlayRef"
-    class="fixed inset-0 pointer-events-none z-[100] opacity-0 mix-blend-difference bg-white"
+    ref="wipeOverlayRef"
+    class="fixed inset-0 pointer-events-none z-[120]"
+    style="display: none; clip-path: circle(0px at 0px 0px);"
   />
 </template>
 
@@ -179,7 +180,8 @@ import { useValentineStage } from '@/composables/useValentineStage'
 const { isStandActive } = useValentineStage()
 const isShiftMode = ref(false)
 const isMenuOpen = ref(false)
-const flashOverlayRef = ref<HTMLElement | null>(null)
+const wipeOverlayRef = ref<HTMLElement | null>(null)
+const isTransitioning = ref(false)
 
 const menuItems = [
   { label: 'the opening.', href: '#hero' },
@@ -225,33 +227,100 @@ const updateTimes = () => {
 
 let timer: number | null = null
 
-const toggleTheme = () => {
-  if (flashOverlayRef.value) {
-    const tl = gsap.timeline()
-    tl.to(flashOverlayRef.value, {
-      opacity: 1,
-      duration: 0.08,
-      ease: 'power3.in',
+const toggleTheme = (e?: MouseEvent) => {
+  if (isTransitioning.value) return
+  isTransitioning.value = true
+
+  const targetTheme = !isShiftMode.value
+
+  let x = window.innerWidth - 80
+  let y = 32
+  if (e && typeof e.clientX === 'number' && typeof e.clientY === 'number') {
+    x = e.clientX
+    y = e.clientY
+  }
+
+  const w = window.innerWidth
+  const h = window.innerHeight
+  const maxRadius = Math.ceil(Math.hypot(Math.max(x, w - x), Math.max(y, h - y)))
+
+  // 1. Try Native View Transitions API (Full-page hardware accelerated circular wipe)
+  const doc = document as any
+  if (typeof doc.startViewTransition === 'function') {
+    const transition = doc.startViewTransition(() => {
+      isShiftMode.value = targetTheme
+      if (targetTheme) {
+        document.documentElement.dataset.theme = 'shift'
+      } else {
+        delete document.documentElement.dataset.theme
+      }
+    })
+
+    transition.ready
+      .then(() => {
+        const anim = document.documentElement.animate(
+          {
+            clipPath: [
+              `circle(0px at ${x}px ${y}px)`,
+              `circle(${maxRadius}px at ${x}px ${y}px)`,
+            ],
+          },
+          {
+            duration: 480,
+            easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
+            pseudoElement: '::view-transition-new(root)',
+          }
+        )
+        anim.onfinish = () => {
+          isTransitioning.value = false
+        }
+      })
+      .catch(() => {
+        isTransitioning.value = false
+      })
+    return
+  }
+
+  // 2. GSAP Overlay Fallback
+  if (wipeOverlayRef.value) {
+    const targetBg = targetTheme ? '#1F0B14' : '#D1B870'
+    const overlay = wipeOverlayRef.value
+    overlay.style.backgroundColor = targetBg
+    overlay.style.display = 'block'
+    overlay.style.opacity = '1'
+    overlay.style.clipPath = `circle(0px at ${x}px ${y}px)`
+
+    gsap.to(overlay, {
+      clipPath: `circle(${maxRadius}px at ${x}px ${y}px)`,
+      duration: 0.48,
+      ease: 'power2.inOut',
       onComplete: () => {
-        isShiftMode.value = !isShiftMode.value
-        if (isShiftMode.value) {
+        isShiftMode.value = targetTheme
+        if (targetTheme) {
           document.documentElement.dataset.theme = 'shift'
         } else {
           delete document.documentElement.dataset.theme
         }
+        gsap.to(overlay, {
+          opacity: 0,
+          duration: 0.2,
+          onComplete: () => {
+            overlay.style.display = 'none'
+            overlay.style.opacity = '1'
+            overlay.style.clipPath = 'circle(0px at 0px 0px)'
+            isTransitioning.value = false
+          },
+        })
       },
-    }).to(flashOverlayRef.value, {
-      opacity: 0,
-      duration: 0.28,
-      ease: 'power2.out',
     })
   } else {
-    isShiftMode.value = !isShiftMode.value
-    if (isShiftMode.value) {
+    isShiftMode.value = targetTheme
+    if (targetTheme) {
       document.documentElement.dataset.theme = 'shift'
     } else {
       delete document.documentElement.dataset.theme
     }
+    isTransitioning.value = false
   }
 }
 

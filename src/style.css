@@ -40,8 +40,6 @@ html {
   background-color: var(--color-bg);
   color: var(--color-primary);
   font-family: var(--font-sans);
-  transition: background-color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-              color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Blueprint Grid Lines */
@@ -115,5 +113,20 @@ body {
   background-image: radial-gradient(var(--color-primary) 1.2px, transparent 1.2px);
   background-size: 7px 7px;
   background-position: 0 0;
+}
+
+/* Circular Ripple Palette Wipe (View Transitions) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 9999;
 }
 
