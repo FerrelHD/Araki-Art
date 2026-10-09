@@ -65,6 +65,7 @@
     <!-- Col 10-12: Chromatic Palette Toggle -->
     <div class="col-span-2 md:col-span-3 flex items-stretch justify-end">
       <button
+        ref="paletteBtnRef"
         type="button"
         @click="toggleTheme"
         :aria-label="isShiftMode ? 'Switch to Vintage Dijon Ochre Palette' : 'Switch to Cassis Plum Noir Palette'"
@@ -182,6 +183,7 @@ const { isStandActive } = useValentineStage()
 const isShiftMode = ref(false)
 const isMenuOpen = ref(false)
 const wipeOverlayRef = ref<HTMLElement | null>(null)
+const paletteBtnRef = ref<HTMLButtonElement | null>(null)
 const toggleSwitchRef = ref<HTMLElement | null>(null)
 const isTransitioning = ref(false)
 
@@ -235,12 +237,13 @@ const toggleTheme = () => {
 
   const targetTheme = !isShiftMode.value
 
+  const el = toggleSwitchRef.value || paletteBtnRef.value
   let x = window.innerWidth - 80
   let y = 32
 
-  // Lock origin point strictly to the exact center of the toggle switch square dot
-  if (toggleSwitchRef.value) {
-    const rect = toggleSwitchRef.value.getBoundingClientRect()
+  if (el) {
+    const rect = el.getBoundingClientRect()
+    // Exact center of the target element
     x = Math.round(rect.left + rect.width / 2)
     y = Math.round(rect.top + rect.height / 2)
   }
@@ -248,6 +251,11 @@ const toggleTheme = () => {
   const w = window.innerWidth
   const h = window.innerHeight
   const maxRadius = Math.ceil(Math.hypot(Math.max(x, w - x), Math.max(y, h - y)))
+
+  // Set CSS variables on root so CSS @keyframes circular-wipe uses the exact coordinates!
+  document.documentElement.style.setProperty('--clip-x', `${x}px`)
+  document.documentElement.style.setProperty('--clip-y', `${y}px`)
+  document.documentElement.style.setProperty('--clip-r', `${maxRadius}px`)
 
   // 1. Try Native View Transitions API (Full-page hardware accelerated circular wipe)
   const doc = document as any
@@ -263,21 +271,27 @@ const toggleTheme = () => {
 
     transition.ready
       .then(() => {
-        const anim = document.documentElement.animate(
-          {
-            clipPath: [
-              `circle(0px at ${x}px ${y}px)`,
-              `circle(${maxRadius}px at ${x}px ${y}px)`,
-            ],
-          },
-          {
-            duration: 480,
-            easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-            pseudoElement: '::view-transition-new(root)',
+        try {
+          const anim = document.documentElement.animate(
+            {
+              clipPath: [
+                `circle(0px at ${x}px ${y}px)`,
+                `circle(${maxRadius}px at ${x}px ${y}px)`,
+              ],
+            },
+            {
+              duration: 480,
+              easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
+              pseudoElement: '::view-transition-new(root)',
+            }
+          )
+          anim.onfinish = () => {
+            isTransitioning.value = false
           }
-        )
-        anim.onfinish = () => {
-          isTransitioning.value = false
+        } catch {
+          setTimeout(() => {
+            isTransitioning.value = false
+          }, 480)
         }
       })
       .catch(() => {

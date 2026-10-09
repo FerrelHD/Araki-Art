@@ -116,17 +116,24 @@ body {
 }
 
 /* Circular Ripple Palette Wipe (View Transitions) */
-::view-transition-old(root),
-::view-transition-new(root) {
+::view-transition-old(root) {
   animation: none;
   mix-blend-mode: normal;
-}
-
-::view-transition-old(root) {
   z-index: 1;
 }
 
 ::view-transition-new(root) {
+  animation: circular-wipe 0.48s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  mix-blend-mode: normal;
   z-index: 9999;
+}
+
+@keyframes circular-wipe {
+  0% {
+    clip-path: circle(0px at var(--clip-x, calc(100vw - 80px)) var(--clip-y, 32px));
+  }
+  100% {
+    clip-path: circle(var(--clip-r, 2500px) at var(--clip-x, calc(100vw - 80px)) var(--clip-y, 32px));
+  }
 }
 
