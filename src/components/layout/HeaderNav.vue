@@ -66,7 +66,7 @@
     <div class="col-span-2 md:col-span-3 flex items-stretch justify-end">
       <button
         type="button"
-        @click="toggleTheme($event)"
+        @click="toggleTheme"
         :aria-label="isShiftMode ? 'Switch to Vintage Dijon Ochre Palette' : 'Switch to Cassis Plum Noir Palette'"
         class="group/roll flex h-full cursor-pointer items-center gap-2 px-3 md:px-5 transition-colors hover:bg-brand-primary hover:text-brand-bg mr-14 md:mr-16 outline-none"
       >
@@ -83,6 +83,7 @@
         </span>
         <!-- Indicator square dot -->
         <span
+          ref="toggleSwitchRef"
           class="relative block h-2.5 w-2.5 shrink-0 overflow-hidden border border-brand-primary transition-colors group-hover:border-brand-bg"
           aria-hidden="true"
         >
@@ -181,6 +182,7 @@ const { isStandActive } = useValentineStage()
 const isShiftMode = ref(false)
 const isMenuOpen = ref(false)
 const wipeOverlayRef = ref<HTMLElement | null>(null)
+const toggleSwitchRef = ref<HTMLElement | null>(null)
 const isTransitioning = ref(false)
 
 const menuItems = [
@@ -227,7 +229,7 @@ const updateTimes = () => {
 
 let timer: number | null = null
 
-const toggleTheme = (e?: MouseEvent) => {
+const toggleTheme = () => {
   if (isTransitioning.value) return
   isTransitioning.value = true
 
@@ -235,9 +237,12 @@ const toggleTheme = (e?: MouseEvent) => {
 
   let x = window.innerWidth - 80
   let y = 32
-  if (e && typeof e.clientX === 'number' && typeof e.clientY === 'number') {
-    x = e.clientX
-    y = e.clientY
+
+  // Lock origin point strictly to the exact center of the toggle switch square dot
+  if (toggleSwitchRef.value) {
+    const rect = toggleSwitchRef.value.getBoundingClientRect()
+    x = Math.round(rect.left + rect.width / 2)
+    y = Math.round(rect.top + rect.height / 2)
   }
 
   const w = window.innerWidth
