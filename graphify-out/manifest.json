@@ -1,0 +1,506 @@
+{
+  ".vscode/extensions.json": {
+    "mtime": 1791444446.0315933,
+    "seen": 1791630588.2900147,
+    "ast_hash": "886c161c2f2d9388473a64033e7d1931",
+    "semantic_hash": "886c161c2f2d9388473a64033e7d1931"
+  },
+  ".vscode/settings.json": {
+    "mtime": 1791601503.4383578,
+    "seen": 1791630588.2900147,
+    "ast_hash": "8e8890677604b88779bfb08bb2b802fe",
+    "semantic_hash": "8e8890677604b88779bfb08bb2b802fe"
+  },
+  "package.json": {
+    "mtime": 1791444478.5048254,
+    "seen": 1791630588.2900147,
+    "ast_hash": "f19d5110bde7e75ff6e730e45cbac5f4",
+    "semantic_hash": "f19d5110bde7e75ff6e730e45cbac5f4"
+  },
+  "src/App.vue": {
+    "mtime": 1791491363.2878914,
+    "seen": 1791630588.2900147,
+    "ast_hash": "70297aeba147868fd3f67eeb2ca3d843",
+    "semantic_hash": "70297aeba147868fd3f67eeb2ca3d843"
+  },
+  "src/components/HelloWorld.vue": {
+    "mtime": 1791444446.0468736,
+    "seen": 1791630588.2900147,
+    "ast_hash": "78d39eee950542ee8e8dd28d442988bc",
+    "semantic_hash": "78d39eee950542ee8e8dd28d442988bc"
+  },
+  "src/components/common/PreloaderIntro.vue": {
+    "mtime": 1791487905.3716063,
+    "seen": 1791630588.2900147,
+    "ast_hash": "1e3214e559442322361f672eb6df95ca",
+    "semantic_hash": "1e3214e559442322361f672eb6df95ca"
+  },
+  "src/components/common/RollingText.vue": {
+    "mtime": 1791444817.5378096,
+    "seen": 1791630588.2900147,
+    "ast_hash": "1694cfcf136f03e7450f15c6e3f48b85",
+    "semantic_hash": "1694cfcf136f03e7450f15c6e3f48b85"
+  },
+  "src/components/common/UniversalValentineStage.vue": {
+    "mtime": 1791482414.62966,
+    "seen": 1791630588.2900147,
+    "ast_hash": "b54402663303e9602121db38043c2063",
+    "semantic_hash": "b54402663303e9602121db38043c2063"
+  },
+  "src/components/layout/HeaderNav.vue": {
+    "mtime": 1791631566.6327014,
+    "seen": 1791631591.7173884,
+    "ast_hash": "dd3850fcd6eafb9df43ce39e369388ec",
+    "semantic_hash": ""
+  },
+  "src/components/sections/AnatomyAccordion.vue": {
+    "mtime": 1791475759.9636095,
+    "seen": 1791630588.2900147,
+    "ast_hash": "101837e0afcfffe5471d9c8e7da0e77f",
+    "semantic_hash": "101837e0afcfffe5471d9c8e7da0e77f"
+  },
+  "src/components/sections/CapsulesSlider.vue": {
+    "mtime": 1791601503.4862702,
+    "seen": 1791630588.2900147,
+    "ast_hash": "84da46f4a357bbd129a639d2c50928f2",
+    "semantic_hash": "84da46f4a357bbd129a639d2c50928f2"
+  },
+  "src/components/sections/FooterSection.vue": {
+    "mtime": 1791475759.810302,
+    "seen": 1791630588.2900147,
+    "ast_hash": "0473236e11f57bd31ffc0e10de1eba4d",
+    "semantic_hash": "0473236e11f57bd31ffc0e10de1eba4d"
+  },
+  "src/components/sections/HeroSection.vue": {
+    "mtime": 1791601503.49528,
+    "seen": 1791630588.2900147,
+    "ast_hash": "b2d173106a63d987baf96fd81393538f",
+    "semantic_hash": "b2d173106a63d987baf96fd81393538f"
+  },
+  "src/components/sections/StatementSection.vue": {
+    "mtime": 1791601503.5047655,
+    "seen": 1791630588.2900147,
+    "ast_hash": "77ad0a9d8de207c9cc60374ebccf38b2",
+    "semantic_hash": "77ad0a9d8de207c9cc60374ebccf38b2"
+  },
+  "src/composables/useValentineStage.ts": {
+    "mtime": 1791482414.62966,
+    "seen": 1791630588.2900147,
+    "ast_hash": "0c3ee29a1f7bdb1a8107ae777ee96282",
+    "semantic_hash": "0c3ee29a1f7bdb1a8107ae777ee96282"
+  },
+  "src/lenis.ts": {
+    "mtime": 1791448320.8811758,
+    "seen": 1791630588.2900147,
+    "ast_hash": "8a791ebc2136058bb88f80fa3699275d",
+    "semantic_hash": "8a791ebc2136058bb88f80fa3699275d"
+  },
+  "src/main.ts": {
+    "mtime": 1791444446.049379,
+    "seen": 1791630588.2900147,
+    "ast_hash": "f5b4da06c8bb41e5e148c1f1869322d0",
+    "semantic_hash": "f5b4da06c8bb41e5e148c1f1869322d0"
+  },
+  "tsconfig.app.json": {
+    "mtime": 1791444766.647106,
+    "seen": 1791630588.2900147,
+    "ast_hash": "5cf5e6a23b8afee586a9d7489682bab9",
+    "semantic_hash": "5cf5e6a23b8afee586a9d7489682bab9"
+  },
+  "tsconfig.json": {
+    "mtime": 1791444446.0518496,
+    "seen": 1791630588.2900147,
+    "ast_hash": "a3d39fa780ebff65444de257f291ce6c",
+    "semantic_hash": "a3d39fa780ebff65444de257f291ce6c"
+  },
+  "tsconfig.node.json": {
+    "mtime": 1791444446.0530312,
+    "seen": 1791630588.2900147,
+    "ast_hash": "f9cb81ddcea69ffdab672fc8c48dca66",
+    "semantic_hash": "f9cb81ddcea69ffdab672fc8c48dca66"
+  },
+  "vite.config.ts": {
+    "mtime": 1791445749.7957294,
+    "seen": 1791630588.2900147,
+    "ast_hash": "c9c37b7303b9a75610834dbf914428a6",
+    "semantic_hash": "c9c37b7303b9a75610834dbf914428a6"
+  },
+  "public/videos/hero-runway.mp4": {
+    "mtime": 1791459837.4928687,
+    "seen": 1791630588.2900147,
+    "ast_hash": "2fa98851655841cd1877aa813639f57f",
+    "semantic_hash": "2fa98851655841cd1877aa813639f57f"
+  },
+  "README.md": {
+    "mtime": 1791449011.450061,
+    "seen": 1791630996.2537258,
+    "ast_hash": "8f045d39ead54f703bede6eab6ac8d99",
+    "semantic_hash": ""
+  },
+  "index.html": {
+    "mtime": 1791630949.848002,
+    "seen": 1791630996.2537258,
+    "ast_hash": "d51caa5c1e10631b7acb2e483b56d907",
+    "semantic_hash": ""
+  },
+  "public/favicon.svg": {
+    "mtime": 1791444446.03762,
+    "seen": 1791630996.2537258,
+    "ast_hash": "7e840862161341271697daa99a40d76b",
+    "semantic_hash": ""
+  },
+  "public/icons.svg": {
+    "mtime": 1791444446.0386245,
+    "seen": 1791630996.2537258,
+    "ast_hash": "3b4fcfcf393eca4d264dca4a4663bc37",
+    "semantic_hash": ""
+  },
+  "public/images/Dynamic Skybound Comic Trio.png": {
+    "mtime": 1791484313.6543822,
+    "seen": 1791630996.2537258,
+    "ast_hash": "f7951cd047b21e35edd3bb40526a958d",
+    "semantic_hash": ""
+  },
+  "public/images/Valentine Diego.jpg": {
+    "mtime": 1791484623.7040844,
+    "seen": 1791630996.2537258,
+    "ast_hash": "7b849a98b906d8787267005fbf08c725",
+    "semantic_hash": ""
+  },
+  "public/images/Valentine_Diego_sharpened.png": {
+    "mtime": 1791485232.672304,
+    "seen": 1791630996.2537258,
+    "ast_hash": "8ca77c75e207efd3298ef62acec73450",
+    "semantic_hash": ""
+  },
+  "public/images/cover-part-1.jpg": {
+    "mtime": 1791452464.3936253,
+    "seen": 1791630996.2537258,
+    "ast_hash": "87bc9186246c016e7ec9932c6538403c",
+    "semantic_hash": ""
+  },
+  "public/images/cover-part-2.jpg": {
+    "mtime": 1791452864.5885105,
+    "seen": 1791630996.2537258,
+    "ast_hash": "60d637b5838d92ca40cc09d9029b864a",
+    "semantic_hash": ""
+  },
+  "public/images/cover-part-3.jpg": {
+    "mtime": 1791452531.3763046,
+    "seen": 1791630996.2537258,
+    "ast_hash": "20e32b5cf673f9b2a43480a2051c3b7e",
+    "semantic_hash": ""
+  },
+  "public/images/cover-part-4.jpg": {
+    "mtime": 1791452625.161183,
+    "seen": 1791630996.2537258,
+    "ast_hash": "aefa792d893f4d59e0d0b43f060d370d",
+    "semantic_hash": ""
+  },
+  "public/images/cover-part-5.jpg": {
+    "mtime": 1791452754.3296797,
+    "seen": 1791630996.2537258,
+    "ast_hash": "ccc90ce52dc3a55d3781b6586ff916f2",
+    "semantic_hash": ""
+  },
+  "public/images/cover-part-6.jpg": {
+    "mtime": 1791463663.5064013,
+    "seen": 1791630996.2537258,
+    "ast_hash": "bfc7701d8e38dbdf838f6a42f26a3d19",
+    "semantic_hash": ""
+  },
+  "public/images/cover-part-7.jpg": {
+    "mtime": 1791446696.7952833,
+    "seen": 1791630996.2537258,
+    "ast_hash": "548bce437706b62c98e439ada8ec0c2b",
+    "semantic_hash": ""
+  },
+  "public/images/cover-part-8.jpg": {
+    "mtime": 1791459539.7842324,
+    "seen": 1791630996.2537258,
+    "ast_hash": "64f7f9ea091f20bc837549c97839cb57",
+    "semantic_hash": ""
+  },
+  "public/images/cover-part-9.jpg": {
+    "mtime": 1791459748.8344123,
+    "seen": 1791630996.2537258,
+    "ast_hash": "e5e6ce33fa7f3971ab2eeab9798fdbf7",
+    "semantic_hash": ""
+  },
+  "public/images/diego-brando.png": {
+    "mtime": 1791454660.6239598,
+    "seen": 1791630996.2537258,
+    "ast_hash": "49cfd57efcb23e2b4913e5d087054b2c",
+    "semantic_hash": ""
+  },
+  "public/images/flamboyant-duo.png": {
+    "mtime": 1791454853.580491,
+    "seen": 1791630996.2537258,
+    "ast_hash": "4e3ca690ca1ac288fe291daa10cb5423",
+    "semantic_hash": ""
+  },
+  "public/images/funny-valentine-alone.png": {
+    "mtime": 1791460788.3420012,
+    "seen": 1791630996.2537258,
+    "ast_hash": "ce005d328bfd013da62ef959a7d20112",
+    "semantic_hash": ""
+  },
+  "public/images/funny-valentine-stand.png": {
+    "mtime": 1791454853.580491,
+    "seen": 1791630996.2537258,
+    "ast_hash": "4e3ca690ca1ac288fe291daa10cb5423",
+    "semantic_hash": ""
+  },
+  "public/images/giorno.jpg": {
+    "mtime": 1791446860.6700492,
+    "seen": 1791630996.2537258,
+    "ast_hash": "dc2964a4553501b77a6024fb78a0b2cf",
+    "semantic_hash": ""
+  },
+  "public/images/jojo-fashion.jpg": {
+    "mtime": 1791446893.3737397,
+    "seen": 1791630996.2537258,
+    "ast_hash": "90826391b2130eb495b6713c684f1a3c",
+    "semantic_hash": ""
+  },
+  "public/images/jojo-horizontal.jpg": {
+    "mtime": 1791447776.2614543,
+    "seen": 1791630996.2537258,
+    "ast_hash": "10692f337ec914e1582d0861b491a496",
+    "semantic_hash": ""
+  },
+  "public/images/jojo-menacing.png": {
+    "mtime": 1791464212.676591,
+    "seen": 1791630996.2537258,
+    "ast_hash": "db2978867d6b627b557a7726d27e2b53",
+    "semantic_hash": ""
+  },
+  "public/images/jojo-sbr-ultra-jump.jpg": {
+    "mtime": 1791446696.7952833,
+    "seen": 1791630996.2537258,
+    "ast_hash": "548bce437706b62c98e439ada8ec0c2b",
+    "semantic_hash": ""
+  },
+  "public/images/jolyne-horizontal.jpg": {
+    "mtime": 1791452075.0578349,
+    "seen": 1791630996.2537258,
+    "ast_hash": "c6cceb95be0b4fed44d3ef6784f8d7a8",
+    "semantic_hash": ""
+  },
+  "public/images/jolyne.jpg": {
+    "mtime": 1791446919.5482504,
+    "seen": 1791630996.2537258,
+    "ast_hash": "02f57454d430979cd1f9ddf380045255",
+    "semantic_hash": ""
+  },
+  "public/images/jotaro.jpg": {
+    "mtime": 1791446879.2495496,
+    "seen": 1791630996.2537258,
+    "ast_hash": "6b8019870e2fd282087c6177082da3e9",
+    "semantic_hash": ""
+  },
+  "public/images/kira-yoshikage.jpg": {
+    "mtime": 1791446767.210432,
+    "seen": 1791630996.2537258,
+    "ast_hash": "ff8a529642fadc763bb33fea0ee8eda0",
+    "semantic_hash": ""
+  },
+  "public/images/manga-clash-cyan-beam.png": {
+    "mtime": 1791483645.6756523,
+    "seen": 1791630996.2537258,
+    "ast_hash": "027e135cec7bb503d9c91f75a6c3280b",
+    "semantic_hash": ""
+  },
+  "public/images/manga-stand-battle-on-a-roadside.png": {
+    "mtime": 1791458440.1694465,
+    "seen": 1791630996.2537258,
+    "ast_hash": "a9b6e611871759068ac22c696f2ac87e",
+    "semantic_hash": ""
+  },
+  "public/images/rohan-jojo-part5.jpg": {
+    "mtime": 1791446720.631664,
+    "seen": 1791630996.2537258,
+    "ast_hash": "4ac2b4fd378e925639071d09f8a48478",
+    "semantic_hash": ""
+  },
+  "public/images/rohan-style.jpg": {
+    "mtime": 1791446906.3811262,
+    "seen": 1791630996.2537258,
+    "ast_hash": "3cdfee68a0259cca0c788b6b6dd775ea",
+    "semantic_hash": ""
+  },
+  "src/assets/hero.png": {
+    "mtime": 1791444446.0421984,
+    "seen": 1791630996.2537258,
+    "ast_hash": "aead493361b27e7510691c5d7072dfc1",
+    "semantic_hash": ""
+  },
+  "src/assets/images/Brooding Teal JoJo-Inspired Rider with Dino Stand.png": {
+    "mtime": 1791454660.6239598,
+    "seen": 1791630996.2537258,
+    "ast_hash": "49cfd57efcb23e2b4913e5d087054b2c",
+    "semantic_hash": ""
+  },
+  "src/assets/images/Cover Part 1.jpg": {
+    "mtime": 1791452464.3936253,
+    "seen": 1791630996.2537258,
+    "ast_hash": "87bc9186246c016e7ec9932c6538403c",
+    "semantic_hash": ""
+  },
+  "src/assets/images/Cover Part 2.jpg": {
+    "mtime": 1791452864.5885105,
+    "seen": 1791630996.2537258,
+    "ast_hash": "60d637b5838d92ca40cc09d9029b864a",
+    "semantic_hash": ""
+  },
+  "src/assets/images/Cover Part 3.jpg": {
+    "mtime": 1791452531.3763046,
+    "seen": 1791630996.2537258,
+    "ast_hash": "20e32b5cf673f9b2a43480a2051c3b7e",
+    "semantic_hash": ""
+  },
+  "src/assets/images/Cover Part 4.jpg": {
+    "mtime": 1791452625.161183,
+    "seen": 1791630996.2537258,
+    "ast_hash": "aefa792d893f4d59e0d0b43f060d370d",
+    "semantic_hash": ""
+  },
+  "src/assets/images/Cover Part 5.jpg": {
+    "mtime": 1791452754.3296797,
+    "seen": 1791630996.2537258,
+    "ast_hash": "ccc90ce52dc3a55d3781b6586ff916f2",
+    "semantic_hash": ""
+  },
+  "src/assets/images/Cover Part 6.jpg": {
+    "mtime": 1791463663.5064013,
+    "seen": 1791630996.2537258,
+    "ast_hash": "bfc7701d8e38dbdf838f6a42f26a3d19",
+    "semantic_hash": ""
+  },
+  "src/assets/images/Cover Part 7.jpg": {
+    "mtime": 1791446696.7952833,
+    "seen": 1791630996.2537258,
+    "ast_hash": "548bce437706b62c98e439ada8ec0c2b",
+    "semantic_hash": ""
+  },
+  "src/assets/images/Cover Part 8.jpg": {
+    "mtime": 1791459539.7842324,
+    "seen": 1791630996.2537258,
+    "ast_hash": "64f7f9ea091f20bc837549c97839cb57",
+    "semantic_hash": ""
+  },
+  "src/assets/images/Cover Part 9.jpg": {
+    "mtime": 1791459748.8344123,
+    "seen": 1791630996.2537258,
+    "ast_hash": "e5e6ce33fa7f3971ab2eeab9798fdbf7",
+    "semantic_hash": ""
+  },
+  "src/assets/images/Dynamic Skybound Comic Trio.png": {
+    "mtime": 1791484313.6543822,
+    "seen": 1791630996.2537258,
+    "ast_hash": "f7951cd047b21e35edd3bb40526a958d",
+    "semantic_hash": ""
+  },
+  "src/assets/images/Flamboyant Duo with Cyan Alone.png": {
+    "mtime": 1791460788.3420012,
+    "seen": 1791630996.2537258,
+    "ast_hash": "ce005d328bfd013da62ef959a7d20112",
+    "semantic_hash": ""
+  },
+  "src/assets/images/Flamboyant Duo with Cyan Stand.png": {
+    "mtime": 1791454853.580491,
+    "seen": 1791630996.2537258,
+    "ast_hash": "4e3ca690ca1ac288fe291daa10cb5423",
+    "semantic_hash": ""
+  },
+  "src/assets/images/Giorno.jpg": {
+    "mtime": 1791446860.6700492,
+    "seen": 1791630996.2537258,
+    "ast_hash": "dc2964a4553501b77a6024fb78a0b2cf",
+    "semantic_hash": ""
+  },
+  "src/assets/images/Jojo SBR Ultra Jump.jpg": {
+    "mtime": 1791453509.7905123,
+    "seen": 1791630996.2537258,
+    "ast_hash": "548bce437706b62c98e439ada8ec0c2b",
+    "semantic_hash": ""
+  },
+  "src/assets/images/Jojo-Menacing-PNG-File.png": {
+    "mtime": 1791464212.676591,
+    "seen": 1791630996.2537258,
+    "ast_hash": "db2978867d6b627b557a7726d27e2b53",
+    "semantic_hash": ""
+  },
+  "src/assets/images/JojoFashion.jpg": {
+    "mtime": 1791446893.3737397,
+    "seen": 1791630996.2537258,
+    "ast_hash": "90826391b2130eb495b6713c684f1a3c",
+    "semantic_hash": ""
+  },
+  "src/assets/images/JojoHorizontal.jpg": {
+    "mtime": 1791447776.2614543,
+    "seen": 1791630996.2537258,
+    "ast_hash": "10692f337ec914e1582d0861b491a496",
+    "semantic_hash": ""
+  },
+  "src/assets/images/Jolyne Horizontal.jpg": {
+    "mtime": 1791452075.0578349,
+    "seen": 1791630996.2537258,
+    "ast_hash": "c6cceb95be0b4fed44d3ef6784f8d7a8",
+    "semantic_hash": ""
+  },
+  "src/assets/images/Jolyne.jpg": {
+    "mtime": 1791446919.5482504,
+    "seen": 1791630996.2537258,
+    "ast_hash": "02f57454d430979cd1f9ddf380045255",
+    "semantic_hash": ""
+  },
+  "src/assets/images/Jotaro.jpg": {
+    "mtime": 1791446879.2495496,
+    "seen": 1791630996.2537258,
+    "ast_hash": "6b8019870e2fd282087c6177082da3e9",
+    "semantic_hash": ""
+  },
+  "src/assets/images/Kira Yoshikage.jpg": {
+    "mtime": 1791446767.210432,
+    "seen": 1791630996.2537258,
+    "ast_hash": "ff8a529642fadc763bb33fea0ee8eda0",
+    "semantic_hash": ""
+  },
+  "src/assets/images/Manga Clash_ Cyan Beam and BAM!.png": {
+    "mtime": 1791483645.6756523,
+    "seen": 1791630996.2537258,
+    "ast_hash": "027e135cec7bb503d9c91f75a6c3280b",
+    "semantic_hash": ""
+  },
+  "src/assets/images/Manga Stand Battle on a Roadside.png": {
+    "mtime": 1791458440.1694465,
+    "seen": 1791630996.2537258,
+    "ast_hash": "a9b6e611871759068ac22c696f2ac87e",
+    "semantic_hash": ""
+  },
+  "src/assets/images/Rohan JOJO Part 5.jpg": {
+    "mtime": 1791446720.631664,
+    "seen": 1791630996.2537258,
+    "ast_hash": "4ac2b4fd378e925639071d09f8a48478",
+    "semantic_hash": ""
+  },
+  "src/assets/images/Rohan Style.jpg": {
+    "mtime": 1791446906.3811262,
+    "seen": 1791630996.2537258,
+    "ast_hash": "3cdfee68a0259cca0c788b6b6dd775ea",
+    "semantic_hash": ""
+  },
+  "src/assets/vite.svg": {
+    "mtime": 1791444446.0441935,
+    "seen": 1791630996.2537258,
+    "ast_hash": "9960a24288958394ac50e57ff638b036",
+    "semantic_hash": ""
+  },
+  "src/assets/vue.svg": {
+    "mtime": 1791444446.045782,
+    "seen": 1791630996.2537258,
+    "ast_hash": "081c348d068770af78fcd90980521318",
+    "semantic_hash": ""
+  }
+}

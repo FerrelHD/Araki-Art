@@ -68,29 +68,29 @@
         ref="paletteBtnRef"
         type="button"
         @click="toggleTheme"
-        :aria-label="isShiftMode ? 'Switch to Vintage Dijon Ochre Palette' : 'Switch to Cassis Plum Noir Palette'"
+        :aria-label="isShiftMode ? 'Switch to Gucci x Rohan Florence Palette' : 'Switch to Morioh Pop-Art 1999 Palette'"
         class="group/roll flex h-full cursor-pointer items-center gap-2 px-3 md:px-5 transition-colors hover:bg-brand-primary hover:text-brand-bg mr-14 md:mr-16 outline-none"
       >
         <span class="relative inline-grid grid-cols-1 grid-rows-1 overflow-hidden leading-[1.3] text-[0.65rem] tracking-[0.16em] uppercase font-mono font-medium">
           <span class="col-start-1 row-start-1 block whitespace-nowrap transition-transform duration-[450ms] ease-[cubic-bezier(0.65,0,0.35,1)] group-hover/roll:translate-y-full">
-            {{ isShiftMode ? 'PLUM NOIR' : 'VINTAGE DIJON' }}
+            {{ isShiftMode ? 'MORIOH 1999' : 'ROHAN FLORENCE' }}
           </span>
           <span
             aria-hidden="true"
             class="col-start-1 row-start-1 block whitespace-nowrap -translate-y-full transition-transform duration-[450ms] ease-[cubic-bezier(0.65,0,0.35,1)] group-hover/roll:translate-y-0"
           >
-            {{ isShiftMode ? 'VINTAGE DIJON' : 'PLUM NOIR' }}
+            {{ isShiftMode ? 'ROHAN FLORENCE' : 'MORIOH 1999' }}
           </span>
         </span>
-        <!-- Indicator square dot -->
+        <!-- Indicator square dot showing active accent color -->
         <span
           ref="toggleSwitchRef"
           class="relative block h-2.5 w-2.5 shrink-0 overflow-hidden border border-brand-primary transition-colors group-hover:border-brand-bg"
           aria-hidden="true"
         >
           <span
-            class="absolute inset-0 bg-brand-primary transition-transform duration-300 group-hover:bg-brand-bg"
-            :class="isShiftMode ? 'translate-x-0 bg-brand-accent' : 'translate-x-full'"
+            class="absolute inset-0 bg-brand-accent transition-all duration-300 group-hover:bg-brand-bg"
+            :class="isShiftMode ? 'rotate-90 scale-90' : 'rotate-0 scale-100'"
           ></span>
         </span>
       </button>
@@ -153,7 +153,7 @@
             class="group flex items-baseline gap-4 hover:translate-x-2 transition-transform duration-300"
           >
             <span class="text-xs md:text-sm font-mono opacity-40">0{{ i + 1 }}</span>
-            <span class="group-hover:text-amber-500 transition-colors">{{ item.label }}</span>
+            <span class="group-hover:text-brand-accent transition-colors">{{ item.label }}</span>
             <span class="text-xs font-mono tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">↗</span>
           </a>
         </nav>
@@ -231,6 +231,21 @@ const updateTimes = () => {
 
 let timer: number | null = null
 
+const applyTheme = (targetTheme: boolean) => {
+  isShiftMode.value = targetTheme
+  if (targetTheme) {
+    document.documentElement.dataset.theme = 'shift'
+    try {
+      localStorage.setItem('araki-palette', 'morioh')
+    } catch {}
+  } else {
+    delete document.documentElement.dataset.theme
+    try {
+      localStorage.setItem('araki-palette', 'rohan')
+    } catch {}
+  }
+}
+
 const toggleTheme = () => {
   if (isTransitioning.value) return
   isTransitioning.value = true
@@ -243,7 +258,6 @@ const toggleTheme = () => {
 
   if (el) {
     const rect = el.getBoundingClientRect()
-    // Exact center of the target element
     x = Math.round(rect.left + rect.width / 2)
     y = Math.round(rect.top + rect.height / 2)
   }
@@ -252,57 +266,40 @@ const toggleTheme = () => {
   const h = window.innerHeight
   const maxRadius = Math.ceil(Math.hypot(Math.max(x, w - x), Math.max(y, h - y)))
 
-  // Set CSS variables on root so CSS @keyframes circular-wipe uses the exact coordinates!
+  // Set CSS variables on root so CSS @keyframes circular-wipe uses the exact coordinates
   document.documentElement.style.setProperty('--clip-x', `${x}px`)
   document.documentElement.style.setProperty('--clip-y', `${y}px`)
   document.documentElement.style.setProperty('--clip-r', `${maxRadius}px`)
 
+  // Safety timer to guarantee toggle never gets locked indefinitely
+  const safetyTimer = window.setTimeout(() => {
+    isTransitioning.value = false
+  }, 600)
+
   // 1. Try Native View Transitions API (Full-page hardware accelerated circular wipe)
   const doc = document as any
   if (typeof doc.startViewTransition === 'function') {
-    const transition = doc.startViewTransition(() => {
-      isShiftMode.value = targetTheme
-      if (targetTheme) {
-        document.documentElement.dataset.theme = 'shift'
-      } else {
-        delete document.documentElement.dataset.theme
-      }
-    })
+    try {
+      const transition = doc.startViewTransition(() => {
+        applyTheme(targetTheme)
+      })
 
-    transition.ready
-      .then(() => {
-        try {
-          const anim = document.documentElement.animate(
-            {
-              clipPath: [
-                `circle(0px at ${x}px ${y}px)`,
-                `circle(${maxRadius}px at ${x}px ${y}px)`,
-              ],
-            },
-            {
-              duration: 480,
-              easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-              pseudoElement: '::view-transition-new(root)',
-            }
-          )
-          anim.onfinish = () => {
-            isTransitioning.value = false
-          }
-        } catch {
-          setTimeout(() => {
-            isTransitioning.value = false
-          }, 480)
-        }
-      })
-      .catch(() => {
-        isTransitioning.value = false
-      })
-    return
+      transition.finished
+        .catch(() => {})
+        .finally(() => {
+          window.clearTimeout(safetyTimer)
+          isTransitioning.value = false
+        })
+      return
+    } catch {
+      // If startViewTransition failed synchronously, fallback to GSAP
+    }
   }
 
-  // 2. GSAP Overlay Fallback
+  // 2. GSAP Overlay Fallback (for Firefox, older browsers)
   if (wipeOverlayRef.value) {
-    const targetBg = targetTheme ? '#1F0B14' : '#D1B870'
+    // Morioh Midnight: #121A28, Rohan Florence: #FAF5EE
+    const targetBg = targetTheme ? '#121A28' : '#FAF5EE'
     const overlay = wipeOverlayRef.value
     overlay.style.backgroundColor = targetBg
     overlay.style.display = 'block'
@@ -314,12 +311,7 @@ const toggleTheme = () => {
       duration: 0.48,
       ease: 'power2.inOut',
       onComplete: () => {
-        isShiftMode.value = targetTheme
-        if (targetTheme) {
-          document.documentElement.dataset.theme = 'shift'
-        } else {
-          delete document.documentElement.dataset.theme
-        }
+        applyTheme(targetTheme)
         gsap.to(overlay, {
           opacity: 0,
           duration: 0.2,
@@ -327,23 +319,36 @@ const toggleTheme = () => {
             overlay.style.display = 'none'
             overlay.style.opacity = '1'
             overlay.style.clipPath = 'circle(0px at 0px 0px)'
+            window.clearTimeout(safetyTimer)
             isTransitioning.value = false
           },
         })
       },
     })
   } else {
-    isShiftMode.value = targetTheme
-    if (targetTheme) {
-      document.documentElement.dataset.theme = 'shift'
-    } else {
-      delete document.documentElement.dataset.theme
-    }
+    applyTheme(targetTheme)
+    window.clearTimeout(safetyTimer)
     isTransitioning.value = false
   }
 }
 
 onMounted(() => {
+  // Restore persisted theme or sync with document theme
+  try {
+    const saved = localStorage.getItem('araki-palette')
+    if (saved === 'morioh') {
+      isShiftMode.value = true
+      document.documentElement.dataset.theme = 'shift'
+    } else if (saved === 'rohan') {
+      isShiftMode.value = false
+      delete document.documentElement.dataset.theme
+    } else {
+      isShiftMode.value = document.documentElement.dataset.theme === 'shift'
+    }
+  } catch {
+    isShiftMode.value = document.documentElement.dataset.theme === 'shift'
+  }
+
   updateTimes()
   timer = window.setInterval(updateTimes, 1000)
 })

@@ -10,6 +10,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+      try {
+        if (localStorage.getItem('araki-palette') === 'morioh') {
+          document.documentElement.dataset.theme = 'shift';
+        }
+      } catch (e) {}
+    </script>
   </head>
   <body class="bg-brand-bg text-brand-primary antialiased selection:bg-brand-primary selection:text-brand-bg">
     <div id="app"></div>

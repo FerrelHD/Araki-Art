@@ -26,3 +26,6 @@ dist-ssr
 
 # Raw video assets
 src/assets/videos/
+
+# Graphify Cache
+graphify-out/cache/

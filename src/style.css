@@ -13,27 +13,27 @@
 }
 
 :root {
-  /* Vintage Dijon Ochre Canvas & Deep Espresso Plum Typography (Option 1) */
-  --color-bg: #D1B870;
-  --color-primary: #2D131E;
-  --color-accent: #8E324E;
-  --color-stand: #2D131E;
-  --color-border: rgba(45, 19, 30, 0.28);
-  --color-border-subtle: rgba(45, 19, 30, 0.12);
-  --color-card-bg: #2D131E;
-  --color-card-text: #F5ECCF;
+  /* 🍊 1. "Gucci x Rohan Florence" (Aperol Tangerine & Papyrus) */
+  --color-bg: #FAF5EE;
+  --color-primary: #18181B;
+  --color-accent: #FF5E36;
+  --color-stand: #10B981;
+  --color-border: rgba(24, 24, 27, 0.20);
+  --color-border-subtle: rgba(24, 24, 27, 0.08);
+  --color-card-bg: #18181B;
+  --color-card-text: #FAF5EE;
 }
 
 [data-theme='shift'] {
-  /* Shift Mode: Inverted Cassis Plum Noir Canvas & Vintage Dijon Typography */
-  --color-bg: #1F0B14;
-  --color-primary: #D1B870;
-  --color-accent: #E2A848;
-  --color-stand: #E2A848;
-  --color-border: rgba(209, 184, 112, 0.28);
-  --color-border-subtle: rgba(209, 184, 112, 0.12);
-  --color-card-bg: #15060D;
-  --color-card-text: #D1B870;
+  /* 🍋 2. "Morioh Midnight 1999 / Pop-Art Night" (Midnight Marine & Acid Chartreuse) */
+  --color-bg: #121A28;
+  --color-primary: #F7F5EB;
+  --color-accent: #D4F024;
+  --color-stand: #8B5CF6;
+  --color-border: rgba(247, 245, 235, 0.22);
+  --color-border-subtle: rgba(247, 245, 235, 0.09);
+  --color-card-bg: #0A101A;
+  --color-card-text: #F7F5EB;
 }
 
 html {

@@ -1,0 +1,292 @@
+{
+  "communities": {
+    "0": [
+      "ref_gsap",
+      "ref_lenis",
+      "ref_vue",
+      "src_app",
+      "src_app_camerastagestyle",
+      "src_app_cameraworldref",
+      "src_app_config_isstandactive_showvalentineadjuster_lastfocusorigin_handleresetcamera",
+      "src_app_handlekeydown",
+      "src_app_herosectionref",
+      "src_app_onintrocomplete",
+      "src_app_onintrostarttransition",
+      "src_components_common_rollingtext",
+      "src_components_sections_anatomyaccordion",
+      "src_components_sections_anatomyaccordion_anatomyroot",
+      "src_components_sections_anatomyaccordion_headingref",
+      "src_components_sections_anatomyaccordion_pillar",
+      "src_components_sections_anatomyaccordion_pillars",
+      "src_components_sections_footersection",
+      "src_components_sections_footersection_footerroot",
+      "src_components_sections_footersection_scrolltotop",
+      "src_components_sections_footersection_watermarkref",
+      "src_components_sections_statementsection",
+      "src_components_sections_statementsection_bannercontainerref",
+      "src_components_sections_statementsection_bannerimgref",
+      "src_components_sections_statementsection_headingref",
+      "src_components_sections_statementsection_leftcolref",
+      "src_components_sections_statementsection_rightcolref",
+      "src_components_sections_statementsection_statementroot",
+      "src_lenis",
+      "src_lenis_gsap",
+      "src_lenis_lenis",
+      "src_lenis_scrolltrigger",
+      "src_main",
+      "src_style"
+    ],
+    "1": [
+      "src_components_sections_capsulesslider",
+      "src_components_sections_capsulesslider_activeidx",
+      "src_components_sections_capsulesslider_adjustments",
+      "src_components_sections_capsulesslider_bubblestyle",
+      "src_components_sections_capsulesslider_capsule",
+      "src_components_sections_capsulesslider_capsules",
+      "src_components_sections_capsulesslider_capsulesroot",
+      "src_components_sections_capsulesslider_config_isstandactive_ismanifesting_currentquoteidx_currentquote_handleselectvalentine_cyclequote",
+      "src_components_sections_capsulesslider_coveradjustment",
+      "src_components_sections_capsulesslider_defaultadjustments",
+      "src_components_sections_capsulesslider_flashcontainerstyle",
+      "src_components_sections_capsulesslider_getcoverstyle",
+      "src_components_sections_capsulesslider_getvalentinealonestyle",
+      "src_components_sections_capsulesslider_getvalentinestandstyle",
+      "src_components_sections_capsulesslider_gotoslide",
+      "src_components_sections_capsulesslider_handlemousedown",
+      "src_components_sections_capsulesslider_handlemouseleave",
+      "src_components_sections_capsulesslider_handlemouseup",
+      "src_components_sections_capsulesslider_handletouchend",
+      "src_components_sections_capsulesslider_handletouchstart",
+      "src_components_sections_capsulesslider_handlevalentineclick",
+      "src_components_sections_capsulesslider_handlevalentinemobiletrigger",
+      "src_components_sections_capsulesslider_headingref",
+      "src_components_sections_capsulesslider_loadsavedadjustments",
+      "src_components_sections_capsulesslider_menacingimagestyle",
+      "src_components_sections_capsulesslider_menacingstyle",
+      "src_components_sections_capsulesslider_nextslide",
+      "src_components_sections_capsulesslider_parsed",
+      "src_components_sections_capsulesslider_prevslide"
+    ],
+    "2": [
+      "src_components_common_universalvalentinestage",
+      "src_components_common_universalvalentinestage_config_isstandactive_triggerflash_showvalentineadjuster_editortab_currentquote_copysuccess_lastfocusorigin_togglestandmode_cyclequote_matchstandtoidle_resetconfig_copyconfig",
+      "src_components_common_universalvalentinestage_oncameraoriginchange",
+      "src_components_common_universalvalentinestage_resetcameraorigin",
+      "src_composables_usevalentinestage",
+      "src_composables_usevalentinestage_config",
+      "src_composables_usevalentinestage_copysuccess",
+      "src_composables_usevalentinestage_currentquote",
+      "src_composables_usevalentinestage_currentquoteidx",
+      "src_composables_usevalentinestage_defaultvalentineconfig",
+      "src_composables_usevalentinestage_editortab",
+      "src_composables_usevalentinestage_ismanifesting",
+      "src_composables_usevalentinestage_isstandactive",
+      "src_composables_usevalentinestage_lastfocusorigin",
+      "src_composables_usevalentinestage_loadsavedconfig",
+      "src_composables_usevalentinestage_rationale_167",
+      "src_composables_usevalentinestage_showvalentineadjuster",
+      "src_composables_usevalentinestage_triggerflash",
+      "src_composables_usevalentinestage_usevalentinestage",
+      "src_composables_usevalentinestage_valentineconfig",
+      "src_composables_usevalentinestage_valentinequotes"
+    ],
+    "3": [
+      "package",
+      "package_name",
+      "package_private",
+      "package_scripts",
+      "package_scripts_build",
+      "package_scripts_dev",
+      "package_scripts_preview",
+      "package_type",
+      "package_version",
+      "ref_node_url",
+      "ref_tailwindcss",
+      "ref_tailwindcss_vite",
+      "ref_types_node",
+      "ref_typescript",
+      "ref_vite",
+      "ref_vitejs_plugin_vue",
+      "ref_vue_tsc",
+      "ref_vue_tsconfig",
+      "ref_vueuse_core",
+      "vite_config"
+    ],
+    "4": [
+      "tsconfig_node",
+      "tsconfig_node_compileroptions",
+      "tsconfig_node_compileroptions_allowimportingtsextensions",
+      "tsconfig_node_compileroptions_erasablesyntaxonly",
+      "tsconfig_node_compileroptions_lib",
+      "tsconfig_node_compileroptions_module",
+      "tsconfig_node_compileroptions_moduledetection",
+      "tsconfig_node_compileroptions_noemit",
+      "tsconfig_node_compileroptions_nofallthroughcasesinswitch",
+      "tsconfig_node_compileroptions_nounusedlocals",
+      "tsconfig_node_compileroptions_nounusedparameters",
+      "tsconfig_node_compileroptions_skiplibcheck",
+      "tsconfig_node_compileroptions_target",
+      "tsconfig_node_compileroptions_tsbuildinfofile",
+      "tsconfig_node_compileroptions_types",
+      "tsconfig_node_compileroptions_verbatimmodulesyntax",
+      "tsconfig_node_include"
+    ],
+    "5": [
+      "ref_vue_tsconfig_tsconfig_dom_json",
+      "tsconfig_app",
+      "tsconfig_app_compileroptions",
+      "tsconfig_app_compileroptions_allowarbitraryextensions",
+      "tsconfig_app_compileroptions_erasablesyntaxonly",
+      "tsconfig_app_compileroptions_nofallthroughcasesinswitch",
+      "tsconfig_app_compileroptions_nounusedlocals",
+      "tsconfig_app_compileroptions_nounusedparameters",
+      "tsconfig_app_compileroptions_paths",
+      "tsconfig_app_compileroptions_tsbuildinfofile",
+      "tsconfig_app_compileroptions_types",
+      "tsconfig_app_extends",
+      "tsconfig_app_include"
+    ],
+    "6": [
+      "src_components_layout_headernav",
+      "src_components_layout_headernav_cities",
+      "src_components_layout_headernav_cityclock",
+      "src_components_layout_headernav_ismenuopen",
+      "src_components_layout_headernav_isshiftmode",
+      "src_components_layout_headernav_isstandactive",
+      "src_components_layout_headernav_istransitioning",
+      "src_components_layout_headernav_menuitems",
+      "src_components_layout_headernav_palettebtnref",
+      "src_components_layout_headernav_toggleswitchref",
+      "src_components_layout_headernav_toggletheme",
+      "src_components_layout_headernav_updatetimes",
+      "src_components_layout_headernav_wipeoverlayref"
+    ],
+    "7": [
+      "src_components_common_preloaderintro",
+      "src_components_common_preloaderintro_bottomel",
+      "src_components_common_preloaderintro_counter",
+      "src_components_common_preloaderintro_currentphase",
+      "src_components_common_preloaderintro_emit",
+      "src_components_common_preloaderintro_finishpreloader",
+      "src_components_common_preloaderintro_formattedcounter",
+      "src_components_common_preloaderintro_isfinished",
+      "src_components_common_preloaderintro_preloaderroot",
+      "src_components_common_preloaderintro_starel",
+      "src_components_common_preloaderintro_titleel",
+      "src_components_common_preloaderintro_triggercurtainreveal"
+    ],
+    "8": [
+      "src_components_sections_herosection",
+      "src_components_sections_herosection_finalizehandover",
+      "src_components_sections_herosection_heroroot",
+      "src_components_sections_herosection_playhandoverentrance",
+      "src_components_sections_herosection_playintroanimation",
+      "src_components_sections_herosection_stariconref",
+      "src_components_sections_herosection_titleref",
+      "src_components_sections_herosection_videocontainerref",
+      "src_components_sections_herosection_videoelref"
+    ],
+    "9": [
+      "package_dependencies",
+      "package_dependencies_gsap",
+      "package_dependencies_lenis",
+      "package_dependencies_tailwindcss",
+      "package_dependencies_tailwindcss_vite",
+      "package_dependencies_vue",
+      "package_dependencies_vueuse_core"
+    ],
+    "10": [
+      "package_devdependencies",
+      "package_devdependencies_types_node",
+      "package_devdependencies_typescript",
+      "package_devdependencies_vite",
+      "package_devdependencies_vitejs_plugin_vue",
+      "package_devdependencies_vue_tsc",
+      "package_devdependencies_vue_tsconfig"
+    ],
+    "11": [
+      "src_assets_hero",
+      "src_assets_vite",
+      "src_assets_vue",
+      "src_components_helloworld",
+      "src_components_helloworld_count"
+    ],
+    "12": [
+      "tsconfig",
+      "tsconfig_files",
+      "tsconfig_references"
+    ]
+  },
+  "cohesion": {
+    "0": 0.08199643493761141,
+    "1": 0.0812807881773399,
+    "2": 0.10952380952380952,
+    "3": 0.11052631578947368,
+    "4": 0.11764705882352941,
+    "5": 0.15384615384615385,
+    "6": 0.15384615384615385,
+    "7": 0.19696969696969696,
+    "8": 0.2777777777777778,
+    "9": 0.2857142857142857,
+    "10": 0.2857142857142857,
+    "11": 0.4,
+    "12": 0.6666666666666666
+  },
+  "gods": [
+    {
+      "id": "tsconfig_node_compileroptions",
+      "label": "compilerOptions",
+      "degree": 15
+    },
+    {
+      "id": "ref_vue",
+      "label": "vue",
+      "degree": 12
+    },
+    {
+      "id": "tsconfig_app_compileroptions",
+      "label": "compilerOptions",
+      "degree": 9
+    },
+    {
+      "id": "src_composables_usevalentinestage_usevalentinestage",
+      "label": "useValentineStage()",
+      "degree": 6
+    },
+    {
+      "id": "src_lenis_lenis",
+      "label": "lenis",
+      "degree": 6
+    },
+    {
+      "id": "package_scripts",
+      "label": "scripts",
+      "degree": 4
+    },
+    {
+      "id": "src_components_common_preloaderintro_triggercurtainreveal",
+      "label": "triggerCurtainReveal()",
+      "degree": 3
+    },
+    {
+      "id": "src_components_sections_capsulesslider_handletouchend",
+      "label": "handleTouchEnd()",
+      "degree": 3
+    },
+    {
+      "id": "src_components_sections_capsulesslider_handlemouseup",
+      "label": "handleMouseUp()",
+      "degree": 3
+    },
+    {
+      "id": "src_components_sections_capsulesslider_prevslide",
+      "label": "prevSlide()",
+      "degree": 3
+    }
+  ],
+  "surprises": [],
+  "tokens": {
+    "input": 0,
+    "output": 0
+  }
+}
