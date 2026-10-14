@@ -1,20 +1,8 @@
 {
-  ".vscode/extensions.json": {
-    "mtime": 1791533857.030509,
-    "seen": 1791962743.0592482,
-    "ast_hash": "886c161c2f2d9388473a64033e7d1931",
-    "semantic_hash": "886c161c2f2d9388473a64033e7d1931"
-  },
-  ".vscode/settings.json": {
-    "mtime": 1791555827.8172162,
-    "seen": 1791962743.059297,
-    "ast_hash": "337979b9b4ad0422242989ff92a1c47c",
-    "semantic_hash": ""
-  },
   "package.json": {
-    "mtime": 1791963257.0069475,
-    "seen": 1791964071.077733,
-    "ast_hash": "61662206b32188b26455e5e560656f8b",
+    "mtime": 1791974944.9488914,
+    "seen": 1791975038.0948648,
+    "ast_hash": "ce868578804d4464bec46f7985040311",
     "semantic_hash": ""
   },
   "src/App.vue": {
@@ -22,12 +10,6 @@
     "seen": 1791973202.033969,
     "ast_hash": "60ebe2def384971920dacb036b8d3338",
     "semantic_hash": ""
-  },
-  "src/components/HelloWorld.vue": {
-    "mtime": 1791533861.8338912,
-    "seen": 1791962743.0593438,
-    "ast_hash": "78d39eee950542ee8e8dd28d442988bc",
-    "semantic_hash": "78d39eee950542ee8e8dd28d442988bc"
   },
   "src/components/common/PreloaderIntro.vue": {
     "mtime": 1791533861.8344877,
@@ -60,9 +42,9 @@
     "semantic_hash": "101837e0afcfffe5471d9c8e7da0e77f"
   },
   "src/components/sections/CapsulesSlider.vue": {
-    "mtime": 1791962631.216498,
-    "seen": 1791962743.059378,
-    "ast_hash": "cf325ba5f18c215192c433843cbe9c8e",
+    "mtime": 1791975007.7296038,
+    "seen": 1791975038.094904,
+    "ast_hash": "6f128a512a93fe7c8e6ebf17083e53ff",
     "semantic_hash": ""
   },
   "src/components/sections/FooterSection.vue": {
@@ -329,190 +311,10 @@
     "ast_hash": "3cdfee68a0259cca0c788b6b6dd775ea",
     "semantic_hash": ""
   },
-  "src/assets/hero.png": {
-    "mtime": 1791533860.5344274,
-    "seen": 1791962743.059665,
-    "ast_hash": "aead493361b27e7510691c5d7072dfc1",
-    "semantic_hash": ""
-  },
-  "src/assets/images/Brooding Teal JoJo-Inspired Rider with Dino Stand.png": {
-    "mtime": 1791533860.5523129,
-    "seen": 1791962743.059669,
-    "ast_hash": "49cfd57efcb23e2b4913e5d087054b2c",
-    "semantic_hash": ""
-  },
-  "src/assets/images/Cover Part 1.jpg": {
-    "mtime": 1791533860.563914,
-    "seen": 1791962743.059673,
-    "ast_hash": "87bc9186246c016e7ec9932c6538403c",
-    "semantic_hash": ""
-  },
-  "src/assets/images/Cover Part 2.jpg": {
-    "mtime": 1791533860.6193085,
-    "seen": 1791962743.059677,
-    "ast_hash": "60d637b5838d92ca40cc09d9029b864a",
-    "semantic_hash": ""
-  },
-  "src/assets/images/Cover Part 3.jpg": {
-    "mtime": 1791533860.9004443,
-    "seen": 1791962743.059681,
-    "ast_hash": "20e32b5cf673f9b2a43480a2051c3b7e",
-    "semantic_hash": ""
-  },
-  "src/assets/images/Cover Part 4.jpg": {
-    "mtime": 1791533860.9185033,
-    "seen": 1791962743.0596852,
-    "ast_hash": "aefa792d893f4d59e0d0b43f060d370d",
-    "semantic_hash": ""
-  },
-  "src/assets/images/Cover Part 5.jpg": {
-    "mtime": 1791533861.0844495,
-    "seen": 1791962743.05969,
-    "ast_hash": "ccc90ce52dc3a55d3781b6586ff916f2",
-    "semantic_hash": ""
-  },
-  "src/assets/images/Cover Part 6.jpg": {
-    "mtime": 1791533861.1420105,
-    "seen": 1791962743.059694,
-    "ast_hash": "bfc7701d8e38dbdf838f6a42f26a3d19",
-    "semantic_hash": ""
-  },
-  "src/assets/images/Cover Part 7.jpg": {
-    "mtime": 1791533861.157471,
-    "seen": 1791962743.059697,
-    "ast_hash": "548bce437706b62c98e439ada8ec0c2b",
-    "semantic_hash": ""
-  },
-  "src/assets/images/Cover Part 8.jpg": {
-    "mtime": 1791533861.2638795,
-    "seen": 1791962743.059701,
-    "ast_hash": "64f7f9ea091f20bc837549c97839cb57",
-    "semantic_hash": ""
-  },
-  "src/assets/images/Cover Part 9.jpg": {
-    "mtime": 1791533861.3649712,
-    "seen": 1791962743.059704,
-    "ast_hash": "e5e6ce33fa7f3971ab2eeab9798fdbf7",
-    "semantic_hash": ""
-  },
-  "src/assets/images/Dynamic Skybound Comic Trio.png": {
-    "mtime": 1791533861.4569254,
-    "seen": 1791962743.0597079,
-    "ast_hash": "f7951cd047b21e35edd3bb40526a958d",
-    "semantic_hash": ""
-  },
-  "src/assets/images/Flamboyant Duo with Cyan Alone.png": {
-    "mtime": 1791533861.5106046,
-    "seen": 1791962743.059712,
-    "ast_hash": "ce005d328bfd013da62ef959a7d20112",
-    "semantic_hash": ""
-  },
-  "src/assets/images/Flamboyant Duo with Cyan Stand.png": {
-    "mtime": 1791533861.5497525,
-    "seen": 1791962743.059716,
-    "ast_hash": "4e3ca690ca1ac288fe291daa10cb5423",
-    "semantic_hash": ""
-  },
-  "src/assets/images/Giorno.jpg": {
-    "mtime": 1791533861.559731,
-    "seen": 1791962743.05972,
-    "ast_hash": "dc2964a4553501b77a6024fb78a0b2cf",
-    "semantic_hash": ""
-  },
-  "src/assets/images/Jojo SBR Ultra Jump.jpg": {
-    "mtime": 1791533861.5681372,
-    "seen": 1791962743.059723,
-    "ast_hash": "548bce437706b62c98e439ada8ec0c2b",
-    "semantic_hash": ""
-  },
-  "src/assets/images/Jojo-Menacing-PNG-File.png": {
-    "mtime": 1791533861.5720294,
-    "seen": 1791962743.0597272,
-    "ast_hash": "db2978867d6b627b557a7726d27e2b53",
-    "semantic_hash": ""
-  },
-  "src/assets/images/JojoFashion.jpg": {
-    "mtime": 1791533861.583154,
-    "seen": 1791962743.059731,
-    "ast_hash": "90826391b2130eb495b6713c684f1a3c",
-    "semantic_hash": ""
-  },
-  "src/assets/images/JojoHorizontal.jpg": {
-    "mtime": 1791533861.632602,
-    "seen": 1791962743.059734,
-    "ast_hash": "10692f337ec914e1582d0861b491a496",
-    "semantic_hash": ""
-  },
-  "src/assets/images/Jolyne Horizontal.jpg": {
-    "mtime": 1791533861.6711679,
-    "seen": 1791962743.0597382,
-    "ast_hash": "c6cceb95be0b4fed44d3ef6784f8d7a8",
-    "semantic_hash": ""
-  },
-  "src/assets/images/Jolyne.jpg": {
-    "mtime": 1791533861.6853027,
-    "seen": 1791962743.059741,
-    "ast_hash": "02f57454d430979cd1f9ddf380045255",
-    "semantic_hash": ""
-  },
-  "src/assets/images/Jotaro.jpg": {
-    "mtime": 1791533861.686864,
-    "seen": 1791962743.059745,
-    "ast_hash": "6b8019870e2fd282087c6177082da3e9",
-    "semantic_hash": ""
-  },
-  "src/assets/images/Kira Yoshikage.jpg": {
-    "mtime": 1791533861.6934404,
-    "seen": 1791962743.059762,
-    "ast_hash": "ff8a529642fadc763bb33fea0ee8eda0",
-    "semantic_hash": ""
-  },
-  "src/assets/images/Manga Clash_ Cyan Beam and BAM!.png": {
-    "mtime": 1791533861.731881,
-    "seen": 1791962743.059766,
-    "ast_hash": "027e135cec7bb503d9c91f75a6c3280b",
-    "semantic_hash": ""
-  },
-  "src/assets/images/Manga Stand Battle on a Roadside.png": {
-    "mtime": 1791533861.8036852,
-    "seen": 1791962743.05977,
-    "ast_hash": "a9b6e611871759068ac22c696f2ac87e",
-    "semantic_hash": ""
-  },
-  "src/assets/images/Rohan JOJO Part 5.jpg": {
-    "mtime": 1791533861.8210373,
-    "seen": 1791962743.059774,
-    "ast_hash": "4ac2b4fd378e925639071d09f8a48478",
-    "semantic_hash": ""
-  },
-  "src/assets/images/Rohan Style.jpg": {
-    "mtime": 1791533861.8315337,
-    "seen": 1791962743.059777,
-    "ast_hash": "3cdfee68a0259cca0c788b6b6dd775ea",
-    "semantic_hash": ""
-  },
-  "src/assets/vite.svg": {
-    "mtime": 1791533861.832764,
-    "seen": 1791962743.059781,
-    "ast_hash": "9960a24288958394ac50e57ff638b036",
-    "semantic_hash": ""
-  },
-  "src/assets/vue.svg": {
-    "mtime": 1791533861.8332574,
-    "seen": 1791962743.059785,
-    "ast_hash": "081c348d068770af78fcd90980521318",
-    "semantic_hash": ""
-  },
   "src/components/views/ProjectCaseStudyView.vue": {
     "mtime": 1791970470.3290882,
     "seen": 1791971198.593544,
     "ast_hash": "bd8d9906eec8f57743ba5e2c5542691a",
-    "semantic_hash": ""
-  },
-  "src/components/common/EditorialTiltCard.vue": {
-    "mtime": 1791963024.654663,
-    "seen": 1791963105.6758459,
-    "ast_hash": "16900ac9f057085947bdbeaf93493076",
     "semantic_hash": ""
   },
   "src/components/common/KerimovWebGLGallery.vue": {
@@ -537,6 +339,12 @@
     "mtime": 1791972727.2100694,
     "seen": 1791973202.03408,
     "ast_hash": "18606109c0617cfb0cd82f713612907e",
+    "semantic_hash": ""
+  },
+  "src/data/capsules.ts": {
+    "mtime": 1791974969.1297948,
+    "seen": 1791975038.094923,
+    "ast_hash": "300c49e323953c23b520a0fde6a70202",
     "semantic_hash": ""
   }
 }
