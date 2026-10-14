@@ -1,5 +1,27 @@
 <template>
   <div class="relative min-h-screen bg-brand-bg text-brand-primary overflow-x-hidden selection:bg-brand-primary selection:text-brand-bg">
+    <!-- ── 00. EDITORIAL RUNWAY CURTAIN TRANSITION (Between LookBook & Case Study) ── -->
+    <div
+      v-show="isCurtainActive"
+      ref="curtainRef"
+      class="fixed inset-0 z-[500] pointer-events-none flex flex-col justify-between overflow-hidden"
+    >
+      <div class="absolute inset-0 grid grid-cols-4 md:grid-cols-12 pointer-events-none z-10">
+        <div
+          v-for="i in 12"
+          :key="i"
+          class="curtain-slat h-full w-full bg-brand-primary border-r border-brand-bg/15 last:border-r-0"
+        ></div>
+      </div>
+    </div>
+
+    <!-- Cinematic 12-Slat Preloader Intro (Only on cold initial visit) -->
+    <PreloaderIntro
+      v-if="!hasCompletedIntro"
+      @start-transition="onIntroStartTransition"
+      @complete="onIntroComplete"
+    />
+
     <!-- ── 01. SPECIAL CASE STUDY VIEW (#/project/...) ── -->
     <template v-if="isProjectRoute">
       <ProjectCaseStudyView />
@@ -7,12 +29,6 @@
 
     <!-- ── 02. MAIN EDITORIAL LOOKBOOK (#/) - 100% ISOLATED VIRTUAL CAMERA STAGE ── -->
     <template v-else>
-      <!-- Cinematic 12-Slat Preloader Intro -->
-      <PreloaderIntro
-        @start-transition="onIntroStartTransition"
-        @complete="onIntroComplete"
-      />
-
       <!-- Top Fixed Header & Marquee -->
       <HeaderNav />
 
@@ -65,7 +81,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
+import { ref, computed, watch, nextTick, onMounted, onUnmounted } from 'vue'
 import PreloaderIntro from '@/components/common/PreloaderIntro.vue'
 import HeaderNav from '@/components/layout/HeaderNav.vue'
 import HeroSection from '@/components/sections/HeroSection.vue'
@@ -81,17 +97,76 @@ import { ScrollTrigger, lenis, gsap } from '@/lenis'
 // Simple Hash Router: Completely isolates the new Kerimov case study page from the LookBook camera stage
 const currentRoute = ref(typeof window !== 'undefined' ? window.location.hash || '#/' : '#/')
 const isProjectRoute = computed(() => currentRoute.value.startsWith('#/project'))
+const hasCompletedIntro = ref(isProjectRoute.value)
+
+// ── Editorial Runway Curtain Transition ──
+const isCurtainActive = ref(false)
+const curtainRef = ref<HTMLElement | null>(null)
+let isCurtainAnimating = false
+
+const playCurtainTransition = (targetRoute: string) => {
+  if (isCurtainAnimating) return
+  isCurtainAnimating = true
+  isCurtainActive.value = true
+
+  nextTick(() => {
+    const slats = curtainRef.value?.querySelectorAll('.curtain-slat')
+    if (!slats || slats.length === 0) {
+      currentRoute.value = targetRoute
+      window.scrollTo(0, 0)
+      if (lenis) lenis.scrollTo(0, { immediate: true })
+      isCurtainActive.value = false
+      isCurtainAnimating = false
+      return
+    }
+
+    const tl = gsap.timeline({
+      onComplete: () => {
+        isCurtainActive.value = false
+        isCurtainAnimating = false
+        if (!isProjectRoute.value) {
+          setTimeout(() => {
+            ScrollTrigger.refresh()
+          }, 100)
+        }
+      },
+    })
+
+    // Slat sweep down
+    tl.set(slats, { scaleY: 0, transformOrigin: 'top' })
+      .to(slats, {
+        scaleY: 1,
+        duration: 0.32,
+        stagger: 0.02,
+        ease: 'power3.inOut',
+      })
+      // Swap route & reset scroll while completely covered
+      .add(() => {
+        currentRoute.value = targetRoute
+        window.scrollTo(0, 0)
+        if (lenis) lenis.scrollTo(0, { immediate: true })
+      })
+      // Slat lift away
+      .set(slats, { transformOrigin: 'bottom' })
+      .to(slats, {
+        scaleY: 0,
+        duration: 0.32,
+        stagger: 0.02,
+        ease: 'power3.inOut',
+        delay: 0.04,
+      })
+  })
+}
 
 const updateRoute = () => {
-  currentRoute.value = window.location.hash || '#/'
-  window.scrollTo(0, 0)
-  if (lenis) {
-    lenis.scrollTo(0, { immediate: true })
-  }
-  if (!isProjectRoute.value) {
-    setTimeout(() => {
-      ScrollTrigger.refresh()
-    }, 120)
+  const newHash = window.location.hash || '#/'
+  const wasProject = currentRoute.value.startsWith('#/project')
+  const isProject = newHash.startsWith('#/project')
+
+  if (wasProject !== isProject) {
+    playCurtainTransition(newHash)
+  } else {
+    currentRoute.value = newHash
   }
 }
 
@@ -183,6 +258,7 @@ function onIntroStartTransition() {
 }
 
 function onIntroComplete() {
+  hasCompletedIntro.value = true
   ScrollTrigger.refresh()
   lenis.start()
   if (heroSectionRef.value?.finalizeHandover) {
