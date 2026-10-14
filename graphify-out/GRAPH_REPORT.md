@@ -1,17 +1,17 @@
-# Graph Report - araki-lookbook  (2026-10-10)
+# Graph Report - Araki-Art  (2026-10-14)
 
 ## Corpus Check
-- 22 files · ~3,410,441 words
+- 25 files · ~3,434,937 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 2 file(s) not represented in the graph (top: (none) 1, .css 1)
 
 ## Summary
-- 196 nodes · 245 edges · 14 communities (12 shown, 2 thin omitted)
-- Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 4 edges (avg confidence: 0.85)
+- 231 nodes · 294 edges · 15 communities (14 shown, 1 thin omitted)
+- Extraction: 97% EXTRACTED · 3% INFERRED · 0% AMBIGUOUS · INFERRED: 9 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `1f253ca6`
+- Built from commit: `2de0568e`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -26,22 +26,23 @@
 - PreloaderIntro.vue
 - HeroSection.vue
 - dependencies
-- devDependencies
-- HelloWorld.vue
+- KerimovWebGLGallery.vue
+- vue
 - tsconfig.json
 - araki.
+- EditorialTiltCard.vue
 
 ## God Nodes (most connected - your core abstractions)
-1. `compilerOptions` - 15 edges
-2. `vue` - 12 edges
+1. `vue` - 16 edges
+2. `compilerOptions` - 15 edges
 3. `compilerOptions` - 9 edges
-4. `useValentineStage()` - 6 edges
-5. `lenis` - 6 edges
+4. `lenis` - 7 edges
+5. `useValentineStage()` - 6 edges
 6. `scripts` - 4 edges
 7. `araki.` - 4 edges
-8. `triggerCurtainReveal()` - 3 edges
-9. `handleTouchEnd()` - 3 edges
-10. `handleMouseUp()` - 3 edges
+8. `emit` - 3 edges
+9. `updateAspectCover()` - 3 edges
+10. `triggerCurtainReveal()` - 3 edges
 
 ## Surprising Connections (you probably didn't know these)
 - None detected - all connections are within the same source files.
@@ -49,17 +50,17 @@
 ## Import Cycles
 - None detected.
 
-## Communities (14 total, 2 thin omitted)
+## Communities (15 total, 1 thin omitted)
 
 ### Community 0 - "App.vue"
-Cohesion: 0.08
-Nodes (20): gsap, lenis, vue, cameraStageStyle, cameraWorldRef, {
+Cohesion: 0.10
+Nodes (15): gsap, lenis, cameraStageStyle, cameraWorldRef, {
   config,
   isStandActive,
   showValentineAdjuster,
   lastFocusOrigin,
   handleResetCamera,
-}, heroSectionRef, anatomyRoot (+12 more)
+}, currentRoute, heroSectionRef, isProjectRoute (+7 more)
 
 ### Community 1 - "CapsulesSlider.vue"
 Cohesion: 0.08
@@ -92,8 +93,8 @@ Nodes (15): {
 }, config, copySuccess, currentQuote, currentQuoteIdx, defaultValentineConfig, editorTab, isManifesting (+7 more)
 
 ### Community 3 - "package.json"
-Cohesion: 0.11
-Nodes (17): name, private, scripts, build, dev, preview, type, version (+9 more)
+Cohesion: 0.08
+Nodes (25): devDependencies, @types/node, typescript, vite, @vitejs/plugin-vue, vue-tsc, @vue/tsconfig, name (+17 more)
 
 ### Community 4 - "compilerOptions"
 Cohesion: 0.12
@@ -116,36 +117,44 @@ Cohesion: 0.28
 Nodes (8): finalizeHandover(), heroRoot, playHandoverEntrance(), playIntroAnimation(), starIconRef, titleRef, videoContainerRef, videoElRef
 
 ### Community 9 - "dependencies"
-Cohesion: 0.29
-Nodes (7): dependencies, gsap, lenis, tailwindcss, @tailwindcss/vite, vue, @vueuse/core
+Cohesion: 0.22
+Nodes (9): dependencies, gsap, lenis, tailwindcss, @tailwindcss/vite, three, @types/three, vue (+1 more)
 
-### Community 10 - "devDependencies"
-Cohesion: 0.29
-Nodes (7): devDependencies, @types/node, typescript, vite, @vitejs/plugin-vue, vue-tsc, @vue/tsconfig
+### Community 10 - "KerimovWebGLGallery.vue"
+Cohesion: 0.13
+Nodes (13): three, canvasRef, GalleryItem, handleResize(), initScene(), meshList, MeshRuntime, pointer (+5 more)
+
+### Community 11 - "vue"
+Cohesion: 0.12
+Nodes (10): vue, characters, props, count, bannerContainerRef, bannerImgRef, headingRef, leftColRef (+2 more)
 
 ### Community 13 - "araki."
 Cohesion: 0.40
 Nodes (4): araki., Features, Getting Started, Tech Stack
 
+### Community 14 - "EditorialTiltCard.vue"
+Cohesion: 0.28
+Nodes (7): cardInnerRef, cardWrapperRef, emit, glareRef, handlePointerEnter(), handlePointerLeave(), mediaRef
+
 ## Knowledge Gaps
-- **7 isolated node(s):** `@vueuse/core`, `tailwindcss`, `@types/node`, `@vue/tsconfig`, `typescript` (+2 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 146 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **2 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **8 isolated node(s):** `@types/three`, `@vueuse/core`, `tailwindcss`, `@types/node`, `@vue/tsconfig` (+3 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 170 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **1 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `vue` connect `App.vue` to `CapsulesSlider.vue`, `useValentineStage.ts`, `package.json`, `HeaderNav.vue`, `PreloaderIntro.vue`, `HeroSection.vue`, `HelloWorld.vue`?**
-  _High betweenness centrality (0.290) - this node is a cross-community bridge._
-- **What connects `@vueuse/core`, `tailwindcss`, `@types/node` to the rest of the system?**
-  _7 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Why does `vue` connect `vue` to `App.vue`, `CapsulesSlider.vue`, `useValentineStage.ts`, `package.json`, `HeaderNav.vue`, `PreloaderIntro.vue`, `HeroSection.vue`, `KerimovWebGLGallery.vue`, `EditorialTiltCard.vue`?**
+  _High betweenness centrality (0.350) - this node is a cross-community bridge._
+- **What connects `@types/three`, `@vueuse/core`, `tailwindcss` to the rest of the system?**
+  _8 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `App.vue` be split into smaller, more focused modules?**
-  _Cohesion score 0.08199643493761141 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.09538461538461539 - nodes in this community are weakly interconnected._
 - **Why does `dependencies` connect `dependencies` to `package.json`?**
-  _High betweenness centrality (0.049) - this node is a cross-community bridge._
+  _High betweenness centrality (0.057) - this node is a cross-community bridge._
 - **Should `CapsulesSlider.vue` be split into smaller, more focused modules?**
   _Cohesion score 0.0812807881773399 - nodes in this community are weakly interconnected._
-- **Why does `devDependencies` connect `devDependencies` to `package.json`?**
-  _High betweenness centrality (0.049) - this node is a cross-community bridge._
 - **Should `useValentineStage.ts` be split into smaller, more focused modules?**
   _Cohesion score 0.10952380952380952 - nodes in this community are weakly interconnected._
+- **Should `package.json` be split into smaller, more focused modules?**
+  _Cohesion score 0.07671957671957672 - nodes in this community are weakly interconnected._

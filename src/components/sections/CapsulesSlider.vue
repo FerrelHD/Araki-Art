@@ -160,9 +160,7 @@
                           OFFICIAL ARCHIVE
                         </span>
                         <a
-                          :href="capsule.link"
-                          target="_blank"
-                          rel="noopener noreferrer"
+                          href="#/project/gucci-louvre"
                           class="group/roll inline-flex items-center gap-1.5 sm:gap-2 text-[0.68rem] sm:text-xs xl:text-[0.78rem] font-mono font-medium tracking-[0.16em] uppercase text-brand-card-text hover:opacity-75 transition-opacity cursor-pointer ml-auto"
                         >
                           <RollingText text="view archive" />

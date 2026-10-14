@@ -252,13 +252,20 @@ const toggleTheme = () => {
 
   const targetTheme = !isShiftMode.value
 
-  const el = toggleSwitchRef.value || paletteBtnRef.value
+  // Prioritize exact position of the color indicator switch (toggleSwitchRef)
   let x = window.innerWidth - 80
   let y = 32
 
-  if (el) {
-    const rect = el.getBoundingClientRect()
-    x = Math.round(rect.left + rect.width / 2)
+  const switchEl = toggleSwitchRef.value
+  if (switchEl) {
+    const rect = switchEl.getBoundingClientRect()
+    if (rect.width > 0 && rect.height > 0) {
+      x = Math.round(rect.left + rect.width / 2)
+      y = Math.round(rect.top + rect.height / 2)
+    }
+  } else if (paletteBtnRef.value) {
+    const rect = paletteBtnRef.value.getBoundingClientRect()
+    x = Math.round(rect.right - 24)
     y = Math.round(rect.top + rect.height / 2)
   }
 
@@ -266,7 +273,7 @@ const toggleTheme = () => {
   const h = window.innerHeight
   const maxRadius = Math.ceil(Math.hypot(Math.max(x, w - x), Math.max(y, h - y)))
 
-  // Set CSS variables on root so CSS @keyframes circular-wipe uses the exact coordinates
+  // Synchronously set CSS variables on root so CSS @keyframes circular-wipe locks to exact switch coordinates on frame 0
   document.documentElement.style.setProperty('--clip-x', `${x}px`)
   document.documentElement.style.setProperty('--clip-y', `${y}px`)
   document.documentElement.style.setProperty('--clip-r', `${maxRadius}px`)
@@ -274,15 +281,38 @@ const toggleTheme = () => {
   // Safety timer to guarantee toggle never gets locked indefinitely
   const safetyTimer = window.setTimeout(() => {
     isTransitioning.value = false
-  }, 600)
+  }, 650)
 
-  // 1. Try Native View Transitions API (Full-page hardware accelerated circular wipe)
+  // 1. Native View Transitions API (Full-page hardware accelerated circular wipe)
   const doc = document as any
   if (typeof doc.startViewTransition === 'function') {
     try {
       const transition = doc.startViewTransition(() => {
         applyTheme(targetTheme)
       })
+
+      // Drive circular clip-path reveal directly from the toggle switch coordinates
+      transition.ready
+        .then(() => {
+          try {
+            document.documentElement.animate(
+              {
+                clipPath: [
+                  `circle(0px at ${x}px ${y}px)`,
+                  `circle(${maxRadius}px at ${x}px ${y}px)`,
+                ],
+              },
+              {
+                duration: 500,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
+                pseudoElement: '::view-transition-new(root)',
+              }
+            )
+          } catch (animErr) {
+            console.warn('ViewTransition animate failed:', animErr)
+          }
+        })
+        .catch(() => {})
 
       transition.finished
         .catch(() => {})
@@ -298,33 +328,35 @@ const toggleTheme = () => {
 
   // 2. GSAP Overlay Fallback (for Firefox, older browsers)
   if (wipeOverlayRef.value) {
-    // Morioh Midnight: #121A28, Rohan Florence: #FAF5EE
     const targetBg = targetTheme ? '#121A28' : '#FAF5EE'
     const overlay = wipeOverlayRef.value
     overlay.style.backgroundColor = targetBg
     overlay.style.display = 'block'
     overlay.style.opacity = '1'
-    overlay.style.clipPath = `circle(0px at ${x}px ${y}px)`
 
-    gsap.to(overlay, {
-      clipPath: `circle(${maxRadius}px at ${x}px ${y}px)`,
-      duration: 0.48,
-      ease: 'power2.inOut',
-      onComplete: () => {
-        applyTheme(targetTheme)
-        gsap.to(overlay, {
-          opacity: 0,
-          duration: 0.2,
-          onComplete: () => {
-            overlay.style.display = 'none'
-            overlay.style.opacity = '1'
-            overlay.style.clipPath = 'circle(0px at 0px 0px)'
-            window.clearTimeout(safetyTimer)
-            isTransitioning.value = false
-          },
-        })
-      },
-    })
+    gsap.fromTo(
+      overlay,
+      { clipPath: `circle(0px at ${x}px ${y}px)` },
+      {
+        clipPath: `circle(${maxRadius}px at ${x}px ${y}px)`,
+        duration: 0.48,
+        ease: 'power2.out',
+        onComplete: () => {
+          applyTheme(targetTheme)
+          gsap.to(overlay, {
+            opacity: 0,
+            duration: 0.18,
+            onComplete: () => {
+              overlay.style.display = 'none'
+              overlay.style.opacity = '1'
+              overlay.style.clipPath = 'circle(0px at 0px 0px)'
+              window.clearTimeout(safetyTimer)
+              isTransitioning.value = false
+            },
+          })
+        },
+      }
+    )
   } else {
     applyTheme(targetTheme)
     window.clearTimeout(safetyTimer)

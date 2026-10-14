@@ -1,60 +1,66 @@
 <template>
   <div class="relative min-h-screen bg-brand-bg text-brand-primary overflow-x-hidden selection:bg-brand-primary selection:text-brand-bg">
-    <!-- Cinematic 12-Slat Preloader Intro -->
-    <PreloaderIntro
-      @start-transition="onIntroStartTransition"
-      @complete="onIntroComplete"
-    />
+    <!-- ── 01. SPECIAL CASE STUDY VIEW (#/project/...) ── -->
+    <template v-if="isProjectRoute">
+      <ProjectCaseStudyView />
+    </template>
 
-
-    <!-- Top Fixed Header & Marquee -->
-    <HeaderNav />
-
-
-    <!-- ── VIRTUAL 2.5D CAMERA STAGE (EXACT PERSONA 5 / SKILLSSCREEN ARCHITECTURE) ── -->
-    <div
-      id="camera-world"
-      ref="cameraWorldRef"
-      class="relative w-full select-none will-change-transform"
-      :style="cameraStageStyle"
-    >
-      <!-- Ambient Dark Dim Overlay (active when zoomed in, clickable to reset) -->
-      <div
-        @click="handleResetCamera"
-        class="fixed inset-0 bg-black/60 transition-opacity duration-700 z-20"
-        :class="isStandActive ? 'opacity-100 pointer-events-auto cursor-pointer' : 'opacity-0 pointer-events-none'"
+    <!-- ── 02. MAIN EDITORIAL LOOKBOOK (#/) - 100% ISOLATED VIRTUAL CAMERA STAGE ── -->
+    <template v-else>
+      <!-- Cinematic 12-Slat Preloader Intro -->
+      <PreloaderIntro
+        @start-transition="onIntroStartTransition"
+        @complete="onIntroComplete"
       />
 
-      <!-- Main Content Area -->
-      <main class="relative pt-14 md:pt-16">
-        <!-- 01 Hero Section -->
-        <HeroSection
-          ref="heroSectionRef"
-          :class="isStandActive ? 'opacity-20 pointer-events-none transition-opacity duration-600' : 'opacity-100 transition-opacity duration-600'"
+      <!-- Top Fixed Header & Marquee -->
+      <HeaderNav />
+
+      <!-- ── VIRTUAL 2.5D CAMERA STAGE (EXACT PERSONA 5 / SKILLSSCREEN ARCHITECTURE) ── -->
+      <div
+        id="camera-world"
+        ref="cameraWorldRef"
+        class="relative w-full select-none will-change-transform"
+        :style="cameraStageStyle"
+      >
+        <!-- Ambient Dark Dim Overlay (active when zoomed in, clickable to reset) -->
+        <div
+          @click="handleResetCamera"
+          class="fixed inset-0 bg-black/60 transition-opacity duration-700 z-20"
+          :class="isStandActive ? 'opacity-100 pointer-events-auto cursor-pointer' : 'opacity-0 pointer-events-none'"
         />
 
-        <!-- 02 Statement / Aesthetic Thesis -->
-        <StatementSection
-          :class="isStandActive ? 'opacity-20 pointer-events-none transition-opacity duration-600' : 'opacity-100 transition-opacity duration-600'"
-        />
+        <!-- Main Content Area -->
+        <main class="relative pt-14 md:pt-16">
+          <!-- 01 Hero Section -->
+          <HeroSection
+            ref="heroSectionRef"
+            :class="isStandActive ? 'opacity-20 pointer-events-none transition-opacity duration-600' : 'opacity-100 transition-opacity duration-600'"
+          />
 
-        <!-- 03 Selected Capsules (Mijobello Slider + Funny Valentine) -->
-        <CapsulesSlider />
+          <!-- 02 Statement / Aesthetic Thesis -->
+          <StatementSection
+            :class="isStandActive ? 'opacity-20 pointer-events-none transition-opacity duration-600' : 'opacity-100 transition-opacity duration-600'"
+          />
 
-        <!-- 04 Anatomy (Mijobello Expanding Accordion) -->
-        <AnatomyAccordion
-          :class="isStandActive ? 'opacity-20 pointer-events-none transition-opacity duration-600' : 'opacity-100 transition-opacity duration-600'"
-        />
-      </main>
-    </div>
+          <!-- 03 Selected Capsules (Mijobello Slider + Funny Valentine) -->
+          <CapsulesSlider />
 
-    <!-- 05 Footer & Monumental Watermark -->
-    <FooterSection
-      :class="isStandActive ? 'opacity-20 pointer-events-none transition-opacity duration-600' : 'opacity-100 transition-opacity duration-600'"
-    />
+          <!-- 04 Anatomy (Mijobello Expanding Accordion) -->
+          <AnatomyAccordion
+            :class="isStandActive ? 'opacity-20 pointer-events-none transition-opacity duration-600' : 'opacity-100 transition-opacity duration-600'"
+          />
+        </main>
+      </div>
 
-    <!-- Tactical Position Calibrator Drawer (Shift + C / button) -->
-    <UniversalValentineStage />
+      <!-- 05 Footer & Monumental Watermark -->
+      <FooterSection
+        :class="isStandActive ? 'opacity-20 pointer-events-none transition-opacity duration-600' : 'opacity-100 transition-opacity duration-600'"
+      />
+
+      <!-- Tactical Position Calibrator Drawer (Shift + C / button) -->
+      <UniversalValentineStage />
+    </template>
   </div>
 </template>
 
@@ -68,8 +74,26 @@ import CapsulesSlider from '@/components/sections/CapsulesSlider.vue'
 import AnatomyAccordion from '@/components/sections/AnatomyAccordion.vue'
 import FooterSection from '@/components/sections/FooterSection.vue'
 import UniversalValentineStage from '@/components/common/UniversalValentineStage.vue'
+import ProjectCaseStudyView from '@/components/views/ProjectCaseStudyView.vue'
 import { useValentineStage } from '@/composables/useValentineStage'
 import { ScrollTrigger, lenis, gsap } from '@/lenis'
+
+// Simple Hash Router: Completely isolates the new Kerimov case study page from the LookBook camera stage
+const currentRoute = ref(typeof window !== 'undefined' ? window.location.hash || '#/' : '#/')
+const isProjectRoute = computed(() => currentRoute.value.startsWith('#/project'))
+
+const updateRoute = () => {
+  currentRoute.value = window.location.hash || '#/'
+  window.scrollTo(0, 0)
+  if (lenis) {
+    lenis.scrollTo(0, { immediate: true })
+  }
+  if (!isProjectRoute.value) {
+    setTimeout(() => {
+      ScrollTrigger.refresh()
+    }, 120)
+  }
+}
 
 const heroSectionRef = ref<any>(null)
 const cameraWorldRef = ref<HTMLElement | null>(null)
@@ -185,10 +209,12 @@ const handleKeyDown = (e: KeyboardEvent) => {
 
 onMounted(() => {
   window.addEventListener('keydown', handleKeyDown)
+  window.addEventListener('hashchange', updateRoute)
 })
 
 onUnmounted(() => {
   window.removeEventListener('keydown', handleKeyDown)
+  window.removeEventListener('hashchange', updateRoute)
   if (cameraTween) {
     cameraTween.kill()
   }
