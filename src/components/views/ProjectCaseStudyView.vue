@@ -109,7 +109,7 @@
         </div>
 
         <!-- Right: Exhibition Milestones Index Cards (4 Cols) -->
-        <div class="lg:col-span-4 border-l border-grid pl-6 space-y-4">
+        <div class="lg:col-span-4 border-t lg:border-t-0 lg:border-l border-grid pt-8 lg:pt-0 pl-0 lg:pl-6 space-y-4">
           <div class="flex items-center justify-between border-b border-grid pb-2">
             <p class="font-mono text-xs font-bold tracking-widest uppercase opacity-100">// EXHIBITION MILESTONES</p>
             <span class="font-mono text-[0.6rem] opacity-40">[4 ENTRIES]</span>

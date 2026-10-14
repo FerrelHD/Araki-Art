@@ -6,10 +6,10 @@
     <!-- Col 1-3: Wordmark Logo -->
     <a
       href="#"
-      class="col-span-2 md:col-span-3 flex items-center justify-between border-r border-grid px-4 md:px-6 font-bold tracking-[-0.06em] transition-colors hover:opacity-80"
+      class="col-span-2 md:col-span-3 flex items-center justify-between border-r border-grid px-3 sm:px-4 md:px-6 font-bold tracking-[-0.06em] transition-colors hover:opacity-80"
     >
       <div class="flex items-center gap-2">
-        <span class="text-2xl md:text-3xl leading-none">araki.</span>
+        <span class="text-xl sm:text-2xl md:text-3xl leading-none">araki.</span>
       </div>
     </a>
 
@@ -69,23 +69,25 @@
         type="button"
         @click="toggleTheme"
         :aria-label="isShiftMode ? 'Switch to Gucci x Rohan Florence Palette' : 'Switch to Morioh Pop-Art 1999 Palette'"
-        class="group/roll flex h-full cursor-pointer items-center gap-2 px-3 md:px-5 transition-colors hover:bg-brand-primary hover:text-brand-bg mr-14 md:mr-16 outline-none"
+        class="group/roll flex h-full cursor-pointer items-center gap-1.5 sm:gap-2 px-2 sm:px-3 md:px-5 transition-colors hover:bg-brand-primary hover:text-brand-bg mr-14 md:mr-16 outline-none"
       >
-        <span class="relative inline-grid grid-cols-1 grid-rows-1 overflow-hidden leading-[1.3] text-[0.65rem] tracking-[0.16em] uppercase font-mono font-medium">
+        <span class="relative inline-grid grid-cols-1 grid-rows-1 overflow-hidden leading-[1.3] text-[0.6rem] sm:text-[0.65rem] tracking-[0.14em] sm:tracking-[0.16em] uppercase font-mono font-medium">
           <span class="col-start-1 row-start-1 block whitespace-nowrap transition-transform duration-[450ms] ease-[cubic-bezier(0.65,0,0.35,1)] group-hover/roll:translate-y-full">
-            {{ isShiftMode ? 'MORIOH 1999' : 'ROHAN FLORENCE' }}
+            <span class="hidden sm:inline">{{ isShiftMode ? 'MORIOH 1999' : 'ROHAN FLORENCE' }}</span>
+            <span class="sm:hidden">{{ isShiftMode ? 'MORIOH' : 'ROHAN' }}</span>
           </span>
           <span
             aria-hidden="true"
             class="col-start-1 row-start-1 block whitespace-nowrap -translate-y-full transition-transform duration-[450ms] ease-[cubic-bezier(0.65,0,0.35,1)] group-hover/roll:translate-y-0"
           >
-            {{ isShiftMode ? 'ROHAN FLORENCE' : 'MORIOH 1999' }}
+            <span class="hidden sm:inline">{{ isShiftMode ? 'ROHAN FLORENCE' : 'MORIOH 1999' }}</span>
+            <span class="sm:hidden">{{ isShiftMode ? 'ROHAN' : 'MORIOH' }}</span>
           </span>
         </span>
         <!-- Indicator square dot showing active accent color -->
         <span
           ref="toggleSwitchRef"
-          class="relative block h-2.5 w-2.5 shrink-0 overflow-hidden border border-brand-primary transition-colors group-hover:border-brand-bg"
+          class="relative block h-2 sm:h-2.5 w-2 sm:w-2.5 shrink-0 overflow-hidden border border-brand-primary transition-colors group-hover:border-brand-bg"
           aria-hidden="true"
         >
           <span
@@ -132,7 +134,7 @@
   >
     <div
       v-if="isMenuOpen"
-      class="fixed inset-0 z-40 bg-brand-bg/98 backdrop-blur-md pt-20 px-6 md:px-16 flex flex-col justify-between pb-12"
+      class="fixed inset-0 z-40 bg-brand-bg/98 backdrop-blur-md pt-20 px-6 md:px-16 flex flex-col justify-between pb-12 overflow-y-auto no-scrollbar"
     >
       <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mt-8 border-t border-grid pt-10">
         <div class="md:col-span-4">

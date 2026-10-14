@@ -27,19 +27,19 @@
     <nav class="grid grid-cols-1 md:grid-cols-3 border-b border-brand-bg/25">
       <a
         href="#hero"
-        class="group/roll flex items-center justify-center border-b md:border-b-0 md:border-r border-brand-bg/25 p-4 py-8 md:py-12 text-lg md:text-xl font-mono tracking-[0.14em] uppercase transition-colors hover:bg-brand-bg hover:text-brand-primary"
+        class="group/roll flex items-center justify-center border-b md:border-b-0 md:border-r border-brand-bg/25 p-3 py-5 sm:py-8 md:py-12 text-base sm:text-lg md:text-xl font-mono tracking-[0.14em] uppercase transition-colors hover:bg-brand-bg hover:text-brand-primary"
       >
         <RollingText text="the opening" />
       </a>
       <a
         href="#capsules"
-        class="group/roll flex items-center justify-center border-b md:border-b-0 md:border-r border-brand-bg/25 p-4 py-8 md:py-12 text-lg md:text-xl font-mono tracking-[0.14em] uppercase transition-colors hover:bg-brand-bg hover:text-brand-primary"
+        class="group/roll flex items-center justify-center border-b md:border-b-0 md:border-r border-brand-bg/25 p-3 py-5 sm:py-8 md:py-12 text-base sm:text-lg md:text-xl font-mono tracking-[0.14em] uppercase transition-colors hover:bg-brand-bg hover:text-brand-primary"
       >
         <RollingText text="capsules" />
       </a>
       <a
         href="#anatomy"
-        class="group/roll flex items-center justify-center p-4 py-8 md:py-12 text-lg md:text-xl font-mono tracking-[0.14em] uppercase transition-colors hover:bg-brand-bg hover:text-brand-primary"
+        class="group/roll flex items-center justify-center p-3 py-5 sm:py-8 md:py-12 text-base sm:text-lg md:text-xl font-mono tracking-[0.14em] uppercase transition-colors hover:bg-brand-bg hover:text-brand-primary"
       >
         <RollingText text="anatomy" />
       </a>

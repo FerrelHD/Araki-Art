@@ -2,7 +2,7 @@
   <!-- TACTICAL POSITION & CAMERA CALIBRATOR DRAWER (ACCESSIBLE VIA SHIFT + C OR BUTTON) -->
   <div
     v-if="showValentineAdjuster"
-    class="fixed bottom-4 right-4 z-[9995] w-[340px] sm:w-[380px] bg-neutral-950/95 text-neutral-100 border border-neutral-700 shadow-2xl backdrop-blur-md p-4 font-mono text-xs select-none max-h-[88vh] overflow-y-auto no-scrollbar"
+    class="fixed bottom-2 right-2 sm:bottom-4 sm:right-4 z-[9995] w-[calc(100vw-1rem)] sm:w-[380px] max-w-[380px] bg-neutral-950/95 text-neutral-100 border border-neutral-700 shadow-2xl backdrop-blur-md p-3 sm:p-4 font-mono text-xs select-none max-h-[88vh] overflow-y-auto no-scrollbar"
   >
     <!-- Panel Header -->
     <div class="flex items-center justify-between pb-2.5 border-b border-neutral-800">

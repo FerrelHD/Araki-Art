@@ -2,7 +2,7 @@
   <section
     id="capsules"
     ref="capsulesRoot"
-    class="border-b border-grid text-brand-primary overflow-visible relative z-30 h-screen max-h-screen flex flex-col justify-between"
+    class="border-b border-grid text-brand-primary overflow-visible relative z-30 min-h-[100dvh] md:h-screen md:max-h-screen flex flex-col justify-between"
   >
     <div class="grid grid-cols-4 md:grid-cols-12 flex-1 min-h-0 overflow-visible relative z-20">
       <!-- 10 Columns Centered Container -->
@@ -59,7 +59,7 @@
               
               <!-- Left Vertical Thumbnail Strip (Hover to switch 9 Parts, compact flex-1) -->
               <div
-                class="flex w-12 sm:w-14 md:w-16 shrink-0 flex-col border-r border-grid select-none overflow-hidden h-full"
+                class="flex w-10 sm:w-14 md:w-16 shrink-0 flex-col border-r border-grid select-none overflow-hidden h-full"
               >
                 <button
                   v-for="(_, idx) in capsules"
@@ -117,7 +117,7 @@
 
                     <!-- SISI KANAN: Capsule Information Panel (Gaya A: Dark Editorial, Clean, Breathing Room) -->
                     <div
-                      class="capsule-info-panel flex-1 bg-brand-card-bg text-brand-card-text p-4 sm:p-5 lg:p-5 xl:p-7 2xl:p-8 flex flex-col justify-between min-h-0 overflow-y-auto no-scrollbar border-l border-grid transition-colors duration-500"
+                      class="capsule-info-panel flex-1 bg-brand-card-bg text-brand-card-text p-3 sm:p-5 lg:p-5 xl:p-7 2xl:p-8 flex flex-col justify-between min-h-0 overflow-y-auto no-scrollbar border-l border-grid transition-colors duration-500"
                     >
                       <!-- Bagian Atas: Metadata, Judul, Kategori & Sinopsis dengan Spasi Bernapas -->
                       <div class="flex flex-col gap-2 sm:gap-2.5 lg:gap-2.5 xl:gap-3.5">
@@ -129,7 +129,7 @@
                         </div>
 
                         <!-- Judul Part (Clean Display Typography) -->
-                        <h3 class="capsule-title text-lg sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-bold tracking-tight leading-[1.15] text-brand-card-text">
+                        <h3 class="capsule-title text-base sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-bold tracking-tight leading-[1.15] text-brand-card-text">
                           {{ capsule.title }}
                         </h3>
 
@@ -139,7 +139,7 @@
                         </p>
 
                         <!-- Sinopsis Editorial dengan Breathing Room Lega -->
-                        <p class="capsule-summary text-xs sm:text-[0.82rem] md:text-sm lg:text-[0.82rem] xl:text-sm leading-relaxed opacity-85 font-sans font-light max-w-[42ch]">
+                        <p class="capsule-summary text-[0.72rem] sm:text-[0.82rem] md:text-sm lg:text-[0.82rem] xl:text-sm leading-relaxed opacity-85 font-sans font-light max-w-[42ch]">
                           {{ capsule.summary }}
                         </p>
 

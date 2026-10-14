@@ -72,29 +72,29 @@
       <!-- 3 Cols: Vertical Disciplines List -->
       <ul
         ref="disciplinesRef"
-        class="col-span-3 md:col-span-3 border-t md:border-t-0 md:border-l border-grid p-4 md:p-6 flex flex-col justify-end gap-1.5 text-base md:text-lg lg:text-xl font-medium tracking-tight leading-snug"
+        class="col-span-3 md:col-span-3 border-t md:border-t-0 md:border-l border-grid p-3 sm:p-4 md:p-6 flex flex-col justify-end gap-1 sm:gap-1.5 text-xs sm:text-base md:text-lg lg:text-xl font-medium tracking-tight leading-snug"
       >
         <li class="discipline-item flex items-center gap-2">
-          <span class="text-xs font-mono opacity-40">01</span>
+          <span class="text-[0.65rem] sm:text-xs font-mono opacity-40">01</span>
           <span>Manga Iconoclast</span>
         </li>
         <li class="discipline-item flex items-center gap-2">
-          <span class="text-xs font-mono opacity-40">02</span>
+          <span class="text-[0.65rem] sm:text-xs font-mono opacity-40">02</span>
           <span>Haute Couture Collaborator</span>
         </li>
         <li class="discipline-item flex items-center gap-2">
-          <span class="text-xs font-mono opacity-40">03</span>
+          <span class="text-[0.65rem] sm:text-xs font-mono opacity-40">03</span>
           <span>Musée du Louvre Exhibitor</span>
         </li>
       </ul>
 
       <!-- 2 Cols: Star Birthmark Emblem -->
       <div
-        class="col-span-1 md:col-span-2 border-t md:border-t-0 md:border-l border-grid p-4 flex items-center justify-center group"
+        class="col-span-1 md:col-span-2 border-t md:border-t-0 md:border-l border-grid p-2 sm:p-4 flex items-center justify-center group overflow-hidden"
       >
         <div
           id="hero-star-slot"
-          class="relative w-16 h-16 md:w-20 md:h-20 flex items-center justify-center"
+          class="relative w-10 h-10 sm:w-14 sm:h-14 md:w-20 md:h-20 flex items-center justify-center"
         >
           <!-- JoJo Star Birthmark Emblem (SVG) -->
           <svg

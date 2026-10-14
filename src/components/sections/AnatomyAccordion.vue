@@ -35,30 +35,30 @@
       >
         <!-- Col 1: Number Tabular Num -->
         <span
-          class="col-span-1 p-4 md:p-6 flex items-start tabular-nums opacity-60 text-xs md:text-sm font-mono tracking-[0.18em]"
+          class="col-span-1 p-3 sm:p-4 md:p-6 flex items-start tabular-nums opacity-60 text-xs md:text-sm font-mono tracking-[0.18em]"
         >
           {{ item.num }}
         </span>
 
         <!-- Col 2-7: Pillar Title -->
         <h3
-          class="col-span-3 md:col-span-6 border-l border-grid md:border-r p-4 md:p-6 flex items-center text-2xl sm:text-3xl md:text-4xl font-semibold tracking-[-0.03em] lowercase"
+          class="col-span-3 md:col-span-6 border-l border-grid md:border-r p-3 sm:p-4 md:p-6 flex items-center text-xl sm:text-2xl md:text-4xl font-semibold tracking-[-0.03em] lowercase"
         >
           {{ item.title }}
         </h3>
 
         <!-- Col 8-9: Deliverables / Attributes List -->
         <ul
-          class="col-span-3 col-start-2 md:col-span-2 md:col-start-auto border-l border-grid md:border-r md:border-l-0 p-4 md:p-6 flex flex-col justify-center gap-1.5 text-[0.68rem] font-mono tracking-[0.16em] uppercase opacity-80"
+          class="col-span-4 md:col-span-2 md:col-start-auto border-t md:border-t-0 md:border-r border-grid p-3 sm:p-4 md:p-6 flex flex-row flex-wrap md:flex-col justify-start md:justify-center gap-x-2.5 gap-y-1 sm:gap-1.5 text-[0.62rem] sm:text-[0.68rem] font-mono tracking-[0.14em] sm:tracking-[0.16em] uppercase opacity-80"
         >
           <li v-for="(sub, sIdx) in item.tags" :key="sIdx">
-            {{ sub }}
+            {{ sub }}<span class="inline md:hidden ml-2 opacity-30 last:hidden">/</span>
           </li>
         </ul>
 
         <!-- Col 10-12: Media Container that zooms / reveals on hover -->
         <div
-          class="accordion-media-wrapper relative col-span-4 h-48 md:h-auto md:col-span-3 overflow-hidden bg-black/10"
+          class="accordion-media-wrapper relative col-span-4 h-40 sm:h-52 md:h-auto md:col-span-3 border-t md:border-t-0 border-grid overflow-hidden bg-black/10"
         >
           <div
             class="accordion-media-inner absolute inset-0 -translate-y-[4%] scale-110 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-0 group-hover:scale-100"
@@ -66,7 +66,7 @@
             <img
               :src="item.image"
               :alt="item.title"
-              class="h-full w-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 transition-all duration-700"
+              class="h-full w-full object-cover filter grayscale-0 sm:grayscale contrast-110 sm:contrast-125 sm:group-hover:grayscale-0 sm:group-hover:contrast-100 transition-all duration-700"
               :style="{ objectPosition: item.objectPosition }"
             />
           </div>
