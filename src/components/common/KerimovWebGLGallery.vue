@@ -1,5 +1,5 @@
 <template>
-  <div class="pointer-events-none fixed inset-0 z-10 overflow-hidden" aria-hidden="true">
+  <div class="pointer-events-none fixed inset-0 z-30 overflow-hidden" aria-hidden="true">
     <canvas ref="canvasRef" class="w-full h-full block" />
   </div>
 </template>
@@ -32,33 +32,22 @@ interface MeshRuntime {
   mesh: THREE.Mesh<THREE.PlaneGeometry, THREE.ShaderMaterial>
   material: THREE.ShaderMaterial
   texture: THREE.Texture
-
-  // Interaction state
-  targetPointer: THREE.Vector2
-  smoothedPointer: THREE.Vector2
-  deltaVel: THREE.Vector2
-  deltaSpring: THREE.Vector2
-  hoverFactor: number
 }
 
 const meshList: MeshRuntime[] = []
-let hoveredIndex: number | null = null
-const pointer = { x: -9999, y: -9999, active: false }
 
-// Global scroll bend physics
+// Global scroll bend physics (scroll velocity wave)
 let lastScrollY = typeof window !== 'undefined' ? window.scrollY : 0
-let scrollBendVel = 0
-let scrollBend = 0
+const scrollBend = new THREE.Vector2(0, 0)
+const scrollBendVel = new THREE.Vector2(0, 0)
 let lastTime = 0
 
-// ── 01. 3D PERSPECTIVE TILT + CLOTH WAVE VERTEX SHADER ──
+// ── 01. SCROLL-ONLY CLOTH WAVE VERTEX SHADER (NO HOVER) ──
 const vertexShader = `
   precision highp float;
 
   varying vec2 vUv;
-  uniform vec2 uPointer;
   uniform vec2 uDelta;
-  uniform float uHover;
 
   const float PI = 3.141592653589793238;
 
@@ -67,27 +56,9 @@ const vertexShader = `
 
     vec3 newPosition = position;
 
-    // UV centered (-0.5 to 0.5)
-    vec2 p = uv - 0.5;
-
-    // 1. True 3D perspective surface tilt towards cursor
-    float tiltX = (uPointer.y - 0.5) * uHover;
-    float tiltY = (uPointer.x - 0.5) * uHover;
-    float depthZ = (p.x * tiltY - p.y * tiltX) * 0.38;
-    newPosition.z += depthZ;
-
-    // Perspective foreshortening: tilted edge expands, opposite edge contracts
-    float perspective = 1.0 + newPosition.z * 0.45;
-    newPosition.xy *= perspective;
-
-    // 2. Cloth wave bend on mouse velocity & scroll inertia
+    // Pure cloth wave bend responding only to scroll velocity & inertia
     newPosition.x += sin(uv.y * PI) * uDelta.x;
     newPosition.y += sin(uv.x * PI) * uDelta.y;
-
-    // 3. Fluid surface bulge towards cursor
-    float dist = distance(uv, uPointer);
-    float bulge = sin(clamp(1.0 - dist * 1.5, 0.0, 1.0) * 1.57079) * 0.07 * uHover;
-    newPosition.z += bulge;
 
     gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
   }
@@ -116,49 +87,16 @@ const fragmentShader = `
 `
 
 function updateAspectCover(
-  texture: THREE.Texture,
-  containerW: number,
-  containerH: number,
+  _texture: THREE.Texture,
+  _containerW: number,
+  _containerH: number,
   uUvScale: THREE.Vector2,
   uUvOffset: THREE.Vector2,
-  objectPosition: 'top' | 'center' | 'bottom' = 'center'
+  _objectPosition: 'top' | 'center' | 'bottom' = 'center'
 ) {
-  const img = texture.image
-  if (!img) {
-    uUvScale.set(1, 1)
-    uUvOffset.set(0, 0)
-    return
-  }
-
-  const el = img as any
-  const imgW = el.naturalWidth || el.width || 1
-  const imgH = el.naturalHeight || el.height || 1
-
-  const imgRatio = imgW / imgH
-  const containerRatio = containerW / containerH
-
-  // If container ratio matches image ratio within subpixel margin, display 100% full image with 0 crop
-  if (Math.abs(imgRatio - containerRatio) < 0.02) {
-    uUvScale.set(1, 1)
-    uUvOffset.set(0, 0)
-    return
-  }
-
-  if (imgRatio > containerRatio) {
-    const scale = containerRatio / imgRatio
-    uUvScale.set(scale, 1)
-    uUvOffset.set((1 - scale) / 2, 0)
-  } else {
-    const scale = imgRatio / containerRatio
-    uUvScale.set(1, scale)
-    if (objectPosition === 'top') {
-      uUvOffset.set(0, 1 - scale)
-    } else if (objectPosition === 'bottom') {
-      uUvOffset.set(0, 0)
-    } else {
-      uUvOffset.set(0, (1 - scale) / 2)
-    }
-  }
+  // Always 100% full image without any texture cropping (zero crop)
+  uUvScale.set(1, 1)
+  uUvOffset.set(0, 0)
 }
 
 function initScene() {
@@ -210,6 +148,12 @@ function initScene() {
 
       const rect = anchor.getBoundingClientRect()
       updateAspectCover(t, rect.width, rect.height, uUvScale, uUvOffset, item.objectPosition)
+
+      // Once WebGL texture is ready, transition DOM image so WebGL canvas handles the wave
+      const domImg = anchor.querySelector('img')
+      if (domImg) {
+        domImg.style.opacity = '0'
+      }
     })
 
     const material = new THREE.ShaderMaterial({
@@ -221,8 +165,6 @@ function initScene() {
         uUvScale: { value: uUvScale },
         uUvOffset: { value: uUvOffset },
         uDelta: { value: uDelta },
-        uPointer: { value: new THREE.Vector2(0.5, 0.5) },
-        uHover: { value: 0 },
       },
       transparent: true,
       depthTest: false,
@@ -244,24 +186,8 @@ function initScene() {
       mesh,
       material,
       texture,
-      targetPointer: new THREE.Vector2(0.5, 0.5),
-      smoothedPointer: new THREE.Vector2(0.5, 0.5),
-      deltaVel: new THREE.Vector2(0, 0),
-      deltaSpring: new THREE.Vector2(0, 0),
-      hoverFactor: 0,
     })
   })
-}
-
-function handlePointerMove(e: PointerEvent) {
-  pointer.x = e.clientX
-  pointer.y = e.clientY
-  pointer.active = true
-}
-
-function handlePointerLeave() {
-  pointer.active = false
-  hoveredIndex = null
 }
 
 function handleResize() {
@@ -301,93 +227,58 @@ function animate(currentTime: number) {
   const viewW = window.innerWidth
   const viewH = window.innerHeight
 
-  // 1. Detect hovered anchor
-  let foundHover: number | null = null
-  if (pointer.active) {
-    for (let i = meshList.length - 1; i >= 0; i--) {
-      const data = meshList[i]
-      const rect = data.anchor.getBoundingClientRect()
-      const buffer = hoveredIndex === i ? 10 : 0
-      if (
-        pointer.x >= rect.left - buffer &&
-        pointer.x <= rect.right + buffer &&
-        pointer.y >= rect.top - buffer &&
-        pointer.y <= rect.bottom + buffer
-      ) {
-        foundHover = i
-        break
-      }
-    }
-  }
-  hoveredIndex = foundHover
-
-  // 2. Global Scroll Bend (scroll velocity wave)
+  // 1. Scroll Bend Wave Physics (reacts purely to scroll velocity & inertia)
   const currentScrollY = window.scrollY
   const deltaScroll = currentScrollY - lastScrollY
   lastScrollY = currentScrollY
 
-  const h = THREE.MathUtils.clamp(-0.0018 * deltaScroll, -0.022, 0.022)
-  scrollBendVel += (h - scrollBend) * 105 * dt
-  scrollBendVel *= Math.exp(-12 * dt)
-  scrollBend += scrollBendVel * dt
-  const decay = 1 - Math.exp(-4.5 * dt)
-  scrollBend += (0 - scrollBend) * decay
+  const targetBendX = THREE.MathUtils.clamp(-0.0028 * deltaScroll, -0.06, 0.06)
+  const targetBendY = THREE.MathUtils.clamp(-0.0012 * deltaScroll, -0.025, 0.025)
 
-  // 3. Process each mesh: Pure Tilt & Cloth Wave (Zero zoom, zero dimming, zero drift)
-  meshList.forEach((data, index) => {
+  scrollBendVel.x += (targetBendX - scrollBend.x) * 110 * dt
+  scrollBendVel.y += (targetBendY - scrollBend.y) * 110 * dt
+  scrollBendVel.multiplyScalar(Math.exp(-12 * dt))
+  scrollBend.addScaledVector(scrollBendVel, dt)
+
+  const decay = 1 - Math.exp(-4.5 * dt)
+  scrollBend.x += (0 - scrollBend.x) * decay
+  scrollBend.y += (0 - scrollBend.y) * decay
+
+  // 2. Process each mesh: Sync position strictly with DOM anchor (Horizontal & Vertical)
+  meshList.forEach((data) => {
     const rect = data.anchor.getBoundingClientRect()
 
-    if (rect.bottom < -300 || rect.top > viewH + 300 || rect.width <= 0 || rect.height <= 0) {
+    // Culling for both horizontal and vertical out-of-screen bounds
+    if (
+      rect.right < -300 ||
+      rect.left > viewW + 300 ||
+      rect.bottom < -300 ||
+      rect.top > viewH + 300 ||
+      rect.width <= 0 ||
+      rect.height <= 0
+    ) {
       data.mesh.visible = false
       return
     }
     data.mesh.visible = true
 
-    const isHovered = hoveredIndex === index
+    // Calculate uncropped, strictly proportional dimensions matching texture ratio (Zero Gepeng)
+    const imgEl = data.texture.image as any
+    const naturalW = imgEl?.naturalWidth || imgEl?.width || 0
+    const naturalH = imgEl?.naturalHeight || imgEl?.height || 0
+    const imgRatio = naturalW && naturalH ? naturalW / naturalH : rect.width / rect.height
 
-    // Target pointer normalized 0..1
-    if (isHovered && pointer.active) {
-      const ex = THREE.MathUtils.clamp((pointer.x - rect.left) / rect.width, 0, 1)
-      const ey = THREE.MathUtils.clamp((pointer.y - rect.top) / rect.height, 0, 1)
-      data.targetPointer.set(ex, ey)
-    } else {
-      data.targetPointer.set(0.5, 0.5)
-    }
+    const meshHeight = rect.height
+    const meshWidth = meshHeight * imgRatio
 
-    // Pointer smoothing
-    const z = 1 - Math.exp(-9 * dt)
-    data.smoothedPointer.lerp(data.targetPointer, z)
-
-    // Smooth hover factor (0..1)
-    const targetHover = isHovered ? 1.0 : 0.0
-    data.hoverFactor += (targetHover - data.hoverFactor) * (1 - Math.exp(-8 * dt))
-
-    // Wave velocity
-    const cx = data.targetPointer.x - data.smoothedPointer.x
-    const cy = data.targetPointer.y - data.smoothedPointer.y
-    const targetDeltaX = isHovered ? THREE.MathUtils.clamp(0.4 * cx, -0.035, 0.035) : 0
-    const targetDeltaY = isHovered ? THREE.MathUtils.clamp(-0.35 * cy, -0.03, 0.03) : 0
-    const A = isHovered ? 95 : 75
-
-    data.deltaVel.x += (targetDeltaX - data.deltaSpring.x) * A * dt
-    data.deltaVel.y += (targetDeltaY - data.deltaSpring.y) * A * dt
-    data.deltaVel.multiplyScalar(Math.exp(-(isHovered ? 16 : 13) * dt))
-    data.deltaSpring.addScaledVector(data.deltaVel, dt)
-
-    // Update uniforms
-    data.material.uniforms.uPointer.value.copy(data.smoothedPointer)
-    data.material.uniforms.uHover.value = data.hoverFactor
-    data.material.uniforms.uDelta.value.set(
-      data.deltaSpring.x,
-      scrollBend + data.deltaSpring.y
-    )
-    data.material.uniforms.uOpacity.value = 1.0
-
-    // Position mesh strictly over anchor (stay in frame, stay at scale 1.0)
-    const posX = rect.left + rect.width / 2 - viewW / 2
+    // Position mesh strictly aligned with anchor left edge in 2D viewport coordinates
+    const posX = rect.left + meshWidth / 2 - viewW / 2
     const posY = viewH / 2 - (rect.top + rect.height / 2)
     data.mesh.position.set(posX, posY, 0)
-    data.mesh.scale.set(rect.width, rect.height, 1)
+    data.mesh.scale.set(meshWidth, meshHeight, 1)
+
+    // Dynamic cloth wave responding exclusively to scroll inertia (zero hover)
+    data.material.uniforms.uDelta.value.set(scrollBend.x, scrollBend.y)
   })
 
   renderer.render(scene, camera)
@@ -397,8 +288,6 @@ onMounted(() => {
   lastScrollY = window.scrollY
   setTimeout(() => {
     initScene()
-    window.addEventListener('pointermove', handlePointerMove, { passive: true })
-    document.documentElement.addEventListener('pointerleave', handlePointerLeave)
     window.addEventListener('resize', handleResize)
     animationFrameId = requestAnimationFrame(animate)
   }, 100)
@@ -406,8 +295,6 @@ onMounted(() => {
 
 onUnmounted(() => {
   cancelAnimationFrame(animationFrameId)
-  window.removeEventListener('pointermove', handlePointerMove)
-  document.documentElement.removeEventListener('pointerleave', handlePointerLeave)
   window.removeEventListener('resize', handleResize)
 
   meshList.forEach((data) => {

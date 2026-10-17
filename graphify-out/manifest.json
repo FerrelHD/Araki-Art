@@ -42,9 +42,9 @@
     "semantic_hash": ""
   },
   "src/components/sections/CapsulesSlider.vue": {
-    "mtime": 1791975424.9798698,
-    "seen": 1791975536.3407738,
-    "ast_hash": "9a52a1440604813daa7b77cf35b9e6b6",
+    "mtime": 1792221790.5795126,
+    "seen": 1792221851.076164,
+    "ast_hash": "d54effd0990e1ed617a41a4276ea77b0",
     "semantic_hash": ""
   },
   "src/components/sections/FooterSection.vue": {
@@ -312,15 +312,15 @@
     "semantic_hash": ""
   },
   "src/components/views/ProjectCaseStudyView.vue": {
-    "mtime": 1791975484.074687,
-    "seen": 1791975536.340783,
-    "ast_hash": "f3fce1bb285ea618d7dc6d96bee0e5f2",
+    "mtime": 1792228997.7865994,
+    "seen": 1792229029.652666,
+    "ast_hash": "3950a7aef6ff15cbd256098bf75116a1",
     "semantic_hash": ""
   },
   "src/components/common/KerimovWebGLGallery.vue": {
-    "mtime": 1791969430.3111265,
-    "seen": 1791969527.323126,
-    "ast_hash": "756e560e52b276a2fe6df8aef9fc75d6",
+    "mtime": 1792228591.624754,
+    "seen": 1792229029.652639,
+    "ast_hash": "094b029226a7d290d887bfa78be8ae36",
     "semantic_hash": ""
   },
   "public/images/Diego and HotPants.jpg": {
@@ -345,18 +345,6 @@
     "mtime": 1791974969.1297948,
     "seen": 1791975038.094923,
     "ast_hash": "300c49e323953c23b520a0fde6a70202",
-    "semantic_hash": ""
-  },
-  ".vscode/extensions.json": {
-    "mtime": 1791533857.030509,
-    "seen": 1791975536.340729,
-    "ast_hash": "886c161c2f2d9388473a64033e7d1931",
-    "semantic_hash": ""
-  },
-  ".vscode/settings.json": {
-    "mtime": 1791555827.8172162,
-    "seen": 1791975536.340738,
-    "ast_hash": "337979b9b4ad0422242989ff92a1c47c",
     "semantic_hash": ""
   }
 }

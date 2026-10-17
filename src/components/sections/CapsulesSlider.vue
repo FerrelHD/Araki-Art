@@ -30,18 +30,6 @@
               </h2>
             </div>
           </div>
-          <!-- Mobile/Tablet Valentine Trigger (< lg) -->
-          <div class="lg:hidden flex items-center">
-            <button
-              type="button"
-              @click="handleValentineMobileTrigger"
-              class="flex items-center gap-1.5 px-2.5 py-1 text-[0.62rem] font-mono tracking-wider uppercase border border-grid bg-brand-bg text-brand-primary hover:bg-brand-primary hover:text-brand-bg transition-colors cursor-pointer select-none"
-              title="Summon Funny Valentine & D4C"
-            >
-              <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
-              <span>✦ D4C MUSE</span>
-            </button>
-          </div>
         </div>
 
         <!-- Slider Main Grid (Clean Static Layout) -->
@@ -194,10 +182,9 @@
             </div>
           </div>
 
-          <!-- Right 4 Columns: High-Fashion Freestanding Muse (Funny Valentine & D4C) -->
+          <!-- Right 4 Columns: High-Fashion Freestanding Muse (Funny Valentine & D4C, Desktop only) -->
           <div
-            class="group/side relative z-[55] overflow-visible px-4 pb-2 select-none"
-            :class="isStandActive ? 'fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-xs lg:relative lg:inset-auto lg:z-[55] lg:col-span-4 lg:flex lg:flex-col lg:justify-end lg:p-0 lg:px-4 lg:pb-2 lg:bg-brand-primary/[0.015] lg:border-b lg:border-grid min-h-0' : 'hidden lg:col-span-4 lg:flex lg:flex-col lg:justify-end bg-brand-primary/[0.015] border-b border-grid min-h-0'"
+            class="hidden lg:col-span-4 lg:flex lg:flex-col lg:justify-end group/side relative z-[55] overflow-visible px-4 pb-2 select-none bg-brand-primary/[0.015] border-b border-grid min-h-0"
           >
 
 
@@ -399,25 +386,6 @@ const handleValentineClick = () => {
     originX: config.value.cameraOriginX,
     originY: config.value.cameraOriginY,
   })
-}
-
-const handleValentineMobileTrigger = () => {
-  if (isStandActive.value) {
-    cycleQuote()
-    return
-  }
-  const capsulesEl = document.getElementById('capsules')
-  if (capsulesEl) {
-    const rect = capsulesEl.getBoundingClientRect()
-    if (Math.abs(rect.top) > 80) {
-      try {
-        lenis?.scrollTo(capsulesEl, { duration: 0.75, easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) })
-      } catch {
-        // ignore
-      }
-    }
-  }
-  handleSelectValentine({ originX: 50, originY: 50 })
 }
 
 const getValentineAloneStyle = () => {
