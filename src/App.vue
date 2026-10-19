@@ -1,20 +1,5 @@
 <template>
   <div class="relative min-h-screen bg-brand-bg text-brand-primary overflow-x-hidden selection:bg-brand-primary selection:text-brand-bg">
-    <!-- ── 00. EDITORIAL RUNWAY CURTAIN TRANSITION (Between LookBook & Case Study) ── -->
-    <div
-      v-show="isCurtainActive"
-      ref="curtainRef"
-      class="fixed inset-0 z-[500] pointer-events-none flex flex-col justify-between overflow-hidden"
-    >
-      <div class="absolute inset-0 grid grid-cols-4 md:grid-cols-12 pointer-events-none z-10">
-        <div
-          v-for="i in 12"
-          :key="i"
-          class="curtain-slat h-full w-full bg-brand-primary border-r border-brand-bg/15 last:border-r-0"
-        ></div>
-      </div>
-    </div>
-
     <!-- Cinematic 12-Slat Preloader Intro (Only on cold initial visit) -->
     <PreloaderIntro
       v-if="!hasCompletedIntro"
@@ -22,154 +7,76 @@
       @complete="onIntroComplete"
     />
 
-    <!-- ── 01. SPECIAL CASE STUDY VIEW (#/project/...) ── -->
-    <template v-if="isProjectRoute">
-      <ProjectCaseStudyView />
-    </template>
+    <!-- Top Fixed Header & Marquee -->
+    <HeaderNav />
 
-    <!-- ── 02. MAIN EDITORIAL LOOKBOOK (#/) - 100% ISOLATED VIRTUAL CAMERA STAGE ── -->
-    <template v-else>
-      <!-- Top Fixed Header & Marquee -->
-      <HeaderNav />
-
-      <!-- ── VIRTUAL 2.5D CAMERA STAGE (EXACT PERSONA 5 / SKILLSSCREEN ARCHITECTURE) ── -->
+    <!-- ── VIRTUAL 2.5D CAMERA STAGE (EXACT PERSONA 5 / SKILLSSCREEN ARCHITECTURE) ── -->
+    <div
+      id="camera-world"
+      ref="cameraWorldRef"
+      class="relative w-full select-none"
+      :style="cameraStageStyle"
+    >
+      <!-- Ambient Dark Dim Overlay (active when zoomed in, clickable to reset) -->
       <div
-        id="camera-world"
-        ref="cameraWorldRef"
-        class="relative w-full select-none will-change-transform"
-        :style="cameraStageStyle"
-      >
-        <!-- Ambient Dark Dim Overlay (active when zoomed in, clickable to reset) -->
-        <div
-          @click="handleResetCamera"
-          class="fixed inset-0 bg-black/60 transition-opacity duration-700 z-20"
-          :class="isStandActive ? 'opacity-100 pointer-events-auto cursor-pointer' : 'opacity-0 pointer-events-none'"
-        />
-
-        <!-- Main Content Area -->
-        <main class="relative pt-14 md:pt-16">
-          <!-- 01 Hero Section -->
-          <HeroSection
-            ref="heroSectionRef"
-            :class="isStandActive ? 'opacity-20 pointer-events-none transition-opacity duration-600' : 'opacity-100 transition-opacity duration-600'"
-          />
-
-          <!-- 02 Statement / Aesthetic Thesis -->
-          <StatementSection
-            :class="isStandActive ? 'opacity-20 pointer-events-none transition-opacity duration-600' : 'opacity-100 transition-opacity duration-600'"
-          />
-
-          <!-- 03 Selected Capsules (Mijobello Slider + Funny Valentine) -->
-          <CapsulesSlider />
-
-          <!-- 04 Anatomy (Mijobello Expanding Accordion) -->
-          <AnatomyAccordion
-            :class="isStandActive ? 'opacity-20 pointer-events-none transition-opacity duration-600' : 'opacity-100 transition-opacity duration-600'"
-          />
-        </main>
-      </div>
-
-      <!-- 05 Footer & Monumental Watermark -->
-      <FooterSection
-        :class="isStandActive ? 'opacity-20 pointer-events-none transition-opacity duration-600' : 'opacity-100 transition-opacity duration-600'"
+        @click="handleResetCamera"
+        class="fixed inset-0 bg-black/60 transition-opacity duration-700 z-20"
+        :class="isStandActive ? 'opacity-100 pointer-events-auto cursor-pointer' : 'opacity-0 pointer-events-none'"
       />
 
-      <!-- Tactical Position Calibrator Drawer (Shift + C / button) -->
-      <UniversalValentineStage />
-    </template>
+      <!-- Main Content Area -->
+      <main class="relative pt-14 md:pt-16">
+        <!-- 01 Hero Section -->
+        <HeroSection
+          ref="heroSectionRef"
+          :class="isStandActive ? 'opacity-20 pointer-events-none transition-opacity duration-600' : 'opacity-100 transition-opacity duration-600'"
+        />
+
+        <!-- 02 Statement / Aesthetic Thesis -->
+        <StatementSection
+          :class="isStandActive ? 'opacity-20 pointer-events-none transition-opacity duration-600' : 'opacity-100 transition-opacity duration-600'"
+        />
+
+        <!-- 03 Selected Capsules (Mijobello Slider + Funny Valentine) -->
+        <CapsulesSlider />
+
+        <!-- 04 The Exhibition Runway (Gucci x Louvre Haute-Couture Plates) -->
+        <ExhibitionPlatesSection
+          :class="isStandActive ? 'opacity-20 pointer-events-none transition-opacity duration-600' : 'opacity-100 transition-opacity duration-600'"
+        />
+
+        <!-- 05 Anatomy (Mijobello Expanding Accordion) -->
+        <AnatomyAccordion
+          :class="isStandActive ? 'opacity-20 pointer-events-none transition-opacity duration-600' : 'opacity-100 transition-opacity duration-600'"
+        />
+      </main>
+    </div>
+
+    <!-- 06 Footer & Monumental Watermark -->
+    <FooterSection
+      :class="isStandActive ? 'opacity-20 pointer-events-none transition-opacity duration-600' : 'opacity-100 transition-opacity duration-600'"
+    />
+
+    <!-- Tactical Position Calibrator Drawer (Shift + C / button) -->
+    <UniversalValentineStage />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, nextTick, onMounted, onUnmounted } from 'vue'
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import PreloaderIntro from '@/components/common/PreloaderIntro.vue'
 import HeaderNav from '@/components/layout/HeaderNav.vue'
 import HeroSection from '@/components/sections/HeroSection.vue'
 import StatementSection from '@/components/sections/StatementSection.vue'
 import CapsulesSlider from '@/components/sections/CapsulesSlider.vue'
+import ExhibitionPlatesSection from '@/components/sections/ExhibitionPlatesSection.vue'
 import AnatomyAccordion from '@/components/sections/AnatomyAccordion.vue'
 import FooterSection from '@/components/sections/FooterSection.vue'
 import UniversalValentineStage from '@/components/common/UniversalValentineStage.vue'
-import ProjectCaseStudyView from '@/components/views/ProjectCaseStudyView.vue'
 import { useValentineStage } from '@/composables/useValentineStage'
 import { ScrollTrigger, lenis, gsap } from '@/lenis'
 
-// Simple Hash Router: Completely isolates the new Kerimov case study page from the LookBook camera stage
-const currentRoute = ref(typeof window !== 'undefined' ? window.location.hash || '#/' : '#/')
-const isProjectRoute = computed(() => currentRoute.value.startsWith('#/project'))
-const hasCompletedIntro = ref(isProjectRoute.value)
-
-// ── Editorial Runway Curtain Transition ──
-const isCurtainActive = ref(false)
-const curtainRef = ref<HTMLElement | null>(null)
-let isCurtainAnimating = false
-
-const playCurtainTransition = (targetRoute: string) => {
-  if (isCurtainAnimating) return
-  isCurtainAnimating = true
-  isCurtainActive.value = true
-
-  nextTick(() => {
-    const slats = curtainRef.value?.querySelectorAll('.curtain-slat')
-    if (!slats || slats.length === 0) {
-      currentRoute.value = targetRoute
-      window.scrollTo(0, 0)
-      if (lenis) lenis.scrollTo(0, { immediate: true })
-      isCurtainActive.value = false
-      isCurtainAnimating = false
-      return
-    }
-
-    const tl = gsap.timeline({
-      onComplete: () => {
-        isCurtainActive.value = false
-        isCurtainAnimating = false
-        if (!isProjectRoute.value) {
-          setTimeout(() => {
-            ScrollTrigger.refresh()
-          }, 100)
-        }
-      },
-    })
-
-    // Slat sweep down
-    tl.set(slats, { scaleY: 0, transformOrigin: 'top' })
-      .to(slats, {
-        scaleY: 1,
-        duration: 0.32,
-        stagger: 0.02,
-        ease: 'power3.inOut',
-      })
-      // Swap route & reset scroll while completely covered
-      .add(() => {
-        currentRoute.value = targetRoute
-        window.scrollTo(0, 0)
-        if (lenis) lenis.scrollTo(0, { immediate: true })
-      })
-      // Slat lift away
-      .set(slats, { transformOrigin: 'bottom' })
-      .to(slats, {
-        scaleY: 0,
-        duration: 0.32,
-        stagger: 0.02,
-        ease: 'power3.inOut',
-        delay: 0.04,
-      })
-  })
-}
-
-const updateRoute = () => {
-  const newHash = window.location.hash || '#/'
-  const wasProject = currentRoute.value.startsWith('#/project')
-  const isProject = newHash.startsWith('#/project')
-
-  if (wasProject !== isProject) {
-    playCurtainTransition(newHash)
-  } else {
-    currentRoute.value = newHash
-  }
-}
-
+const hasCompletedIntro = ref(false)
 const heroSectionRef = ref<any>(null)
 const cameraWorldRef = ref<HTMLElement | null>(null)
 let cameraTween: gsap.core.Tween | null = null
@@ -188,7 +95,7 @@ const cameraStageStyle = computed(() => {
     transformOrigin: `${lastFocusOrigin.value.originX}% ${lastFocusOrigin.value.originY}%`,
     backfaceVisibility: 'hidden' as const,
     WebkitBackfaceVisibility: 'hidden' as const,
-    willChange: 'transform' as const,
+    willChange: isStandActive.value ? ('transform' as const) : ('auto' as const),
   }
 })
 
@@ -220,6 +127,11 @@ watch(
         ease: 'expo.out',
         force3D: true,
         overwrite: 'auto',
+        onComplete: () => {
+          if (cameraWorldRef.value) {
+            gsap.set(cameraWorldRef.value, { clearProps: 'transform' })
+          }
+        },
       })
     }
   },
@@ -266,6 +178,19 @@ function onIntroComplete() {
   }
 }
 
+const handleHashScroll = () => {
+  const hash = window.location.hash
+  if (hash.startsWith('#/project') || hash === '#exhibition') {
+    setTimeout(() => {
+      if (lenis) {
+        lenis.scrollTo('#exhibition', { offset: -60, duration: 1.2 })
+      } else {
+        document.getElementById('exhibition')?.scrollIntoView({ behavior: 'smooth' })
+      }
+    }, 400)
+  }
+}
+
 // Keyboard shortcuts: Escape to reset zoom, Shift+C for calibrator
 const handleKeyDown = (e: KeyboardEvent) => {
   if (e.shiftKey && (e.key === 'C' || e.key === 'c')) {
@@ -285,12 +210,13 @@ const handleKeyDown = (e: KeyboardEvent) => {
 
 onMounted(() => {
   window.addEventListener('keydown', handleKeyDown)
-  window.addEventListener('hashchange', updateRoute)
+  window.addEventListener('hashchange', handleHashScroll)
+  handleHashScroll()
 })
 
 onUnmounted(() => {
   window.removeEventListener('keydown', handleKeyDown)
-  window.removeEventListener('hashchange', updateRoute)
+  window.removeEventListener('hashchange', handleHashScroll)
   if (cameraTween) {
     cameraTween.kill()
   }

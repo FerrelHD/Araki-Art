@@ -148,7 +148,8 @@
                           OFFICIAL ARCHIVE
                         </span>
                         <a
-                          href="#/project/gucci-louvre"
+                          href="#exhibition"
+                          @click.prevent="scrollToExhibition"
                           class="group/roll inline-flex items-center gap-1.5 sm:gap-2 text-[0.68rem] sm:text-xs xl:text-[0.78rem] font-mono font-medium tracking-[0.16em] uppercase text-brand-card-text hover:opacity-75 transition-opacity cursor-pointer ml-auto"
                         >
                           <RollingText text="view archive" />
@@ -299,11 +300,12 @@
       </div>
     </div>
 
-    <!-- Running Marquee: "VIEW FULL RUNWAY ARCHIVE / ..." -->
+    <!-- Running Marquee: "VIEW HAUTE-COUTURE EXHIBITION RUNWAY / ..." -->
     <a
-      href="#anatomy"
-      aria-label="view runway anatomy"
-      class="group/marquee relative block h-8 md:h-9 overflow-hidden border-t border-grid transition-colors hover:bg-brand-primary hover:text-brand-bg shrink-0"
+      href="#exhibition"
+      @click.prevent="scrollToExhibition"
+      aria-label="explore exhibition runway"
+      class="group/marquee relative block h-8 md:h-9 overflow-hidden border-t border-grid transition-colors hover:bg-brand-primary hover:text-brand-bg shrink-0 cursor-pointer"
     >
       <div
         class="animate-marquee-fast flex h-full w-max items-center text-[0.62rem] tracking-[0.2em] font-mono uppercase group-hover/marquee:[animation-play-state:paused]"
@@ -314,7 +316,7 @@
             :key="'m1-' + n"
             class="flex shrink-0 items-center whitespace-nowrap"
           >
-            VIEW FULL RUNWAY ARCHIVE
+            EXPLORE THE EXHIBITION RUNWAY
             <span class="px-6 opacity-40">/</span>
           </span>
         </span>
@@ -324,7 +326,7 @@
             :key="'m2-' + n"
             class="flex shrink-0 items-center whitespace-nowrap"
           >
-            VIEW FULL RUNWAY ARCHIVE
+            EXPLORE THE EXHIBITION RUNWAY
             <span class="px-6 opacity-40">/</span>
           </span>
         </span>
@@ -354,6 +356,14 @@ const {
   handleSelectValentine,
   cycleQuote,
 } = useValentineStage()
+
+const scrollToExhibition = () => {
+  if (lenis) {
+    lenis.scrollTo('#exhibition', { offset: -60, duration: 1.2 })
+  } else {
+    document.getElementById('exhibition')?.scrollIntoView({ behavior: 'smooth' })
+  }
+}
 
 const flashContainerStyle = computed(() => {
   return {

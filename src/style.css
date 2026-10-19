@@ -96,7 +96,7 @@ html.lenis, html.lenis body {
 }
 
 /* Invisible Scrollbar (Option 1) */
-html,
+html, 
 body {
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE & Edge */

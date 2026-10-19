@@ -137,7 +137,7 @@ function initScene() {
     const uUvOffset = new THREE.Vector2(0, 0)
     const uDelta = new THREE.Vector2(0, 0)
 
-    const texture = textureLoader.load(item.src, (t) => {
+    const texture = textureLoader.load(item.src, (t: THREE.Texture) => {
       t.colorSpace = THREE.SRGBColorSpace
       t.wrapS = THREE.ClampToEdgeWrapping
       t.wrapT = THREE.ClampToEdgeWrapping

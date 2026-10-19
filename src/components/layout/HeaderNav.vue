@@ -193,6 +193,7 @@ const menuItems = [
   { label: 'the opening.', href: '#hero' },
   { label: 'the aesthetic.', href: '#statement' },
   { label: 'selected capsules.', href: '#capsules' },
+  { label: 'the exhibition.', href: '#exhibition' },
   { label: 'the anatomy.', href: '#anatomy' },
   { label: 'the finale.', href: '#footer' },
 ]
