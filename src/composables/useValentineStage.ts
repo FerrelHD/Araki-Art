@@ -42,7 +42,7 @@ export interface ValentineConfig {
 export const defaultValentineConfig: ValentineConfig = {
   cameraZoom: 1.55,
   cameraOriginX: 84,
-  cameraOriginY: 53,
+  cameraOriginY: 22,
 
   aloneX: -80,
   aloneY: 14,
@@ -70,7 +70,7 @@ export const defaultValentineConfig: ValentineConfig = {
   flashScale: 1.35,
 }
 
-const STORAGE_KEY = 'araki_valentine_universal_v10'
+const STORAGE_KEY = 'araki_valentine_universal_v11'
 
 const loadSavedConfig = (): ValentineConfig => {
   try {
