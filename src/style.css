@@ -13,27 +13,27 @@
 }
 
 :root {
-  /* 🍊 1. "Gucci x Rohan Florence" (Aperol Tangerine & Papyrus) */
-  --color-bg: #FAF5EE;
-  --color-primary: #18181B;
-  --color-accent: #FF5E36;
-  --color-stand: #10B981;
-  --color-border: rgba(24, 24, 27, 0.20);
-  --color-border-subtle: rgba(24, 24, 27, 0.08);
-  --color-card-bg: #18181B;
-  --color-card-text: #FAF5EE;
+  /* Default: Pale Pine & Deep Burgundy (Gucci Ancora Editorial Couture) */
+  --color-bg: #FDEFD6;
+  --color-primary: #731328;
+  --color-accent: #B57C1E;
+  --color-stand: #A61C3C;
+  --color-border: rgba(115, 19, 40, 0.22);
+  --color-border-subtle: rgba(115, 19, 40, 0.10);
+  --color-card-bg: #731328;
+  --color-card-text: #FDEFD6;
 }
 
 [data-theme='shift'] {
-  /* 🍋 2. "Morioh Midnight 1999 / Pop-Art Night" (Midnight Marine & Acid Chartreuse) */
-  --color-bg: #121A28;
-  --color-primary: #F7F5EB;
-  --color-accent: #D4F024;
-  --color-stand: #8B5CF6;
-  --color-border: rgba(247, 245, 235, 0.22);
-  --color-border-subtle: rgba(247, 245, 235, 0.09);
-  --color-card-bg: #0A101A;
-  --color-card-text: #F7F5EB;
+  /* Shift Mode: Deep Burgundy & Pale Pine (Inverted Velvet Wine Night) */
+  --color-bg: #731328;
+  --color-primary: #FDEFD6;
+  --color-accent: #E0B462;
+  --color-stand: #FDA4AF;
+  --color-border: rgba(253, 239, 214, 0.24);
+  --color-border-subtle: rgba(253, 239, 214, 0.10);
+  --color-card-bg: #540C1C;
+  --color-card-text: #FDEFD6;
 }
 
 html {

@@ -68,20 +68,20 @@
         ref="paletteBtnRef"
         type="button"
         @click="toggleTheme"
-        :aria-label="isShiftMode ? 'Switch to Gucci x Rohan Florence Palette' : 'Switch to Morioh Pop-Art 1999 Palette'"
+        :aria-label="isShiftMode ? 'Switch to Pale Pine Palette' : 'Switch to Deep Burgundy Palette'"
         class="group/roll flex h-full cursor-pointer items-center gap-1.5 sm:gap-2 px-2 sm:px-3 md:px-5 transition-colors hover:bg-brand-primary hover:text-brand-bg mr-14 md:mr-16 outline-none"
       >
         <span class="relative inline-grid grid-cols-1 grid-rows-1 overflow-hidden leading-[1.3] text-[0.6rem] sm:text-[0.65rem] tracking-[0.14em] sm:tracking-[0.16em] uppercase font-mono font-medium">
           <span class="col-start-1 row-start-1 block whitespace-nowrap transition-transform duration-[450ms] ease-[cubic-bezier(0.65,0,0.35,1)] group-hover/roll:translate-y-full">
-            <span class="hidden sm:inline">{{ isShiftMode ? 'MORIOH 1999' : 'ROHAN FLORENCE' }}</span>
-            <span class="sm:hidden">{{ isShiftMode ? 'MORIOH' : 'ROHAN' }}</span>
+            <span class="hidden sm:inline">{{ isShiftMode ? 'DEEP BURGUNDY' : 'PALE PINE' }}</span>
+            <span class="sm:hidden">{{ isShiftMode ? 'BURGUNDY' : 'PINE' }}</span>
           </span>
           <span
             aria-hidden="true"
             class="col-start-1 row-start-1 block whitespace-nowrap -translate-y-full transition-transform duration-[450ms] ease-[cubic-bezier(0.65,0,0.35,1)] group-hover/roll:translate-y-0"
           >
-            <span class="hidden sm:inline">{{ isShiftMode ? 'ROHAN FLORENCE' : 'MORIOH 1999' }}</span>
-            <span class="sm:hidden">{{ isShiftMode ? 'ROHAN' : 'MORIOH' }}</span>
+            <span class="hidden sm:inline">{{ isShiftMode ? 'PALE PINE' : 'DEEP BURGUNDY' }}</span>
+            <span class="sm:hidden">{{ isShiftMode ? 'PINE' : 'BURGUNDY' }}</span>
           </span>
         </span>
         <!-- Indicator square dot showing active accent color -->
@@ -331,7 +331,7 @@ const toggleTheme = () => {
 
   // 2. GSAP Overlay Fallback (for Firefox, older browsers)
   if (wipeOverlayRef.value) {
-    const targetBg = targetTheme ? '#121A28' : '#FAF5EE'
+    const targetBg = targetTheme ? '#731328' : '#FDEFD6'
     const overlay = wipeOverlayRef.value
     overlay.style.backgroundColor = targetBg
     overlay.style.display = 'block'
