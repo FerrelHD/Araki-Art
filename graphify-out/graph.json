@@ -935,7 +935,7 @@
       "file_type": "code",
       "norm_label": "galleryitems",
       "source_file": "src/components/sections/ExhibitionPlatesSection.vue",
-      "source_location": "L263"
+      "source_location": "L266"
     },
     {
       "id": "src_components_sections_exhibitionplatessection_gallerysectionref",
@@ -946,7 +946,7 @@
       "file_type": "code",
       "norm_label": "gallerysectionref",
       "source_file": "src/components/sections/ExhibitionPlatesSection.vue",
-      "source_location": "L259"
+      "source_location": "L262"
     },
     {
       "id": "src_components_sections_exhibitionplatessection_gallerytrackref",
@@ -957,7 +957,7 @@
       "file_type": "code",
       "norm_label": "gallerytrackref",
       "source_file": "src/components/sections/ExhibitionPlatesSection.vue",
-      "source_location": "L260"
+      "source_location": "L263"
     },
     {
       "id": "src_components_sections_footersection",
@@ -3174,7 +3174,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/sections/ExhibitionPlatesSection.vue",
-      "source_location": "L256",
+      "source_location": "L259",
       "weight": 1.0
     },
     {
@@ -3186,7 +3186,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/sections/ExhibitionPlatesSection.vue",
-      "source_location": "L257",
+      "source_location": "L260",
       "weight": 1.0
     },
     {
@@ -3198,7 +3198,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/sections/ExhibitionPlatesSection.vue",
-      "source_location": "L257",
+      "source_location": "L260",
       "weight": 1.0
     },
     {
@@ -3654,7 +3654,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/sections/ExhibitionPlatesSection.vue",
-      "source_location": "L255",
+      "source_location": "L258",
       "weight": 1.0
     },
     {
@@ -3666,7 +3666,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/sections/ExhibitionPlatesSection.vue",
-      "source_location": "L256",
+      "source_location": "L259",
       "weight": 1.0
     },
     {
@@ -3678,7 +3678,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/sections/ExhibitionPlatesSection.vue",
-      "source_location": "L257",
+      "source_location": "L260",
       "weight": 1.0
     },
     {
@@ -5098,7 +5098,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/sections/ExhibitionPlatesSection.vue",
-      "source_location": "L259",
+      "source_location": "L262",
       "weight": 1.0
     },
     {
@@ -5109,7 +5109,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/sections/ExhibitionPlatesSection.vue",
-      "source_location": "L260",
+      "source_location": "L263",
       "weight": 1.0
     },
     {
@@ -5120,7 +5120,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/sections/ExhibitionPlatesSection.vue",
-      "source_location": "L263",
+      "source_location": "L266",
       "weight": 1.0
     },
     {
@@ -5968,5 +5968,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "6b5907f42735d642ab9de4a38c52a6c8e7d2ed3f"
+  "built_at_commit": "531f31d71b65bc676db6995b9564a492f414e1c1"
 }
