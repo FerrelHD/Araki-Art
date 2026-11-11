@@ -12,7 +12,10 @@
       class="relative z-20 w-full h-screen h-[100dvh] overflow-hidden flex flex-col justify-center select-none bg-brand-bg"
     >
       <!-- Background subtle grid accent -->
-      <div class="absolute inset-0 w-full h-full pointer-events-none opacity-[0.03] bg-[radial-gradient(#181C14_1px,transparent_1px)] [background-size:24px_24px]"></div>
+      <div
+        class="absolute inset-0 w-full h-full pointer-events-none opacity-[0.04]"
+        style="background-image: radial-gradient(var(--color-primary) 1px, transparent 1px); background-size: 24px 24px;"
+      ></div>
 
       <!-- Horizontal Sliding Track with Asymmetrical Random Scattered Layout -->
       <div
